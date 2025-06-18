@@ -6,12 +6,27 @@ datasource db {
   provider = "postgresql"
   url = env("POSTGRES_PRISMA_URL")
 }
-
+ 
 model User {
-  id            String       @default(cuid()) @id
+  id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  @@map(name: "users")
+  emailVerified DateTime? @map("email_verified")
+  role          Role      @default(user)
+  @@map("users")
+}
+
+model VerificationToken {
+  id         String   @id @default(cuid())
+  identifier String
+  token      String
+  expires    DateTime
+ 
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+enum Role {
+  admin
+  user
 }
