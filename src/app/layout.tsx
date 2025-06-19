@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Toaster } from '@/ui-kit/basic/sonner';
-import { DashboardLayout } from '@/ui-kit/composite/layout';
-import './globals.css';
+import { ThemeProvider } from 'next-themes';
 
+import './globals.css';
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   title: 'Dashboard App',
   description:
     'Modern dashboard built with Next.js, Tailwind CSS, and shadcn/ui',
+  icons: {
+    icon: '/logo.svg',
+  },
 };
 
 export default function RootLayout({
@@ -26,11 +29,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <DashboardLayout>{children}</DashboardLayout>
+        <ThemeProvider attribute="class" defaultTheme="light">
+          {children}
+        </ThemeProvider>
         <Toaster />
       </body>
     </html>

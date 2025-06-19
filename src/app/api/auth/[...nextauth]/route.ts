@@ -2,6 +2,7 @@ import NextAuth from 'next-auth';
 import Email from 'next-auth/providers/email';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import prisma from '@/lib/prisma';
+import { apiRoutes } from '@/constant/routes';
 
 declare module 'next-auth' {
   interface Session {
@@ -34,13 +35,19 @@ const handler = NextAuth({
     strategy: 'jwt',
   },
   callbacks: {
-    jwt: async ({ user, token }) => {
-      console.log('jwt', user);
-      return token;
-    },
-    signIn: async ({ user }) => {
-      console.log('signIn', user);
-      return true;
+    async signIn({ user }) {
+      if (process.env.ALLOW_ADMIN_CREATION === 'true') return true;
+      const userExists = await prisma.user.findFirst({
+        where: {
+          email: user.email,
+        },
+      });
+      if (userExists) {
+        console.log('User with email', user.email, 'exists');
+        return true;
+      }
+      console.log('User with email', user.email, 'does not exist');
+      return `${apiRoutes.signinRoot}?error=UserDoesNotExist`;
     },
   },
   providers: [

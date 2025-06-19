@@ -3,14 +3,12 @@
 import * as React from 'react';
 import Link from 'next/link';
 import {
-  Home,
-  BarChart3,
-  Users,
   Settings,
   FileText,
   User,
   Menu,
   ChevronDown,
+  ChevronRight,
 } from 'lucide-react';
 import {
   Sidebar,
@@ -31,28 +29,16 @@ import {
 import { Button } from '@/ui-kit/basic/button';
 import { Separator } from '@/ui-kit/basic/separator';
 import { Sheet, SheetContent, SheetTrigger } from '@/ui-kit/basic/sheet';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { routes } from '@/constant/routes';
 
 // Menu items data
 const menuItems = [
   {
-    title: 'Dashboard',
-    icon: Home,
-    url: '/',
-  },
-  {
-    title: 'Analytics',
-    icon: BarChart3,
-    url: '/analytics',
-  },
-  {
-    title: 'Users',
-    icon: Users,
-    url: '/users',
-  },
-  {
     title: 'Documents',
     icon: FileText,
-    url: '/documents',
+    url: '/dashboard',
   },
 ];
 
@@ -69,6 +55,10 @@ interface DashboardLayoutProps {
 }
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
+  const pathname = usePathname();
+
+  const breadcrumbs = pathname.split('/').filter(Boolean);
+
   return (
     <SidebarProvider>
       <Sidebar variant="inset">
@@ -77,13 +67,12 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             <SidebarMenuItem>
               <SidebarMenuButton size="lg" asChild>
                 <Link href="/">
-                  <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                    <BarChart3 className="size-4" />
-                  </div>
-                  <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-semibold">Dashboard</span>
-                    <span className="truncate text-xs">v1.0.0</span>
-                  </div>
+                  <Image
+                    src="/logo.svg"
+                    alt="SAMI CV"
+                    width={200}
+                    height={54}
+                  />
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -151,16 +140,37 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       <SidebarInset>
         {/* Header */}
         <header className="flex h-16 shrink-0 items-center gap-2">
-          <div className="flex items-center gap-2 px-4">
+          <div className="flex items-center gap-2 px-4 h-6">
             <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-
+            <Separator orientation="vertical" />
             {/* Breadcrumb or title */}
-            <h1 className="text-lg font-semibold">Dashboard</h1>
+            <div className="flex items-center gap-x-2 flex-wrap">
+              {breadcrumbs.map((breadcrumb, index) => {
+                return (
+                  <React.Fragment key={breadcrumb}>
+                    {index === 0 ? (
+                      <Link href={routes.documents}>
+                        <h1 className="font-semibold max-w-24 truncate text-xs min-lg:text-lg">
+                          {breadcrumb?.charAt(0).toUpperCase() +
+                            breadcrumb?.slice(1)}
+                        </h1>
+                      </Link>
+                    ) : (
+                      <h1 className="font-semibold max-w-24 truncate text-xs min-lg:text-lg">
+                        {breadcrumb?.charAt(0).toUpperCase() +
+                          breadcrumb?.slice(1)}
+                      </h1>
+                    )}
+
+                    {index !== breadcrumbs.length - 1 && <ChevronRight />}
+                  </React.Fragment>
+                );
+              })}
+            </div>
           </div>
 
           {/* Header right side */}
-          <div className="ml-auto flex items-center gap-2 px-4">
+          <div className="ml-auto flex items-center gap-2 pr-4">
             {/* Mobile menu trigger */}
             <Sheet>
               <SheetTrigger asChild>
