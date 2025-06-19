@@ -9,8 +9,8 @@ import { FileUser } from 'lucide-react';
 export const DocumentList = ({ documents }: { documents: Document[] }) => {
   const router = useRouter();
 
-  const handleRedirect = (folderId: string) => () => {
-    router.push(routes.folder(folderId));
+  const handleRedirect = (documentId: string) => () => {
+    router.push(routes.document(documentId));
   };
 
   return (

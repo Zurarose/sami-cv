@@ -10,17 +10,17 @@ import {
 import { Button } from '@/ui-kit/basic/button';
 import { deleteFolder } from '@/actions/documents';
 
-interface DeleteButtonProps {
+interface DeleteDialogProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   folderId: string | null;
 }
 
-export const DeleteButton = ({
+export const DeleteDialog = ({
   isOpen,
   onOpenChange,
   folderId,
-}: DeleteButtonProps) => {
+}: DeleteDialogProps) => {
   if (!folderId) return null;
 
   const handleDelete = async () => {
