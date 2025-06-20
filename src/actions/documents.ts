@@ -5,6 +5,8 @@ import prisma from '@/lib/prisma';
 import { Document } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 import { createCipheriv, createDecipheriv, createHash } from 'crypto';
+import { DocumentData } from '@/types/document';
+import { InputJsonValue } from '@prisma/client/runtime/library';
 
 // Generate a fixed IV and key from your secret
 const secret = process.env.MAGIC_LINK_SECRET!;
@@ -86,11 +88,29 @@ export const createDocument = async (
   return newDocument;
 };
 
+export const updateDocument = async (
+  documentId: string,
+  data: DocumentData
+) => {
+  const updatedDocument = await prisma.document.update({
+    where: { id: documentId },
+    data: {
+      data: data as unknown as InputJsonValue,
+      version: { increment: 1 },
+    },
+  });
+  return updatedDocument;
+};
+
 export const generateDocumentEditLink = async (documentId: string) => {
   const document = await getDocument(documentId);
   if (!document) throw new Error('Document not found');
   const cipher = createCipheriv('aes-256-cbc', key, iv);
-  let encryptedDocumentId = cipher.update(documentId, 'utf-8', 'hex');
+  let encryptedDocumentId = cipher.update(
+    `${documentId}-${document.version}`,
+    'utf-8',
+    'hex'
+  );
   encryptedDocumentId += cipher.final('hex');
 
   const editLink = `${process.env.NEXT_PUBLIC_APP_URL}/magic-link/${encryptedDocumentId}`;
@@ -102,6 +122,9 @@ export const getDocumentFromMagicLink = async (magicLink: string) => {
   let decryptedDocumentId = decipher.update(magicLink, 'hex', 'utf-8');
   decryptedDocumentId += decipher.final('utf-8');
 
-  const document = await getDocument(decryptedDocumentId);
+  const [documentId, version] = decryptedDocumentId.split('-');
+  const document = await getDocument(documentId);
+  if (!document) return null;
+  if (document.version !== parseInt(version)) return null;
   return document;
 };

@@ -4,6 +4,7 @@ export const routes = {
   document: (documentId: string) => `/dashboard/document/${documentId}`,
   signin: '/signin',
   notFound: '/not-found',
+  thankYou: '/thank-you',
 };
 
 export const apiRoutes = {

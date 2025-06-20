@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   description:
     'Modern dashboard built with Next.js, Tailwind CSS, and shadcn/ui',
   icons: {
-    icon: '/logo.svg',
+    icon: '/logo-light.svg',
   },
 };
 

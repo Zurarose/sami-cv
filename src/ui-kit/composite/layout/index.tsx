@@ -150,13 +150,13 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   <React.Fragment key={breadcrumb}>
                     {index === 0 ? (
                       <Link href={routes.documents}>
-                        <h1 className="font-semibold max-w-24 truncate text-xs min-lg:text-lg">
+                        <h1 className="font-semibold max-w-24 min-lg:max-w-none truncate text-xs min-lg:text-lg">
                           {breadcrumb?.charAt(0).toUpperCase() +
                             breadcrumb?.slice(1)}
                         </h1>
                       </Link>
                     ) : (
-                      <h1 className="font-semibold max-w-24 truncate text-xs min-lg:text-lg">
+                      <h1 className="font-semibold max-w-24 min-lg:max-w-none truncate text-xs min-lg:text-lg">
                         {breadcrumb?.charAt(0).toUpperCase() +
                           breadcrumb?.slice(1)}
                       </h1>
@@ -212,10 +212,24 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             </Sheet>
           </div>
         </header>
-
         {/* Main content */}
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );
 }
+
+export const MagicLinkLayout = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  return (
+    <React.Fragment>
+      <nav className="flex flex-1 flex-col gap-4 p-4 w-full bg-transparent">
+        <Image src="/logo.svg" alt="SAMI CV" width={200} height={54} />
+      </nav>
+      <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
+    </React.Fragment>
+  );
+};

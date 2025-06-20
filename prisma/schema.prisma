@@ -47,6 +47,7 @@ model Document {
   id            String    @id @default(cuid())
   name          String
   data          Json?
+  version       Int       @default(1)
   folderId      String    
   folder        Folder    @relation("FolderDocuments", fields: [folderId], references: [id], onDelete: Cascade)
   updatedAt     DateTime  @updatedAt @default(now()) @map("updated_at")

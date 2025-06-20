@@ -14,30 +14,9 @@ import {
   GraduationCap,
 } from 'lucide-react';
 import { LinkButton } from '@/components/document/link-button';
+import { DocumentData } from '@/types/document';
 
 type Params = Promise<{ id: string }>;
-
-interface DocumentData {
-  country: string;
-  email: string;
-  phone: string;
-  website: string;
-  applicantName: string;
-  experiences: Array<{
-    companyName: string;
-    position: string;
-    startDate: string;
-    endDate: string;
-    description: string;
-  }>;
-  education: Array<{
-    schoolName: string;
-    degree: string;
-    startDate: string;
-    endDate: string;
-  }>;
-  skills: string[];
-}
 
 export default async function Document({ params }: { params: Params }) {
   const { id } = await params;
@@ -84,11 +63,7 @@ export default async function Document({ params }: { params: Params }) {
                   <div className="flex items-center gap-1">
                     <Globe className="h-4 w-4" />
                     <a
-                      href={
-                        data.website?.startsWith('http')
-                          ? data.website
-                          : `https://${data.website}`
-                      }
+                      href={data.website}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
