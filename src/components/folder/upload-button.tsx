@@ -22,6 +22,7 @@ import {
 } from '@/ui-kit/basic/form';
 import React, { useState } from 'react';
 import { parseCVDocument } from '@/actions/openai';
+import { toast } from 'sonner';
 
 export const UploadFilesButton = ({ folderId }: { folderId: string }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,14 +33,26 @@ export const UploadFilesButton = ({ folderId }: { folderId: string }) => {
   });
 
   const onSubmit = async (values: { files: File[] }) => {
-    const formData = new FormData();
-    Object.values(values.files).forEach(file => {
-      formData.append('files', file);
-    });
-    formData.append('id', folderId);
-    await parseCVDocument(formData);
-    form.reset();
-    setIsOpen(false);
+    try {
+      const formData = new FormData();
+      Object.values(values.files).forEach(file => {
+        formData.append('files', file);
+      });
+      formData.append('id', folderId);
+      const res = await parseCVDocument(formData);
+      if (res) {
+        toast.success('Files uploaded successfully');
+        form.reset();
+        setIsOpen(false);
+        return;
+      }
+      throw new Error();
+    } catch (error) {
+      console.error('Error uploading files:', error);
+      toast.error('Error uploading files');
+    } finally {
+      setIsOpen(false);
+    }
   };
 
   const toggleDialog = () => {

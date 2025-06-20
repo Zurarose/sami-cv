@@ -69,4 +69,5 @@ export const parseCVDocument = async (formData: FormData) => {
       data: response.output_parsed,
     });
   }
+  return true;
 };

@@ -27,12 +27,13 @@ export const getFolders = async () => {
 };
 
 export const deleteFolder = async (folderId: string) => {
-  await prisma.folder.delete({
+  const deletedFolder = await prisma.folder.delete({
     where: {
       id: folderId,
     },
   });
   revalidatePath(routes.documents);
+  return deletedFolder;
 };
 
 export const renameFolder = async (folderId: string, newName: string) => {

@@ -9,28 +9,39 @@ import {
 } from '@/ui-kit/basic/dialog';
 import { Button } from '@/ui-kit/basic/button';
 import { deleteFolder } from '@/actions/documents';
+import { toast } from 'sonner';
 
 interface DeleteDialogProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   folderId: string | null;
+  isLoading: boolean;
+  setIsLoading: (loading: boolean) => void;
 }
 
 export const DeleteDialog = ({
   isOpen,
   onOpenChange,
   folderId,
+  isLoading,
+  setIsLoading,
 }: DeleteDialogProps) => {
   if (!folderId) return null;
 
   const handleDelete = async () => {
     try {
-      await deleteFolder(folderId);
-      onOpenChange(false);
-      // Optionally, you could add a toast notification here
+      setIsLoading(true);
+      const res = await deleteFolder(folderId);
+      if (res.id) {
+        onOpenChange(false);
+        toast.success('Folder deleted successfully');
+      }
+      throw new Error();
     } catch (error) {
       console.error('Error deleting folder:', error);
-      // Optionally, you could add error handling here
+      toast.error('Error deleting folder');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -53,7 +64,11 @@ export const DeleteDialog = ({
             <Button variant="outline" onClick={handleCancel}>
               Cancel
             </Button>
-            <Button variant="destructive" onClick={handleDelete}>
+            <Button
+              disabled={isLoading}
+              variant="destructive"
+              onClick={handleDelete}
+            >
               Delete
             </Button>
           </DialogFooter>

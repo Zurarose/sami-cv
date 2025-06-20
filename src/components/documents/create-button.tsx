@@ -25,6 +25,7 @@ import {
 import { z } from 'zod';
 import { createFolder } from '@/actions/documents';
 import React, { useState } from 'react';
+import { toast } from 'sonner';
 
 export const CreateFolderButton = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,9 +37,19 @@ export const CreateFolderButton = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof createFolderSchema>) => {
-    await createFolder(values.folderName);
-    form.reset();
-    setIsOpen(false);
+    try {
+      const res = await createFolder(values.folderName);
+      if (res.id) {
+        toast.success('Folder created successfully');
+        form.reset();
+        setIsOpen(false);
+        return;
+      }
+      throw new Error();
+    } catch (error) {
+      console.error('Error creating folder:', error);
+      toast.error('Error creating folder');
+    }
   };
 
   const toggleDialog = () => {
