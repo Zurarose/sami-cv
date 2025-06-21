@@ -15,9 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Dashboard App',
-  description:
-    'Modern dashboard built with Next.js, Tailwind CSS, and shadcn/ui',
+  title: 'People Cloud CV',
+  description: 'People Cloud CV',
   icons: {
     icon: '/logo-light.svg',
   },

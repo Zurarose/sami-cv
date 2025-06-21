@@ -14,7 +14,7 @@ import { toast } from 'sonner';
 interface DeleteDialogProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
-  folderId: string | null;
+  folderId?: string;
   isLoading: boolean;
   setIsLoading: (loading: boolean) => void;
 }
