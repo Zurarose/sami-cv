@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+export const MAX_NAME_LENGTH = 100;
+
 export const createFolderSchema = z.object({
   folderName: z
     .string()
@@ -13,7 +15,11 @@ export const createFolderSchema = z.object({
 
 // Form validation schema
 export const documentSchema = z.object({
-  applicantName: z.string().min(1, 'Name is required'),
+  applicantName: z
+    .string()
+    .min(1, 'Name is required')
+    .max(MAX_NAME_LENGTH, 'Name must be less than 100 characters'),
+  birthDate: z.string().min(1, 'Birth date is required'),
   email: z.string().email('Invalid email address'),
   phone: z.string().min(1, 'Phone is required'),
   website: z.string().url('Invalid website URL').optional(),
@@ -23,7 +29,10 @@ export const documentSchema = z.object({
   whenReadyToWork: z.string().min(1, 'When ready to work is required'),
   experiences: z.array(
     z.object({
-      companyName: z.string().min(1, 'Company name is required'),
+      companyName: z
+        .string()
+        .min(1, 'Company name is required')
+        .max(MAX_NAME_LENGTH, 'Company name must be less than 100 characters'),
       position: z.string().min(1, 'Position is required'),
       startDate: z.string().min(1, 'Start date is required'),
       endDate: z.string().min(1, 'End date is required'),
@@ -32,7 +41,10 @@ export const documentSchema = z.object({
   ),
   education: z.array(
     z.object({
-      schoolName: z.string().min(1, 'School name is required'),
+      schoolName: z
+        .string()
+        .min(1, 'School name is required')
+        .max(MAX_NAME_LENGTH, 'School name must be less than 100 characters'),
       degree: z.string().min(1, 'Degree is required'),
       startDate: z.string().min(1, 'Start date is required'),
       endDate: z.string().min(1, 'End date is required'),
@@ -40,9 +52,12 @@ export const documentSchema = z.object({
   ),
   projects: z.array(
     z.object({
-      projectName: z.string().min(1, 'Project name is required'),
+      projectName: z
+        .string()
+        .min(1, 'Project name is required')
+        .max(MAX_NAME_LENGTH, 'Project name must be less than 100 characters'),
       description: z.string().min(1, 'Description is required'),
-      position: z.string().optional(),
+      position: z.string().min(1, 'Position is required'),
       startDate: z.string().min(1, 'Start date is required'),
       endDate: z.string().min(1, 'End date is required'),
       skills: z.array(z.string()),

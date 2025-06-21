@@ -82,7 +82,7 @@ export function ProjectInfo({
                 name={`projects.${index}.position`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Position (Optional)</FormLabel>
+                    <FormLabel>Position</FormLabel>
                     <FormControl>
                       <Input placeholder="Full-stack Developer" {...field} />
                     </FormControl>

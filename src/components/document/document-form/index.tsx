@@ -33,6 +33,7 @@ export function DocumentForm({ initialData, documentId }: DocumentFormProps) {
   const router = useRouter();
   const form = useForm<DocumentFormData>({
     resolver: zodResolver(documentSchema),
+    mode: 'onBlur',
     defaultValues: {
       applicantName: initialData?.applicantName || '',
       email: initialData?.email || '',

@@ -50,6 +50,20 @@ export function PersonalInfo({ form }: PersonalInfoProps) {
 
           <FormField
             control={form.control}
+            name="birthDate"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Birth Date</FormLabel>
+                <FormControl>
+                  <Input placeholder="01/01/1990" {...field} type="date" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
@@ -107,7 +121,7 @@ export function PersonalInfo({ form }: PersonalInfoProps) {
             control={form.control}
             name="country"
             render={({ field }) => (
-              <FormItem className="md:col-span-2">
+              <FormItem>
                 <FormLabel className="flex items-center gap-2">
                   <MapPin className="h-4 w-4" />
                   Country
