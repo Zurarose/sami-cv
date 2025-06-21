@@ -18,6 +18,7 @@ import { SkilsInfo } from './skils-info';
 import { ExperienceInfo } from './experience-info';
 import { EducationInfo } from './education-info';
 import { ProjectInfo } from './project-info';
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@/constant/messages';
 
 export type DocumentFormData = z.infer<typeof documentSchema>;
 
@@ -84,14 +85,14 @@ export function DocumentForm({ initialData, documentId }: DocumentFormProps) {
         data as unknown as DocumentData
       );
       if (res.id) {
-        toast.success('Document updated successfully!');
+        toast.success(SUCCESS_MESSAGES.DocumentUpdated);
         router.push(routes.thankYou);
-      } else {
-        toast.error('Failed to update document');
+        return;
       }
+      throw new Error();
     } catch (error) {
       console.error('Error updating document:', error);
-      toast.error('Failed to update document');
+      toast.error(ERROR_MESSAGES.FailedToUpdateDocument);
     }
   };
 

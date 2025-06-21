@@ -102,12 +102,19 @@ export const updateDocument = async (
   return updatedDocument;
 };
 
-export const generateDocumentEditLink = async (documentId: string) => {
-  const document = await getDocument(documentId);
-  if (!document) throw new Error('Document not found');
+export const generateDocumentEditLink = async (document: string | Document) => {
+  let documentData: Document | null = null;
+
+  if (typeof document === 'string') {
+    documentData = await getDocument(document);
+  } else {
+    documentData = document;
+  }
+
+  if (!documentData) throw new Error('Document not found');
   const cipher = createCipheriv('aes-256-cbc', key, iv);
   let encryptedDocumentId = cipher.update(
-    `${documentId}-${document.version}`,
+    `${documentData.id}-${documentData.version}`,
     'utf-8',
     'hex'
   );

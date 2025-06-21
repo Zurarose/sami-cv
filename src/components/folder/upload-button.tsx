@@ -23,6 +23,7 @@ import {
 import React, { useState } from 'react';
 import { parseCVDocument } from '@/actions/openai';
 import { toast } from 'sonner';
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@/constant/messages';
 
 export const UploadFilesButton = ({ folderId }: { folderId: string }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,7 +42,7 @@ export const UploadFilesButton = ({ folderId }: { folderId: string }) => {
       formData.append('id', folderId);
       const res = await parseCVDocument(formData);
       if (res) {
-        toast.success('Files uploaded successfully');
+        toast.success(SUCCESS_MESSAGES.FilesUploaded);
         form.reset();
         setIsOpen(false);
         return;
@@ -49,7 +50,7 @@ export const UploadFilesButton = ({ folderId }: { folderId: string }) => {
       throw new Error();
     } catch (error) {
       console.error('Error uploading files:', error);
-      toast.error('Error uploading files');
+      toast.error(ERROR_MESSAGES.FailedToUploadFiles);
     } finally {
       setIsOpen(false);
     }

@@ -26,6 +26,7 @@ import { z } from 'zod';
 import { createFolder } from '@/actions/documents';
 import React, { useState } from 'react';
 import { toast } from 'sonner';
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@/constant/messages';
 
 export const CreateFolderButton = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +41,7 @@ export const CreateFolderButton = () => {
     try {
       const res = await createFolder(values.folderName);
       if (res.id) {
-        toast.success('Folder created successfully');
+        toast.success(SUCCESS_MESSAGES.FolderCreated);
         form.reset();
         setIsOpen(false);
         return;
@@ -48,7 +49,7 @@ export const CreateFolderButton = () => {
       throw new Error();
     } catch (error) {
       console.error('Error creating folder:', error);
-      toast.error('Error creating folder');
+      toast.error(ERROR_MESSAGES.FailedToCreateFolder);
     }
   };
 

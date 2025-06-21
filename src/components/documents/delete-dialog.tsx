@@ -10,6 +10,7 @@ import {
 import { Button } from '@/ui-kit/basic/button';
 import { deleteFolder } from '@/actions/documents';
 import { toast } from 'sonner';
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@/constant/messages';
 
 interface DeleteDialogProps {
   isOpen: boolean;
@@ -34,12 +35,13 @@ export const DeleteDialog = ({
       const res = await deleteFolder(folderId);
       if (res.id) {
         onOpenChange(false);
-        toast.success('Folder deleted successfully');
+        toast.success(SUCCESS_MESSAGES.FolderDeleted);
+        return;
       }
       throw new Error();
     } catch (error) {
       console.error('Error deleting folder:', error);
-      toast.error('Error deleting folder');
+      toast.error(ERROR_MESSAGES.FailedToDeleteFolder);
     } finally {
       setIsLoading(false);
     }

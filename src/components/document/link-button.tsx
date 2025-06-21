@@ -1,5 +1,6 @@
 'use client';
 
+import { SUCCESS_MESSAGES } from '@/constant/messages';
 import { Button } from '@/ui-kit/basic/button';
 import { Link } from 'lucide-react';
 import { toast } from 'sonner';
@@ -7,7 +8,7 @@ import { toast } from 'sonner';
 export const LinkButton = ({ link }: { link: string }) => {
   const handleCopyToClipboard = () => {
     navigator.clipboard.writeText(link);
-    toast.success('Edit link copied to clipboard');
+    toast.success(SUCCESS_MESSAGES.LinkCopied);
   };
 
   return (
