@@ -18,6 +18,7 @@ import {
 import { Input } from '@/ui-kit/basic/input';
 import { UseFormReturn } from 'react-hook-form';
 import { DocumentFormData } from '.';
+import { Textarea } from '@/ui-kit/basic/textarea';
 
 interface PersonalInfoProps {
   form: UseFormReturn<DocumentFormData, unknown, DocumentFormData>;
@@ -162,6 +163,42 @@ export function PersonalInfo({ form }: PersonalInfoProps) {
                 </FormLabel>
                 <FormControl>
                   <Input placeholder="Immediately" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="certificates"
+            render={({ field }) => (
+              <FormItem className="md:col-span-2">
+                <FormLabel>Certificates</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Describe the certificates if any"
+                    className="min-h-[50px]"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="additionalInfo"
+            render={({ field }) => (
+              <FormItem className="md:col-span-2">
+                <FormLabel>Additional Info</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Describe the additional info if any"
+                    className="min-h-[50px]"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

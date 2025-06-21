@@ -24,6 +24,8 @@ export const documentSchema = z.object({
   phone: z.string().min(1, 'Phone is required'),
   website: z.string().url('Invalid website URL').optional(),
   country: z.string().min(1, 'Country is required'),
+  certificates: z.string().optional(),
+  additionalInfo: z.string().optional(),
   skills: z.array(z.string()).min(1, 'Skills are required'),
   yearsOfExperience: z.string().min(1, 'Years of experience is required'),
   whenReadyToWork: z.string().min(1, 'When ready to work is required'),
