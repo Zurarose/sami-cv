@@ -1,4 +1,4 @@
-import { getFolders } from '@/actions/document';
+import { getFolders } from '@/actions/folder';
 import { CreateFolderButton } from '@/components/documents/create-button';
 import { FolderList } from '@/components/documents/list';
 
