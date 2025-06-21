@@ -1,6 +1,6 @@
 import { Button } from '@/ui-kit/basic/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/ui-kit/basic/card';
-import { Briefcase, Plus, Trash2, X } from 'lucide-react';
+import { Briefcase, Plus, Trash2 } from 'lucide-react';
 import {
   FormField,
   FormItem,
@@ -13,6 +13,7 @@ import { Textarea } from '@/ui-kit/basic/textarea';
 import { UseFieldArrayReturn, UseFormReturn } from 'react-hook-form';
 import { DocumentFormData } from '.';
 import { Checkbox } from '@/ui-kit/basic/checkbox';
+import { RESPONSIBILITY_OPTIONS } from '@/constant/common';
 
 interface ProjectInfoProps {
   form: UseFormReturn<DocumentFormData, unknown, DocumentFormData>;
@@ -181,7 +182,7 @@ export function ProjectInfo({
                 control={form.control}
                 name={`projects.${index}.skills`}
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="space-y-2">
                     <FormLabel>Project Skills</FormLabel>
                     <div className="flex flex-wrap gap-3">
                       {form.watch('skills').map((skill, index) => {
@@ -220,71 +221,35 @@ export function ProjectInfo({
                 control={form.control}
                 name={`projects.${index}.responsibilities`}
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="space-y-2">
                     <FormLabel>Responsibilities</FormLabel>
-                    <div className="space-y-2">
-                      <div className="flex gap-2">
-                        <Input
-                          placeholder="Add a responsibility..."
-                          onKeyPress={e => {
-                            if (e.key === 'Enter') {
-                              e.preventDefault();
-                              const input = e.target as HTMLInputElement;
-                              const responsibility = input.value.trim();
-                              if (responsibility) {
-                                field.onChange([
-                                  ...field.value,
-                                  responsibility,
-                                ]);
-                                input.value = '';
-                              }
-                            }
-                          }}
-                        />
-                        <Button
-                          type="button"
-                          variant="outline"
-                          onClick={e => {
-                            const input = (e.target as HTMLElement)
-                              .parentElement
-                              ?.previousElementSibling as HTMLInputElement;
-                            const responsibility = input?.value.trim();
-                            if (responsibility) {
-                              field.onChange([...field.value, responsibility]);
-                              input.value = '';
-                            }
-                          }}
-                        >
-                          <Plus className="h-4 w-4" />
-                        </Button>
-                      </div>
-                      <div className="space-y-1">
-                        {field.value.map(
-                          (responsibility: string, respIndex: number) => (
-                            <div
-                              key={respIndex}
-                              className="flex items-center gap-2 p-2 bg-gray-50 rounded"
-                            >
-                              <span className="flex-1 text-sm">
-                                {responsibility}
-                              </span>
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  const newResponsibilities =
-                                    field.value.filter(
-                                      (_: string, i: number) => i !== respIndex
-                                    );
-                                  field.onChange(newResponsibilities);
+                    <div className="flex flex-wrap gap-3">
+                      {RESPONSIBILITY_OPTIONS.map((key, index) => {
+                        return (
+                          <FormItem
+                            key={index}
+                            className="flex flex-row items-center gap-2"
+                          >
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value?.includes(key)}
+                                onCheckedChange={checked => {
+                                  return checked
+                                    ? field.onChange([...field.value, key])
+                                    : field.onChange(
+                                        field.value?.filter(
+                                          value => value !== key
+                                        )
+                                      );
                                 }}
-                                className="text-gray-400 hover:text-destructive"
-                              >
-                                <X className="h-4 w-4" />
-                              </button>
-                            </div>
-                          )
-                        )}
-                      </div>
+                              />
+                            </FormControl>
+                            <FormLabel className="text-sm font-normal">
+                              {key}
+                            </FormLabel>
+                          </FormItem>
+                        );
+                      })}
                     </div>
                     <FormMessage />
                   </FormItem>
