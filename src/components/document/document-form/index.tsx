@@ -10,7 +10,7 @@ import { Form } from '@/ui-kit/basic/form';
 import { Save } from 'lucide-react';
 import { toast } from 'sonner';
 import { documentSchema } from '@/lib/validators';
-import { updateDocument } from '@/actions/documents';
+import { updateDocument } from '@/actions/document';
 import { useRouter } from 'next/navigation';
 import { routes } from '@/constant/routes';
 import { PersonalInfo } from './personal-info';

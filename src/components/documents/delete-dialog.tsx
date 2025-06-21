@@ -8,7 +8,7 @@ import {
   DialogFooter,
 } from '@/ui-kit/basic/dialog';
 import { Button } from '@/ui-kit/basic/button';
-import { deleteFolder } from '@/actions/documents';
+import { deleteFolder } from '@/actions/folder';
 import { toast } from 'sonner';
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@/constant/messages';
 

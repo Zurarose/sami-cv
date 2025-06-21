@@ -23,7 +23,7 @@ import {
   FormMessage,
 } from '@/ui-kit/basic/form';
 import { z } from 'zod';
-import { createFolder } from '@/actions/documents';
+import { createFolder } from '@/actions/folder';
 import React, { useState } from 'react';
 import { toast } from 'sonner';
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@/constant/messages';

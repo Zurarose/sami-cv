@@ -1,4 +1,4 @@
-import { getDocumentFromMagicLink } from '@/actions/documents';
+import { getDocumentFromMagicLink } from '@/actions/document';
 import { DocumentData } from '@/types/document';
 import { DocumentForm } from '@/components/document/document-form';
 import { redirect } from 'next/navigation';

@@ -4,7 +4,7 @@ import { OpenAI } from 'openai';
 import z from 'zod';
 import { zodTextFormat } from 'openai/helpers/zod';
 import pdf from 'pdf-parse';
-import { createDocument } from './documents';
+import { createDocument } from './document';
 
 const Experience = z.object({
   companyName: z.string().describe('The name of the company'),

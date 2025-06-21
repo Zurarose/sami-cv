@@ -13,7 +13,7 @@ import {
 } from '@/ui-kit/basic/context-menu';
 import { ContextMenuTrigger } from '@/ui-kit/basic/context-menu';
 import { DeleteDialog } from './delete-dialog';
-import { renameFolder } from '@/actions/documents';
+import { renameFolder } from '@/actions/folder';
 import { cn } from '@/lib/utils';
 import { Textarea } from '@/ui-kit/basic/textarea';
 

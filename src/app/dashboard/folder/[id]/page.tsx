@@ -1,4 +1,4 @@
-import { generateDocumentEditLink, getDocuments } from '@/actions/documents';
+import { generateDocumentEditLink, getDocuments } from '@/actions/document';
 import { DocumentList } from '@/components/folder/list';
 import { UploadFilesButton } from '@/components/folder/upload-button';
 import { routes } from '@/constant/routes';

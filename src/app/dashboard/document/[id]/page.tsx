@@ -1,4 +1,4 @@
-import { generateDocumentEditLink, getDocument } from '@/actions/documents';
+import { generateDocumentEditLink, getDocument } from '@/actions/document';
 import { routes } from '@/constant/routes';
 import { redirect } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui-kit/basic/card';
