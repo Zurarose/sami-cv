@@ -52,11 +52,14 @@ const settingsItems = [
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
+  user?: {
+    name?: string | null;
+    email?: string | null;
+  };
 }
 
-export function DashboardLayout({ children }: DashboardLayoutProps) {
+export function DashboardLayout({ children, user }: DashboardLayoutProps) {
   const pathname = usePathname();
-
   const breadcrumbs = pathname.split('/').filter(Boolean);
 
   return (
@@ -125,8 +128,12 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                     <User className="size-4" />
                   </div>
                   <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-semibold">John Doe</span>
-                    <span className="truncate text-xs">john@example.com</span>
+                    <span className="truncate font-semibold">
+                      {user?.name || 'Sami People'}
+                    </span>
+                    <span className="truncate text-xs">
+                      {user?.email || '-'}
+                    </span>
                   </div>
                   <ChevronDown className="ml-auto size-4" />
                 </Link>

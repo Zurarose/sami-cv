@@ -59,7 +59,7 @@
   --secondary-foreground: oklch(0.15 0.15 270); /* #200473 - Dark purple text */
   --muted: oklch(0.92 0.02 30);            /* Subtle warm gray to match background */
   --muted-foreground: oklch(0.50 0.08 280); /* Muted purple, less intense than primary */
-  --accent: oklch(0.90 0.00 0); /* #e2e2e2 - Light gray for muted backgrounds */
+  --accent: oklch(0.90 0.00 0); /* #e2e2e2 - Light gray accent */
   --accent-foreground: oklch(0.15 0.15 270); /* #200473 - Dark purple for main text */
   --destructive: oklch(0.55 0.22 15); /* Slightly adjusted red for destructive actions */
 
