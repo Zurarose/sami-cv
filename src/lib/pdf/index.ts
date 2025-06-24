@@ -1,17 +1,39 @@
 'use server';
 
-import chromium from '@sparticuz/chromium';
-import PuppeteerHTMLPDF from 'puppeteer-html-pdf';
 import { DocumentData } from '@/types/document';
 import { parseUserForm } from '../openai';
 import { cvTemplate } from './templates/cv_template';
-
+import * as puppeteer from 'puppeteer';
+import chromium from '@sparticuz/chromium';
+import puppeteerCore from 'puppeteer-core';
 // import fs from 'fs';
 // import path from 'path';
 // const outputPath = path.join(
 //   process.cwd(),
 //   'src/lib/pdf/templates/review_template.html'
 // );
+
+async function getBrowser() {
+  let browser = null;
+
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Development browser: ');
+    browser = await puppeteer.launch({
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      headless: true,
+    });
+  }
+  if (process.env.NODE_ENV === 'production') {
+    console.log('Development production: ');
+    browser = await puppeteerCore.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
+    });
+  }
+  return browser;
+}
 
 export const generatePDF = async (document: DocumentData) => {
   const photo = document.photo;
@@ -89,17 +111,17 @@ export const generatePDF = async (document: DocumentData) => {
   console.log(process.env.NODE_ENV);
 
   try {
-    const htmlPDF = new PuppeteerHTMLPDF();
-    htmlPDF.setOptions({
-      format: 'A4' as const,
-      headless: false,
-      args: ['--no-sandbox'],
-      ...(process.env.NODE_ENV === 'production' && {
-        executablePath: await chromium.executablePath(),
-      }),
+    const browser = await getBrowser();
+    if (!browser) {
+      throw new Error('Browser is null');
+    }
+    const page = await browser.newPage();
+    await page.setContent(contentWithData);
+    const pdfBuffer = await page.pdf({
+      format: 'A4',
     });
-    const res = await htmlPDF.create(contentWithData);
-    return res;
+    await browser.close();
+    return pdfBuffer;
   } catch (error) {
     console.log('PuppeteerHTMLPDF error', error);
   }
