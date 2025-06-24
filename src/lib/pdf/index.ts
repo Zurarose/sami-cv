@@ -11,8 +11,6 @@ const templatePath = path.join(
   'src/lib/pdf/templates/cv_template.html'
 );
 
-const savePath = path.join(process.cwd(), 'src/lib/pdf/test.pdf');
-
 export const generatePDF = async (document: DocumentData) => {
   const userForm = await parseUserForm(document);
   if (!userForm) {
@@ -71,7 +69,6 @@ export const generatePDF = async (document: DocumentData) => {
   const htmlPDF = new PuppeteerHTMLPDF();
   htmlPDF.setOptions({
     format: 'A4' as const,
-    path: savePath,
   });
 
   const content = fs.readFileSync(templatePath, { encoding: 'utf-8' });
