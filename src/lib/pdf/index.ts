@@ -4,6 +4,7 @@ import { DocumentData } from '@/types/document';
 import { parseUserForm } from '../openai';
 import { cvTemplate } from './templates/cv_template';
 import * as puppeteer from 'puppeteer';
+import chromium from '@sparticuz/chromium';
 import puppeteerCore from 'puppeteer-core';
 // import fs from 'fs';
 // import path from 'path';
@@ -25,7 +26,11 @@ async function getBrowser() {
   if (process.env.NODE_ENV === 'production') {
     console.log('Development production: ');
     browser = await puppeteerCore.launch({
-      executablePath: '/usr/bin/chromium-browser',
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
+      ignoreHTTPSErrors: true,
     });
   }
   return browser;
