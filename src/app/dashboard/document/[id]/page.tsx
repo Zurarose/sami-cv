@@ -271,7 +271,6 @@ export default async function Document({ params }: { params: Params }) {
                       key={index}
                       className="relative border-l-4 border-gradient-to-b from-purple-400 to-purple-600 pl-6 pb-6 last:pb-0"
                     >
-                      <div className="absolute -left-2 top-0 w-4 h-4 bg-purple-500 rounded-full border-4 border-white shadow-md"></div>
                       <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-3 mb-3">
                         <div>
                           <h3 className="font-bold text-lg text-slate-900">
