@@ -41,30 +41,30 @@ export const generatePDF = async (document: DocumentData) => {
         ? userForm.projects
             .map(
               (project, index) => `
-          <tr>
-            <td rowspan="2" class="number-cell">${index + 1}</td>
-            <td class="industry-cell">
-                <p class="border-bottom additional-padding">${project.industry}</p>
-                <p class="border-bottom additional-padding">${project.position}</p>
-                <p class="additional-padding">${project.responsibilities?.join(',\n') || '-'}</p>
-            </td>
-            <td class="project-description">
-                <div class="project-title">[${project.projectName}]</div>
-                ${project.description}
-            </td>
-            <td class="os-cell">${project.operationSystem || '-'}</td>
-            <td class="lang-cell">${project.skills?.join(',\n') || '-'}</td>
-            <td class="db-cell">${project.database || '-'}</td>
-            <td class="period-cell">
-                <p class="border-bottom additional-padding">${project.startDate}</p>
-                <p class="border-bottom additional-padding">${project.endDate}</p>
-                <p class="additional-padding">${project.period}</p>
-            </td>
-            <td class="tech-stack">${project.skills?.join(', ') || '-'}</td>
-          </tr>
-          `
+                <tr>
+                  <td class="number-cell">${index + 1}</td>
+                  <td class="industry-cell">
+                      <p class="border-bottom additional-padding">${project.industry}</p>
+                      <p class="border-bottom additional-padding">${project.position}</p>
+                      <p class="additional-padding">${project.responsibilities?.join(',') || '-'}</p>
+                  </td>
+                  <td class="project-description">
+                      <div class="project-title">[${project.projectName}]</div>
+                      ${project.description}
+                  </td>
+                  <td class="os-cell">${project.operationSystem || '-'}</td>
+                  <td class="lang-cell">${project.skills?.join(',\n') || '-'}</td>
+                  <td class="db-cell">${project.database || '-'}</td>
+                  <td class="period-cell">
+                      <p class="border-bottom additional-padding">${project.startDate}</p>
+                      <p class="border-bottom additional-padding">${project.endDate}</p>
+                      <p class="additional-padding">${project.period}</p>
+                  </td>
+                  <td class="tech-stack">${project.skills?.join(', ') || '-'}</td>
+                </tr>
+            `
             )
-            .join('')
+            .join('\n')
         : '',
   };
 

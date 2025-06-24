@@ -145,7 +145,11 @@ export function PersonalInfo({ form }: PersonalInfoProps) {
                   Years of Experience
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="3" {...field} type="number" />
+                  <Input
+                    placeholder="Years of Experience"
+                    {...field}
+                    type="number"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

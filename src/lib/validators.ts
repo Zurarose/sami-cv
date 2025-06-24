@@ -146,10 +146,14 @@ export const pdfUserFormSchema = z.object({
     .nullable(),
   skills: z
     .object({
-      languages: z.array(z.string()).describe('The languages of the applicant'),
+      languages: z
+        .array(z.string())
+        .describe(
+          'Programming languages (not libs or frameworks) of the applicant'
+        ),
       frameworks: z
         .array(z.string())
-        .describe('The frameworks of the applicant'),
+        .describe('The frameworks of the applicant (not libs)'),
       databases: z.array(z.string()).describe('The databases of the applicant'),
       devOps: z.array(z.string()).describe('The devOps of the applicant'),
       other: z.array(z.string()).describe('The other of the applicant'),
@@ -165,21 +169,34 @@ export const pdfUserFormSchema = z.object({
   projects: z
     .array(
       z.object({
-        industry: z.string().describe('The industry of the project'),
+        industry: z
+          .string()
+          .describe(
+            'The industry of the project based of project. For example: Web Development, Mobile Development, Backend Development, etc.'
+          ),
         projectName: z.string().describe('The name of the project'),
         description: z.string().describe('The description of the project'),
         position: z.string().describe('The position of the project'),
         startDate: z.string().describe('The start date of the project'),
         period: z.string().describe('The period of the project in months'),
         endDate: z.string().describe('The end date of the project'),
-        skills: z.array(z.string()).describe('The skills of the project'),
+        skills: z
+          .array(z.string())
+          .describe(
+            'Programming languages (not libs or frameworks) of the project'
+          )
+          .nullable(),
         operationSystem: z
           .string()
-          .describe('The operation system of the project'),
-        database: z.string().describe('The database of the project'),
+          .describe('The operation system of the project')
+          .nullable(),
+        database: z.string().describe('The database of the project').nullable(),
         responsibilities: z
           .array(z.string())
-          .describe('The responsibilities of the project'),
+          .describe(
+            'The numbers of responsibilities of the project according to this list: (Responsibilities: １：Requirements definition、２：Basic logic design、３：Detailed (code structure and physical) design、４：Programming and Unit testing、５：Integration testing, ６：Maintenance、７：Operation、８：Other)'
+          )
+          .nullable(),
       })
     )
     .nullable(),
