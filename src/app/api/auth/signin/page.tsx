@@ -5,15 +5,19 @@ import { Input } from '@/ui-kit/basic/input';
 import { Label } from '@/ui-kit/basic/label';
 import { ERROR_MESSAGES } from '@/constant/messages';
 import { apiRoutes } from '@/constant/routes';
+import { redirect } from 'next/navigation';
 
 export default async function SignIn({
   searchParams,
 }: {
   searchParams: Promise<{
     error?: string;
+    csrf?: string;
   }>;
 }) {
-  const { error } = await searchParams;
+  const { csrf, error } = await searchParams;
+  if (!csrf) redirect(apiRoutes.signinRoot + '?csrf=true');
+
   const errorMessage = ERROR_MESSAGES[error as keyof typeof ERROR_MESSAGES];
 
   const cookieStore = await cookies();
