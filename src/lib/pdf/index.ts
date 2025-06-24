@@ -53,14 +53,14 @@ export const generatePDF = async (document: DocumentData) => {
                       ${project.description}
                   </td>
                   <td class="os-cell">${project.operationSystem || '-'}</td>
-                  <td class="lang-cell">${project.skills?.join(',\n') || '-'}</td>
+                  <td class="lang-cell">${project.languages?.join(',\n') || '-'}</td>
                   <td class="db-cell">${project.database || '-'}</td>
                   <td class="period-cell">
                       <p class="border-bottom additional-padding">${project.startDate}</p>
                       <p class="border-bottom additional-padding">${project.endDate}</p>
                       <p class="additional-padding">${project.period}</p>
                   </td>
-                  <td class="tech-stack">${project.skills?.join(', ') || '-'}</td>
+                  <td class="tech-stack">${project.skills?.join(',\n') || '-'}</td>
                 </tr>
             `
             )

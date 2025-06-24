@@ -181,11 +181,14 @@ export const pdfUserFormSchema = z.object({
         startDate: z.string().describe('The start date of the project'),
         period: z.string().describe('The period of the project in months'),
         endDate: z.string().describe('The end date of the project'),
-        skills: z
+        languages: z
           .array(z.string())
           .describe(
-            'Programming languages (not libs or frameworks) of the project'
-          )
+            'The programming languages of the project (not libs or frameworks)'
+          ),
+        skills: z
+          .array(z.string())
+          .describe('Skills of the project (not programming languages )')
           .nullable(),
         operationSystem: z
           .string()
