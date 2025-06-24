@@ -1,6 +1,6 @@
 'use server';
 
-// import chromium from '@sparticuz/chromium';
+import chromium from '@sparticuz/chromium';
 import PuppeteerHTMLPDF from 'puppeteer-html-pdf';
 import { DocumentData } from '@/types/document';
 import { parseUserForm } from '../openai';
@@ -94,6 +94,9 @@ export const generatePDF = async (document: DocumentData) => {
       format: 'A4' as const,
       headless: false,
       args: ['--no-sandbox'],
+      ...(process.env.NODE_ENV === 'production' && {
+        executablePath: await chromium.executablePath(),
+      }),
     });
     const res = await htmlPDF.create(contentWithData);
     return res;
