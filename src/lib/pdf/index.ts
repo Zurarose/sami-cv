@@ -5,11 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import { DocumentData } from '@/types/document';
 import { parseUserForm } from '../openai';
-
-const templatePath = path.join(
-  process.cwd(),
-  'src/lib/pdf/templates/cv_template.html'
-);
+import { cvTemplate } from './templates/cv_template';
 
 const outputPath = path.join(
   process.cwd(),
@@ -73,13 +69,12 @@ export const generatePDF = async (document: DocumentData) => {
         : '',
   };
 
-  const content = fs.readFileSync(templatePath, { encoding: 'utf-8' });
   const contentWithData = Object.entries(keys).reduce((acc, [key, value]) => {
     if (value) {
       return acc.replace(key, value);
     }
     return acc;
-  }, content);
+  }, cvTemplate);
 
   const htmlFile = new File([contentWithData], 'cv.html', {
     type: 'text/html',
