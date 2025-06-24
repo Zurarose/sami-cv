@@ -241,24 +241,24 @@
             <div class="profile-info">
                 <div class="profile-row">
                     <div class="profile-label right-border">Name</div>
-                    <div class="profile-value right-border">{{applicantName}}</div>
-                    <div class="profile-value">{{birthDate}}</div>
+                    <div class="profile-value right-border" contenteditable="true">{{applicantName}}</div>
+                    <div class="profile-value" contenteditable="true">{{birthDate}}</div>
                     <div class="profile-label left-border right-border">Current Location</div>
-                    <div class="profile-value">{{country}}</div>
+                    <div class="profile-value" contenteditable="true">{{country}}</div>
                 </div>
                 <div class="profile-row">
                     <div class="profile-label right-border">Latest degree</div>
-                    <div class="profile-value">{{education}}</div>
+                    <div class="profile-value" contenteditable="true">{{education}}</div>
                 </div>
                 <div class="profile-row">
                     <div class="profile-label right-border">Years of Experience</div>
-                    <div class="profile-value">{{yearsOfExperience}}</div>
+                    <div class="profile-value" contenteditable="true">{{yearsOfExperience}}</div>
                     <div class="profile-label left-border right-border">Able to work from</div>
-                    <div class="profile-value">{{whenReadyToWork}}</div>
+                    <div class="profile-value" contenteditable="true">{{whenReadyToWork}}</div>
                 </div>
                 <div class="profile-row">
                     <div class="profile-label right-border">Qualifications</div>
-                    <div class="profile-value">
+                    <div class="profile-value" contenteditable="true">
                         {{certificates}}
                     </div>
                 </div>
@@ -272,16 +272,16 @@
             <div class="skills-row">
                 <div class="skills-label">Skills</div>
                 <div class="skills-content">
-                    <strong>Languages：</strong>{{languages}}<br>
-                    <strong>Frameworks：</strong>{{frameworks}}<br>
-                    <strong>Databases：</strong>{{databases}}<br>
-                    <strong>DevOps：</strong>{{devOps}}<br>
-                    <strong>Other：</strong>{{other}}
+                    <strong>Languages：</strong><span contenteditable="true">{{languages}}</span><br>
+                    <strong>Frameworks：</strong><span contenteditable="true">{{frameworks}}</span><br>
+                    <strong>Databases：</strong><span contenteditable="true">{{databases}}</span><br>
+                    <strong>DevOps：</strong><span contenteditable="true">{{devOps}}</span><br>
+                    <strong>Other：</strong><span contenteditable="true">{{other}}</span>
                 </div>
             </div>
             <div class="skills-row">
                 <div class="skills-label">Remarks</div>
-                <div class="skills-content">
+                <div class="skills-content" contenteditable="true">
                     {{additionalInfo}}
                 </div>
             </div>

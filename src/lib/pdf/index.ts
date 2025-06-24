@@ -11,6 +11,11 @@ const templatePath = path.join(
   'src/lib/pdf/templates/cv_template.html'
 );
 
+const outputPath = path.join(
+  process.cwd(),
+  'src/lib/pdf/templates/review_template.html'
+);
+
 export const generatePDF = async (document: DocumentData) => {
   const photo = document.photo;
   delete document.photo;
@@ -44,34 +49,29 @@ export const generatePDF = async (document: DocumentData) => {
                 <tr>
                   <td class="number-cell">${index + 1}</td>
                   <td class="industry-cell">
-                      <p class="border-bottom additional-padding">${project.industry}</p>
-                      <p class="border-bottom additional-padding">${project.position}</p>
-                      <p class="additional-padding">${project.responsibilities?.join(',') || '-'}</p>
+                      <p class="border-bottom additional-padding" contenteditable="true">${project.industry}</p>
+                      <p class="border-bottom additional-padding" contenteditable="true">${project.position}</p>
+                      <p class="additional-padding" contenteditable="true">${project.responsibilities?.join(',') || '-'}</p>
                   </td>
                   <td class="project-description">
-                      <div class="project-title">[${project.projectName}]</div>
-                      ${project.description}
+                      <div class="project-title" contenteditable="true">[${project.projectName}]</div>
+                      <div class="project-description" contenteditable="true">${project.description}</div>
                   </td>
-                  <td class="os-cell">${project.operationSystem || '-'}</td>
-                  <td class="lang-cell">${project.languages?.join(',\n') || '-'}</td>
-                  <td class="db-cell">${project.database || '-'}</td>
+                  <td class="os-cell" contenteditable="true">${project.operationSystem || '-'}</td>
+                  <td class="lang-cell" contenteditable="true">${project.languages?.join(',\n') || '-'}</td>
+                  <td class="db-cell" contenteditable="true">${project.database || '-'}</td>
                   <td class="period-cell">
-                      <p class="border-bottom additional-padding">${project.startDate}</p>
-                      <p class="border-bottom additional-padding">${project.endDate}</p>
-                      <p class="additional-padding">${project.period}</p>
+                      <p class="border-bottom additional-padding" contenteditable="true">${project.startDate}</p>
+                      <p class="border-bottom additional-padding" contenteditable="true">${project.endDate}</p>
+                      <p class="additional-padding" contenteditable="true">${project.period}</p>
                   </td>
-                  <td class="tech-stack">${project.skills?.join(',\n') || '-'}</td>
+                  <td class="tech-stack" contenteditable="true">${project.skills?.join(',\n') || '-'}</td>
                 </tr>
             `
             )
             .join('\n')
         : '',
   };
-
-  const htmlPDF = new PuppeteerHTMLPDF();
-  htmlPDF.setOptions({
-    format: 'A4' as const,
-  });
 
   const content = fs.readFileSync(templatePath, { encoding: 'utf-8' });
   const contentWithData = Object.entries(keys).reduce((acc, [key, value]) => {
@@ -81,7 +81,20 @@ export const generatePDF = async (document: DocumentData) => {
     return acc;
   }, content);
 
+  const htmlFile = new File([contentWithData], 'cv.html', {
+    type: 'text/html',
+  });
+  const text = await htmlFile.text();
+  if (fs.existsSync(outputPath)) {
+    fs.unlinkSync(outputPath);
+  }
+  fs.writeFileSync(outputPath, text);
+
   try {
+    const htmlPDF = new PuppeteerHTMLPDF();
+    htmlPDF.setOptions({
+      format: 'A4' as const,
+    });
     const res = await htmlPDF.create(contentWithData);
     return res;
   } catch (error) {
