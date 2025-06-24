@@ -21,6 +21,8 @@ export const parseCVDocument = async (formData: FormData) => {
 
     const text = data.text;
 
+    console.log(text);
+
     const response = await openai.responses.parse({
       model: 'gpt-4o-2024-08-06',
       input: [

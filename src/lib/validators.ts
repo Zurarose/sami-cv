@@ -27,6 +27,7 @@ export const userFormSchema = z.object({
   phone: z.string().min(1, 'Phone is required'),
   website: z.string().url('Invalid website URL').optional(),
   country: z.string().min(1, 'Country is required'),
+  photo: z.string().optional(),
   certificates: z.string().optional(),
   additionalInfo: z.string().optional(),
   skills: z.array(z.string()).min(1, 'Skills are required'),

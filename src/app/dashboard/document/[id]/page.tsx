@@ -2,7 +2,7 @@ import { generateDocumentEditLink, getDocument } from '@/actions/document';
 import { routes } from '@/constant/routes';
 import { redirect } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui-kit/basic/card';
-import { Avatar, AvatarFallback } from '@/ui-kit/basic/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/ui-kit/basic/avatar';
 import { Badge } from '@/ui-kit/basic/badge';
 import {
   Mail,
@@ -59,6 +59,11 @@ export default async function Document({ params }: { params: Params }) {
           <CardHeader className="pb-6">
             <div className="flex flex-col lg:flex-row items-start lg:items-center gap-6">
               <Avatar className="h-20 w-20 ring-4 ring-primary/10">
+                <AvatarImage
+                  src={data.photo}
+                  alt="Applicant Photo"
+                  className="object-cover"
+                />
                 <AvatarFallback className="text-xl font-bold bg-gradient-to-br from-primary/80 to-primary text-white">
                   {data.applicantName
                     ?.split(' ')

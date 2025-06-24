@@ -12,6 +12,8 @@ const templatePath = path.join(
 );
 
 export const generatePDF = async (document: DocumentData) => {
+  const photo = document.photo;
+  delete document.photo;
   const userForm = await parseUserForm(document);
   if (!userForm) {
     throw new Error('User form is null');
@@ -19,21 +21,21 @@ export const generatePDF = async (document: DocumentData) => {
 
   const keys = {
     '{{applicantName}}': userForm.applicantName,
-    '{{email}}': userForm.email,
-    '{{phone}}': userForm.phone,
-    // '{{website}}': userForm.website,
+    '{{email}}': userForm.email || '-',
+    '{{phone}}': userForm.phone || '-',
+    '{{photo}}': photo || '#',
     '{{birthDate}}': userForm.currentAge,
-    '{{country}}': userForm.country,
-    '{{certificates}}': userForm.certificates,
-    '{{additionalInfo}}': userForm.additionalInfo,
-    '{{education}}': userForm.education,
+    '{{country}}': userForm.country || '-',
+    '{{certificates}}': userForm.certificates || '-',
+    '{{additionalInfo}}': userForm.additionalInfo || '-',
+    '{{education}}': userForm.education || '-',
     '{{languages}}': userForm.skills?.languages?.join(', ') || '-',
     '{{frameworks}}': userForm.skills?.frameworks?.join(', ') || '-',
     '{{databases}}': userForm.skills?.databases?.join(', ') || '-',
     '{{devOps}}': userForm.skills?.devOps?.join(', ') || '-',
     '{{other}}': userForm.skills?.other?.join(', ') || '-',
-    '{{yearsOfExperience}}': userForm.yearsOfExperience,
-    '{{whenReadyToWork}}': userForm.whenReadyToWork,
+    '{{yearsOfExperience}}': userForm.yearsOfExperience || '-',
+    '{{whenReadyToWork}}': userForm.whenReadyToWork || '-',
     '{{projects}}':
       userForm.projects && userForm.projects.length > 0
         ? userForm.projects

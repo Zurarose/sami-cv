@@ -7,6 +7,7 @@ import {
   MapPin,
   Timer,
   PlayIcon,
+  Camera,
 } from 'lucide-react';
 import {
   FormField,
@@ -19,12 +20,40 @@ import { Input } from '@/ui-kit/basic/input';
 import { UseFormReturn } from 'react-hook-form';
 import { DocumentData } from '@/types/document';
 import { Textarea } from '@/ui-kit/basic/textarea';
+import { useRef } from 'react';
 
 interface PersonalInfoProps {
   form: UseFormReturn<DocumentData, unknown, DocumentData>;
 }
 
 export function PersonalInfo({ form }: PersonalInfoProps) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    // Check file size (5MB = 5 * 1024 * 1024 bytes)
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      alert('File size must be less than 5MB');
+      event.target.value = '';
+      return;
+    }
+    // Check if file is an image
+    if (!file.type.startsWith('image/')) {
+      alert('Please select an image file');
+      event.target.value = '';
+      return;
+    }
+    // Convert to base64
+    const reader = new FileReader();
+    reader.onload = e => {
+      const base64String = e.target?.result as string;
+      form.setValue('photo', base64String);
+    };
+    reader.readAsDataURL(file);
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -202,6 +231,29 @@ export function PersonalInfo({ form }: PersonalInfoProps) {
                     placeholder="Describe the additional info if any"
                     className="min-h-[50px]"
                     {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="photo"
+            render={() => (
+              <FormItem>
+                <FormLabel className="flex items-center gap-2">
+                  <Camera className="h-4 w-4" />
+                  Photo
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileSelect}
+                    className="cursor-pointer"
                   />
                 </FormControl>
                 <FormMessage />
