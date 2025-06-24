@@ -1,5 +1,5 @@
 import { DashboardLayout } from '@/ui-kit/composite/layout';
-import { authOptions } from '../api/auth/[...nextauth]/route';
+import { authOptions } from '../api/auth/[...nextauth]/option';
 import { getServerSession } from 'next-auth';
 
 export default async function layout({

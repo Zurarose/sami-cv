@@ -9,9 +9,9 @@ import { apiRoutes } from '@/constant/routes';
 export default async function SignIn({
   searchParams,
 }: {
-  searchParams: {
+  searchParams: Promise<{
     error?: string;
-  };
+  }>;
 }) {
   const { error } = await searchParams;
   const errorMessage = ERROR_MESSAGES[error as keyof typeof ERROR_MESSAGES];
