@@ -10,11 +10,11 @@ import {
 } from '@/ui-kit/basic/form';
 import { Input } from '@/ui-kit/basic/input';
 import { UseFieldArrayReturn, UseFormReturn } from 'react-hook-form';
-import { DocumentFormData } from '.';
+import { DocumentData } from '@/types/document';
 
 interface EducationInfoProps {
-  form: UseFormReturn<DocumentFormData, unknown, DocumentFormData>;
-  educationFields: UseFieldArrayReturn<DocumentFormData, 'education', 'id'>;
+  form: UseFormReturn<DocumentData, unknown, DocumentData>;
+  educationFields: UseFieldArrayReturn<DocumentData, 'education', 'id'>;
   addEducation: () => void;
 }
 

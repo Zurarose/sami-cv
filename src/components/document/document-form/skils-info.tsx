@@ -5,10 +5,10 @@ import { Button } from '@/ui-kit/basic/button';
 import { Plus } from 'lucide-react';
 import { Badge } from '@/ui-kit/basic/badge';
 import { UseFormReturn } from 'react-hook-form';
-import { DocumentFormData } from '.';
+import { DocumentData } from '@/types/document';
 
 interface SkilsInfoProps {
-  form: UseFormReturn<DocumentFormData, unknown, DocumentFormData>;
+  form: UseFormReturn<DocumentData, unknown, DocumentData>;
   newSkill: string;
   setNewSkill: (newSkill: string) => void;
   addSkill: () => void;

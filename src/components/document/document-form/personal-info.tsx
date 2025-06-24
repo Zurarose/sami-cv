@@ -17,11 +17,11 @@ import {
 } from '@/ui-kit/basic/form';
 import { Input } from '@/ui-kit/basic/input';
 import { UseFormReturn } from 'react-hook-form';
-import { DocumentFormData } from '.';
+import { DocumentData } from '@/types/document';
 import { Textarea } from '@/ui-kit/basic/textarea';
 
 interface PersonalInfoProps {
-  form: UseFormReturn<DocumentFormData, unknown, DocumentFormData>;
+  form: UseFormReturn<DocumentData, unknown, DocumentData>;
 }
 
 export function PersonalInfo({ form }: PersonalInfoProps) {

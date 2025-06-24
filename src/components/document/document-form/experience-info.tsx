@@ -11,11 +11,11 @@ import {
 import { Input } from '@/ui-kit/basic/input';
 import { Textarea } from '@/ui-kit/basic/textarea';
 import { UseFieldArrayReturn, UseFormReturn } from 'react-hook-form';
-import { DocumentFormData } from '.';
+import { DocumentData } from '@/types/document';
 
 interface ExperienceInfoProps {
-  form: UseFormReturn<DocumentFormData, unknown, DocumentFormData>;
-  experienceFields: UseFieldArrayReturn<DocumentFormData, 'experiences', 'id'>;
+  form: UseFormReturn<DocumentData, unknown, DocumentData>;
+  experienceFields: UseFieldArrayReturn<DocumentData, 'experiences', 'id'>;
   addExperience: () => void;
 }
 

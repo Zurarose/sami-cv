@@ -11,13 +11,13 @@ import {
 import { Input } from '@/ui-kit/basic/input';
 import { Textarea } from '@/ui-kit/basic/textarea';
 import { UseFieldArrayReturn, UseFormReturn } from 'react-hook-form';
-import { DocumentFormData } from '.';
+import { DocumentData } from '@/types/document';
 import { Checkbox } from '@/ui-kit/basic/checkbox';
 import { RESPONSIBILITY_OPTIONS } from '@/constant/common';
 
 interface ProjectInfoProps {
-  form: UseFormReturn<DocumentFormData, unknown, DocumentFormData>;
-  projectFields: UseFieldArrayReturn<DocumentFormData, 'projects', 'id'>;
+  form: UseFormReturn<DocumentData, unknown, DocumentData>;
+  projectFields: UseFieldArrayReturn<DocumentData, 'projects', 'id'>;
   addProject: () => void;
 }
 
