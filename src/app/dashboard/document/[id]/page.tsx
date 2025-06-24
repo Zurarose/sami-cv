@@ -142,7 +142,9 @@ export default async function Document({ params }: { params: Params }) {
                 </div>
                 <div className="flex items-center gap-3 pt-4">
                   <LinkButton link={editLink} />
-                  <GeneratePdfButton document={data} />
+                  {document.version > 1 && (
+                    <GeneratePdfButton document={data} />
+                  )}
                 </div>
               </div>
             </div>

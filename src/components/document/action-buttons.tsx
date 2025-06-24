@@ -46,7 +46,7 @@ export const GeneratePdfButton = ({ document }: { document: DocumentData }) => {
   return (
     <Button variant="outline" onClick={handleDownload} disabled={isLoading}>
       {isLoading ? <Loader2 className="animate-spin" /> : <Download />} Download
-      PDF
+      Resume
     </Button>
   );
 };
