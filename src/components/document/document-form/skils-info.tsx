@@ -36,7 +36,7 @@ export function SkilsInfo({
             placeholder="Add a skill..."
             value={newSkill}
             onChange={e => setNewSkill(e.target.value)}
-            onKeyPress={e =>
+            onKeyDown={e =>
               e.key === 'Enter' && (e.preventDefault(), addSkill())
             }
           />
