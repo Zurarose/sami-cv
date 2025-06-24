@@ -67,7 +67,7 @@ export const FolderList = ({ folders }: { folders: Folder[] }) => {
               <div
                 onClick={isRenamingFolder ? undefined : handleRedirect(id)}
                 className={cn(
-                  'cursor-pointer shadow-md flex gap-4 min-w-16 max-w-60 flex-1 h-16 flex-col min-md:flex-row items-center justify-center py-2 px-2 min-lg:px-4 border border-border rounded-md hover:bg-accent hover:text-accent-foreground transition-colors',
+                  'cursor-pointer shadow-md flex gap-4 min-w-16 flex-1 h-16 flex-col min-md:flex-row items-center justify-center py-2 px-2 min-lg:px-4 border border-border rounded-md hover:bg-accent hover:text-accent-foreground transition-colors',
                   isLoadingFolder && 'bg-muted text-muted-foreground'
                 )}
               >

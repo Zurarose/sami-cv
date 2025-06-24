@@ -64,7 +64,7 @@ export const UploadFilesButton = ({ folderId }: { folderId: string }) => {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger
         onClick={toggleDialog}
-        className="cursor-pointer shadow-md flex gap-1 min-md:gap-4 flex-1 max-w-60 min-w-16 w-full h-16 flex-col min-md:flex-row items-center justify-center py-2 px-2 min-lg:px-6 border border-border rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
+        className="cursor-pointer shadow-md flex gap-1 min-md:gap-4 flex-1 min-w-24 w-full h-16 flex-col min-md:flex-row items-center justify-center py-2 px-2 min-lg:px-6 border border-border rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
       >
         <PlusIcon className="shrink-0" />
         <span className="line-clamp-2 text-center hidden min-lg:block">

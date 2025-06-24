@@ -42,7 +42,7 @@ export const DocumentList = ({
             <div
               key={document.id}
               onClick={handleRedirect(document.id)}
-              className="flex-row cursor-pointer shadow-md flex gap-x-1 min-w-16 max-w-60 flex-1 h-16 items-center justify-start py-2 px-2 min-lg:px-4 border border-border rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
+              className="flex-row cursor-pointer shadow-md flex gap-x-1 min-w-16 flex-1 h-16 items-center justify-start py-2 px-2 min-lg:px-4 border border-border rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
             >
               <FileUser size={30} className="shrink-0 hidden min-lg:block" />
               <div className="flex flex-col items-start justify-center gap-x-2">
