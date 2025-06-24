@@ -3,11 +3,10 @@
 import * as React from 'react';
 import Link from 'next/link';
 import {
-  Settings,
+  // Settings,
   FileText,
   User,
   Menu,
-  ChevronDown,
   ChevronRight,
 } from 'lucide-react';
 import {
@@ -42,13 +41,13 @@ const menuItems = [
   },
 ];
 
-const settingsItems = [
-  {
-    title: 'Settings',
-    icon: Settings,
-    url: '/settings',
-  },
-];
+// const settingsItems = [
+//   {
+//     title: 'Settings',
+//     icon: Settings,
+//     url: '/settings',
+//   },
+// ];
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -68,8 +67,8 @@ export function DashboardLayout({ children, user }: DashboardLayoutProps) {
         <SidebarHeader>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton size="lg" asChild>
-                <Link href="/">
+              <SidebarMenuButton size="lg">
+                <Link href={routes.documents}>
                   <Image
                     src="/logo.svg"
                     alt="SAMI CV"
@@ -101,7 +100,7 @@ export function DashboardLayout({ children, user }: DashboardLayoutProps) {
             </SidebarGroupContent>
           </SidebarGroup>
 
-          <SidebarGroup className="mt-auto">
+          {/* <SidebarGroup className="mt-auto">
             <SidebarGroupContent>
               <SidebarMenu>
                 {settingsItems.map(item => (
@@ -116,27 +115,22 @@ export function DashboardLayout({ children, user }: DashboardLayoutProps) {
                 ))}
               </SidebarMenu>
             </SidebarGroupContent>
-          </SidebarGroup>
+          </SidebarGroup> */}
         </SidebarContent>
 
         <SidebarFooter>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton size="lg" asChild>
-                <Link href="/profile">
-                  <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-secondary text-secondary-foreground">
-                    <User className="size-4" />
-                  </div>
-                  <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-semibold">
-                      {user?.name || 'Sami People'}
-                    </span>
-                    <span className="truncate text-xs">
-                      {user?.email || '-'}
-                    </span>
-                  </div>
-                  <ChevronDown className="ml-auto size-4" />
-                </Link>
+              <SidebarMenuButton size="lg">
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-secondary text-secondary-foreground">
+                  <User className="size-4" />
+                </div>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <span className="truncate font-semibold">
+                    {user?.name || 'Sami People'}
+                  </span>
+                  <span className="truncate text-xs">{user?.email || '-'}</span>
+                </div>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
@@ -186,16 +180,18 @@ export function DashboardLayout({ children, user }: DashboardLayoutProps) {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-[250px] sm:w-[300px]">
-                <SidebarMenuButton size="lg" asChild>
-                  <Link href="/profile">
-                    <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-secondary text-secondary-foreground">
-                      <User className="size-4" />
-                    </div>
-                    <div className="grid flex-1 text-left text-sm leading-tight">
-                      <span className="truncate font-semibold">John Doe</span>
-                      <span className="truncate text-xs">john@example.com</span>
-                    </div>
-                  </Link>
+                <SidebarMenuButton size="lg">
+                  <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-secondary text-secondary-foreground">
+                    <User className="size-4" />
+                  </div>
+                  <div className="grid flex-1 text-left text-sm leading-tight">
+                    <span className="truncate font-semibold">
+                      {user?.name || 'Sami People'}
+                    </span>
+                    <span className="truncate text-xs">
+                      {user?.email || '-'}
+                    </span>
+                  </div>
                 </SidebarMenuButton>
                 <Separator />
                 <div className="grid gap-4 py-4">
