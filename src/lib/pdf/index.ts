@@ -1,16 +1,16 @@
 'use server';
 
 import PuppeteerHTMLPDF from 'puppeteer-html-pdf';
-import fs from 'fs';
-import path from 'path';
+// import fs from 'fs';
+// import path from 'path';
 import { DocumentData } from '@/types/document';
 import { parseUserForm } from '../openai';
 import { cvTemplate } from './templates/cv_template';
 
-const outputPath = path.join(
-  process.cwd(),
-  'src/lib/pdf/templates/review_template.html'
-);
+// const outputPath = path.join(
+//   process.cwd(),
+//   'src/lib/pdf/templates/review_template.html'
+// );
 
 export const generatePDF = async (document: DocumentData) => {
   const photo = document.photo;
@@ -76,14 +76,14 @@ export const generatePDF = async (document: DocumentData) => {
     return acc;
   }, cvTemplate);
 
-  const htmlFile = new File([contentWithData], 'cv.html', {
-    type: 'text/html',
-  });
-  const text = await htmlFile.text();
-  if (fs.existsSync(outputPath)) {
-    fs.unlinkSync(outputPath);
-  }
-  fs.writeFileSync(outputPath, text);
+  // const htmlFile = new File([contentWithData], 'cv.html', {
+  //   type: 'text/html',
+  // });
+  // const text = await htmlFile.text();
+  // if (fs.existsSync(outputPath)) {
+  //   fs.unlinkSync(outputPath);
+  // }
+  // fs.writeFileSync(outputPath, text);
 
   try {
     const htmlPDF = new PuppeteerHTMLPDF();
