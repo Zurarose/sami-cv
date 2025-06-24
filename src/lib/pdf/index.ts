@@ -1,12 +1,13 @@
 'use server';
 
+// import chromium from '@sparticuz/chromium';
 import PuppeteerHTMLPDF from 'puppeteer-html-pdf';
-// import fs from 'fs';
-// import path from 'path';
 import { DocumentData } from '@/types/document';
 import { parseUserForm } from '../openai';
 import { cvTemplate } from './templates/cv_template';
 
+// import fs from 'fs';
+// import path from 'path';
 // const outputPath = path.join(
 //   process.cwd(),
 //   'src/lib/pdf/templates/review_template.html'
@@ -85,10 +86,14 @@ export const generatePDF = async (document: DocumentData) => {
   // }
   // fs.writeFileSync(outputPath, text);
 
+  console.log(process.env.NODE_ENV);
+
   try {
     const htmlPDF = new PuppeteerHTMLPDF();
     htmlPDF.setOptions({
       format: 'A4' as const,
+      headless: false,
+      args: ['--no-sandbox'],
     });
     const res = await htmlPDF.create(contentWithData);
     return res;
