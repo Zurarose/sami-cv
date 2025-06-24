@@ -3,13 +3,12 @@
 import { useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { DocumentData } from '@/types/document';
 import { Button } from '@/ui-kit/basic/button';
 import { Form } from '@/ui-kit/basic/form';
 import { Save } from 'lucide-react';
 import { toast } from 'sonner';
-import { documentSchema } from '@/lib/validators';
+import { userFormSchema } from '@/lib/validators';
 import { updateDocument } from '@/actions/document';
 import { useRouter } from 'next/navigation';
 import { routes } from '@/constant/routes';
@@ -20,8 +19,6 @@ import { EducationInfo } from './education-info';
 import { ProjectInfo } from './project-info';
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@/constant/messages';
 
-export type DocumentFormData = z.infer<typeof documentSchema>;
-
 interface DocumentFormProps {
   initialData?: DocumentData;
   documentId: string;
@@ -31,8 +28,8 @@ export function DocumentForm({ initialData, documentId }: DocumentFormProps) {
   const [newSkill, setNewSkill] = useState('');
 
   const router = useRouter();
-  const form = useForm<DocumentFormData>({
-    resolver: zodResolver(documentSchema),
+  const form = useForm<DocumentData>({
+    resolver: zodResolver(userFormSchema),
     mode: 'onBlur',
     defaultValues: {
       applicantName: initialData?.applicantName || '',
@@ -79,12 +76,9 @@ export function DocumentForm({ initialData, documentId }: DocumentFormProps) {
     );
   };
 
-  const onSubmit = async (data: DocumentFormData) => {
+  const onSubmit = async (data: DocumentData) => {
     try {
-      const res = await updateDocument(
-        documentId,
-        data as unknown as DocumentData
-      );
+      const res = await updateDocument(documentId, data);
       if (res.id) {
         toast.success(SUCCESS_MESSAGES.DocumentUpdated);
         router.push(routes.thankYou);

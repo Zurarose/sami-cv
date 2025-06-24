@@ -13,8 +13,11 @@ export const createFolderSchema = z.object({
     }),
 });
 
-// Form validation schema
-export const documentSchema = z.object({
+/**
+ * Form validation schema
+ *
+ */
+export const userFormSchema = z.object({
   applicantName: z
     .string()
     .min(1, 'Name is required')
@@ -70,4 +73,114 @@ export const documentSchema = z.object({
         .min(1, 'Responsibilities are required'),
     })
   ),
+});
+
+/**
+ * For openai
+ *
+ */
+const Experience = z.object({
+  companyName: z.string().describe('The name of the company'),
+  position: z.string().describe('The position of the applicant'),
+  startDate: z
+    .string()
+    .describe(
+      'The start date of the experience. Date exampl format: "YYYY-MM" (2025-06)'
+    ),
+  endDate: z
+    .string()
+    .describe(
+      'The end date of the experience. Date example format: "YYYY-MM" (2025-06)'
+    ),
+  description: z.string().describe('The short description of the experience'),
+});
+
+const Education = z.object({
+  schoolName: z.string().describe('The name of the school'),
+  degree: z.string().describe('The degree of the applicant'),
+  startDate: z
+    .string()
+    .describe(
+      'The start date of the education. Date example format: "YYYY-MM" (2025-06)'
+    ),
+  endDate: z
+    .string()
+    .describe(
+      'The end date of the education. Date example format: "YYYY-MM" (2025-06)'
+    ),
+});
+
+export const Document = z.object({
+  country: z.string().describe('The country of the applicant'),
+  email: z.string().describe('The email of the applicant'),
+  phone: z.string().describe('The phone of the applicant'),
+  website: z
+    .string()
+    .describe(
+      'The website of the applicant. Should be http or https link. Example: https://www.google.com'
+    ),
+  applicantName: z.string().describe('The name of the applicant'),
+  experiences: z.array(Experience).describe('The experiences of the applicant'),
+  education: z.array(Education).describe('The education of the applicant'),
+  skills: z.array(z.string()).describe('The skills of the applicant'),
+});
+
+/**
+ * For pdf
+ *
+ */
+export const pdfUserFormSchema = z.object({
+  applicantName: z.string().describe('The name of the applicant'),
+  currentAge: z.string().describe('The current age of the applicant'),
+  email: z.string().describe('The email of the applicant'),
+  phone: z.string().describe('The phone of the applicant'),
+  // website: z.string().url('Invalid website URL').nullable(),
+  country: z.string().describe('The country of the applicant'),
+  certificates: z
+    .string()
+    .describe('The certificates of the applicant')
+    .nullable(),
+  additionalInfo: z
+    .string()
+    .describe('The additional info of the applicant')
+    .nullable(),
+  skills: z
+    .object({
+      languages: z.array(z.string()).describe('The languages of the applicant'),
+      frameworks: z
+        .array(z.string())
+        .describe('The frameworks of the applicant'),
+      databases: z.array(z.string()).describe('The databases of the applicant'),
+      devOps: z.array(z.string()).describe('The devOps of the applicant'),
+      other: z.array(z.string()).describe('The other of the applicant'),
+    })
+    .nullable(),
+  yearsOfExperience: z
+    .string()
+    .describe('The years of experience of the applicant'),
+  whenReadyToWork: z
+    .string()
+    .describe('The when ready to work of the applicant'),
+  education: z.string().describe('The highest education of the applicant'),
+  projects: z
+    .array(
+      z.object({
+        industry: z.string().describe('The industry of the project'),
+        projectName: z.string().describe('The name of the project'),
+        description: z.string().describe('The description of the project'),
+        position: z.string().describe('The position of the project'),
+        startDate: z.string().describe('The start date of the project'),
+        period: z.string().describe('The period of the project in months'),
+        endDate: z.string().describe('The end date of the project'),
+        skills: z.array(z.string()).describe('The skills of the project'),
+        operationSystem: z
+          .string()
+          .describe('The operation system of the project'),
+        database: z.string().describe('The database of the project'),
+        responsibilities: z
+          .array(z.string())
+          .describe('The responsibilities of the project'),
+      })
+    )
+    .nullable(),
 });

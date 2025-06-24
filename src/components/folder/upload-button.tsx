@@ -21,7 +21,7 @@ import {
   FormMessage,
 } from '@/ui-kit/basic/form';
 import React, { useState } from 'react';
-import { parseCVDocument } from '@/actions/openai';
+import { parseCVDocument } from '@/lib/openai';
 import { toast } from 'sonner';
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@/constant/messages';
 

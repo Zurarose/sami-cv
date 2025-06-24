@@ -4,6 +4,7 @@ export const ERROR_MESSAGES = {
   FailedToCreateFolder: 'Failed to create folder',
   FailedToDeleteFolder: 'Failed to delete folder',
   FailedToUploadFiles: 'Failed to upload files',
+  FailedToGeneratePdf: 'Failed to generate PDF',
 };
 
 export const SUCCESS_MESSAGES = {
@@ -12,4 +13,5 @@ export const SUCCESS_MESSAGES = {
   FolderCreated: 'Folder created successfully!',
   FolderDeleted: 'Folder deleted successfully!',
   FilesUploaded: 'Files uploaded successfully!',
+  PdfGenerated: 'PDF generated successfully!',
 };
