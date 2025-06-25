@@ -131,7 +131,9 @@ export const Document = z.object({
  *
  */
 export const pdfUserFormSchema = z.object({
-  applicantName: z.string().describe('The name of the applicant'),
+  applicantName: z
+    .string()
+    .describe('The name of the applicant. Translate to Katakana'),
   currentAge: z.string().describe('The current age of the applicant'),
   email: z.string().describe('The email of the applicant'),
   phone: z.string().describe('The phone of the applicant'),
@@ -139,11 +141,11 @@ export const pdfUserFormSchema = z.object({
   country: z.string().describe('The country of the applicant'),
   certificates: z
     .string()
-    .describe('The certificates of the applicant')
+    .describe('The certificates of the applicant. Translate to Japanese')
     .nullable(),
   additionalInfo: z
     .string()
-    .describe('The additional info of the applicant')
+    .describe('The additional info of the applicant. Translate to Japanese')
     .nullable(),
   skills: z
     .object({
@@ -165,8 +167,10 @@ export const pdfUserFormSchema = z.object({
     .describe('The years of experience of the applicant'),
   whenReadyToWork: z
     .string()
-    .describe('The when ready to work of the applicant'),
-  education: z.string().describe('The highest education of the applicant'),
+    .describe('The when ready to work of the applicant. Translate to Japanese'),
+  education: z
+    .string()
+    .describe('The highest education of the applicant. Translate to Japanese'),
   projects: z
     .array(
       z.object({
