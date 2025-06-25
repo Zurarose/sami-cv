@@ -14,7 +14,7 @@ export const cvTemplate = `<!DOCTYPE html>
             margin: 0;
             padding: 20px;
             line-height: 1.4;
-            background-color: #f5f5f5;
+            background-color: #f5f5f5 !important;
         }
         
         .resume-container {
@@ -68,7 +68,7 @@ export const cvTemplate = `<!DOCTYPE html>
         }
         
         .profile-label {
-            background-color: #ccffff;
+            background-color: #ccffff !important;
             padding: 12px 8px;
             font-weight: bold;
             text-align: center;
@@ -76,6 +76,8 @@ export const cvTemplate = `<!DOCTYPE html>
             align-items: center;
             justify-content: center;
             font-size: 9pt;
+            width: 140px;
+            min-width: 140px;
         }
         
         .profile-value {
@@ -89,7 +91,7 @@ export const cvTemplate = `<!DOCTYPE html>
             border: 1px solid #000;
             border-left: none;
             text-align: center;
-            background-color: #ccffff;
+            background-color: #ccffff !important;
             height: 210px;
         }
         
@@ -115,7 +117,7 @@ export const cvTemplate = `<!DOCTYPE html>
         }
         
         .skills-label {
-            background-color: #ccffff;
+            background-color: #ccffff !important;
             padding: 12px 8px;
             font-weight: bold;
             text-align: center;
@@ -124,6 +126,8 @@ export const cvTemplate = `<!DOCTYPE html>
             align-items: center;
             justify-content: center;
             font-size: 9pt;
+            width: 140px;
+            min-width: 140px;
         }
         
         .skills-content {
@@ -136,7 +140,7 @@ export const cvTemplate = `<!DOCTYPE html>
         }
         
         .experience-header {
-            background-color: #f0f0f0;
+            background-color: #f0f0f0 !important;
             padding: 12px;
             font-size: 9pt;
             border: 1px solid #000;
@@ -166,7 +170,7 @@ export const cvTemplate = `<!DOCTYPE html>
         }
         
         .experience-table th {
-            background-color: #ccffff;
+            background-color: #ccffff !important;
             font-weight: bold;
             font-size: 9pt;
         }
@@ -199,19 +203,19 @@ export const cvTemplate = `<!DOCTYPE html>
         }
         
         .position-row {
-            background-color: #f9f9f9;
+            background-color: #f9f9f9 !important;
             font-size: 9pt;
         }
         
         .number-cell {
             font-weight: bold;
-            background-color: #fff;
+            background-color: #fff !important;
             font-size: 10pt;
         }
         
         .industry-cell {
             font-size: 10pt;
-            background-color: #fff;
+            background-color: #fff !important;
         }
         
         .os-cell, .lang-cell, .db-cell {

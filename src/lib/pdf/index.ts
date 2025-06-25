@@ -116,6 +116,7 @@ export const generatePDF = async (html: string) => {
     await page.setContent(html);
     const pdfBuffer = await page.pdf({
       format: 'A4',
+      printBackground: true,
     });
     await browser.close();
     return pdfBuffer;
