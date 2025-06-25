@@ -50,7 +50,7 @@ export const FolderList = ({ folders }: { folders: Folder[] }) => {
 
     setIsLoading(true);
     setSelectedFolderId({ id: folderId, isRenaming: false });
-    await renameFolder(folderId, newName);
+    await renameFolder(folderId, newName?.replace(/\n/g, ' ').trim());
     setIsLoading(false);
   };
 

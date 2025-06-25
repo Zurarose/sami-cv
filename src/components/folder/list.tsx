@@ -48,7 +48,7 @@ export const DocumentList = ({
 
     setIsLoading(true);
     setSelectedDocumentId({ id: documentId, isRenaming: false });
-    await renameDocument(documentId, newName);
+    await renameDocument(documentId, newName?.replace(/\n/g, ' ').trim());
     setIsLoading(false);
   };
 
