@@ -5,7 +5,6 @@ import { parseUserForm } from '../openai';
 import { cvTemplate } from './templates/cv_template_ja';
 import * as puppeteer from 'puppeteer';
 import chromium from '@sparticuz/chromium';
-// import puppeteerCore from 'puppeteer-core';
 
 // import fs from 'fs';
 // import path from 'path';
