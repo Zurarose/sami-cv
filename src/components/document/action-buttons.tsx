@@ -47,14 +47,18 @@ export const GeneratePdfButton = ({ document }: { document: DocumentData }) => {
 
   const handleDownloadPDF = async () => {
     try {
+      if (!htmlRef.current) throw new Error('Failed to generate PDF');
       setIsLoading(true);
       const html = htmlRef.current?.innerHTML;
-      if (!html) return;
+      if (!html) throw new Error('Failed to generate PDF');
+      setHtml(html);
+
       const pdf = await generatePDF(html);
-      if (!pdf) return;
+      if (!pdf) throw new Error('Failed to generate PDF');
       const file = new Blob([pdf], { type: 'application/pdf' });
       const url = URL.createObjectURL(file);
-      handleClose();
+
+      // handleClose();
       window.open(url, '_blank');
     } catch (error) {
       console.log('Error generating PDF', error);
@@ -86,6 +90,7 @@ export const GeneratePdfButton = ({ document }: { document: DocumentData }) => {
         <div className="fixed inset-0 z-50 flex flex-col items-center justify-start bg-background overflow-y-auto p-6">
           <h1 className="text-2xl font-bold">Preview</h1>
           <div
+            key={1}
             className="my-6"
             ref={htmlRef}
             dangerouslySetInnerHTML={{ __html: html }}
