@@ -142,10 +142,16 @@ export const pdfUserFormSchema = z.object({
   email: z.string().describe('The email of the applicant'),
   phone: z.string().describe('The phone of the applicant'),
   // website: z.string().url('Invalid website URL').nullable(),
-  country: z.string().describe('The country of the applicant'),
+  country: z
+    .string()
+    .describe(
+      'The country of the applicant. Translate to Japanese. Important!'
+    ),
   certificates: z
     .string()
-    .describe('The certificates of the applicant. Translate to Japanese')
+    .describe(
+      'The certificates of the applicant. Translate to Japanese if possible'
+    )
     .nullable(),
   additionalInfo: z
     .string()
