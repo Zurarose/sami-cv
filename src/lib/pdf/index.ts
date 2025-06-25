@@ -2,7 +2,7 @@
 
 import { DocumentData } from '@/types/document';
 import { parseUserForm } from '../openai';
-import { cvTemplate } from './templates/cv_template';
+import { cvTemplate } from './templates/cv_template_ja';
 import * as puppeteer from 'puppeteer';
 import chromium from '@sparticuz/chromium';
 import puppeteerCore from 'puppeteer-core';

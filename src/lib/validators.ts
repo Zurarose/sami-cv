@@ -173,11 +173,23 @@ export const pdfUserFormSchema = z.object({
         industry: z
           .string()
           .describe(
-            'The industry of the project based of project. For example: Web Development, Mobile Development, Backend Development, etc.'
+            'The industry of the project based of project. For example: Web Development, Mobile Development, Backend Development, etc. Translate to Japanese. Important!'
           ),
-        projectName: z.string().describe('The name of the project'),
-        description: z.string().describe('The description of the project'),
-        position: z.string().describe('The position of the project'),
+        projectName: z
+          .string()
+          .describe(
+            'The name of the project. Translate to Japanese if possible'
+          ),
+        description: z
+          .string()
+          .describe(
+            'The description of the project. Translate to Japanese if possible'
+          ),
+        position: z
+          .string()
+          .describe(
+            'The position of the project. Translate to Japanese. Important!'
+          ),
         startDate: z.string().describe('The start date of the project'),
         period: z.string().describe('The period of the project in months'),
         endDate: z.string().describe('The end date of the project'),
@@ -198,7 +210,7 @@ export const pdfUserFormSchema = z.object({
         responsibilities: z
           .array(z.string())
           .describe(
-            'The numbers of responsibilities of the project according to this list: (Responsibilities: １：Requirements definition、２：Basic logic design、３：Detailed (code structure and physical) design、４：Programming and Unit testing、５：Integration testing, ６：Maintenance、７：Operation、８：Other)'
+            'The numbers (use only numbers!) of responsibilities of the project according to this list: (Responsibilities: １：Requirements definition、２：Basic logic design、３：Detailed (code structure and physical) design、４：Programming and Unit testing、５：Integration testing, ６：Maintenance、７：Operation、８：Other)'
           )
           .nullable(),
       })

@@ -1,18 +1,12 @@
-<!DOCTYPE html>
+export const cvTemplate = `<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>技術経歴書</title>
     <style>
-
-        html {
-        -webkit-print-color-adjust: exact;
-        }
-
         * {
             box-sizing: border-box;
-            -webkit-print-color-adjust: exact;
         }
         
         body {
@@ -20,7 +14,7 @@
             margin: 0;
             padding: 20px;
             line-height: 1.4;
-            background-color: #f5f5f5;
+            background-color: #f5f5f5 !important;
         }
         
         .resume-container {
@@ -74,7 +68,7 @@
         }
         
         .profile-label {
-            background-color: #ccffff;
+            background-color: #ccffff !important;
             padding: 12px 8px;
             font-weight: bold;
             text-align: center;
@@ -82,6 +76,8 @@
             align-items: center;
             justify-content: center;
             font-size: 9pt;
+            width: 140px;
+            min-width: 140px;
         }
         
         .profile-value {
@@ -95,8 +91,11 @@
             border: 1px solid #000;
             border-left: none;
             text-align: center;
-            background-color: #ccffff;
+            background-color: #ccffff !important;
             height: 210px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .profile-photo img {
@@ -121,7 +120,7 @@
         }
         
         .skills-label {
-            background-color: #ccffff;
+            background-color: #ccffff !important;
             padding: 12px 8px;
             font-weight: bold;
             text-align: center;
@@ -130,6 +129,8 @@
             align-items: center;
             justify-content: center;
             font-size: 9pt;
+            width: 140px;
+            min-width: 140px;
         }
         
         .skills-content {
@@ -142,7 +143,7 @@
         }
         
         .experience-header {
-            background-color: #f0f0f0;
+            background-color: #f0f0f0 !important;
             padding: 12px;
             font-size: 9pt;
             border: 1px solid #000;
@@ -172,7 +173,7 @@
         }
         
         .experience-table th {
-            background-color: #ccffff;
+            background-color: #ccffff !important;
             font-weight: bold;
             font-size: 9pt;
         }
@@ -205,19 +206,19 @@
         }
         
         .position-row {
-            background-color: #f9f9f9;
+            background-color: #f9f9f9 !important;
             font-size: 9pt;
         }
         
         .number-cell {
             font-weight: bold;
-            background-color: #fff;
+            background-color: #fff !important;
             font-size: 10pt;
         }
         
         .industry-cell {
             font-size: 10pt;
-            background-color: #fff;
+            background-color: #fff !important;
         }
         
         .os-cell, .lang-cell, .db-cell {
@@ -246,24 +247,24 @@
         <div class="profile-section">
             <div class="profile-info">
                 <div class="profile-row">
-                    <div class="profile-label right-border">Name</div>
+                    <div class="profile-label right-border">エンジニア名</div>
                     <div class="profile-value right-border" contenteditable="true">{{applicantName}}</div>
-                    <div class="profile-value" contenteditable="true">{{birthDate}}</div>
-                    <div class="profile-label left-border right-border">Current Location</div>
+                    <div class="profile-value" contenteditable="true">{{birthDate}}歳</div>
+                    <div class="profile-label left-border right-border">在住</div>
                     <div class="profile-value" contenteditable="true">{{country}}</div>
                 </div>
                 <div class="profile-row">
-                    <div class="profile-label right-border">Latest degree</div>
+                    <div class="profile-label right-border">最終学歴</div>
                     <div class="profile-value" contenteditable="true">{{education}}</div>
                 </div>
                 <div class="profile-row">
-                    <div class="profile-label right-border">Years of Experience</div>
-                    <div class="profile-value" contenteditable="true">{{yearsOfExperience}}</div>
-                    <div class="profile-label left-border right-border">Able to work from</div>
+                    <div class="profile-label right-border">経験年数</div>
+                    <div class="profile-value" contenteditable="true">{{yearsOfExperience}}年</div>
+                    <div class="profile-label left-border right-border">就業可能日</div>
                     <div class="profile-value" contenteditable="true">{{whenReadyToWork}}</div>
                 </div>
                 <div class="profile-row">
-                    <div class="profile-label right-border">Qualifications</div>
+                    <div class="profile-label right-border">資格等</div>
                     <div class="profile-value" contenteditable="true">
                         {{certificates}}
                     </div>
@@ -276,17 +277,17 @@
 
         <div class="skills-section">
             <div class="skills-row">
-                <div class="skills-label">Skills</div>
+                <div class="skills-label">スキル</div>
                 <div class="skills-content">
-                    <strong>Languages：</strong><span contenteditable="true">{{languages}}</span><br>
-                    <strong>Frameworks：</strong><span contenteditable="true">{{frameworks}}</span><br>
-                    <strong>Databases：</strong><span contenteditable="true">{{databases}}</span><br>
-                    <strong>DevOps：</strong><span contenteditable="true">{{devOps}}</span><br>
-                    <strong>Other：</strong><span contenteditable="true">{{other}}</span>
+                    <strong>開発言語:</strong><span contenteditable="true">{{languages}}</span><br>
+                    <strong>フレームワーク・ライブラリ:</strong><span contenteditable="true">{{frameworks}}</span><br>
+                    <strong>データベース:</strong><span contenteditable="true">{{databases}}</span><br>
+                    <strong>DevOps:</strong><span contenteditable="true">{{devOps}}</span><br>
+                    <strong>その他:</strong><span contenteditable="true">{{other}}</span>
                 </div>
             </div>
             <div class="skills-row">
-                <div class="skills-label">Remarks</div>
+                <div class="skills-label">備考</div>
                 <div class="skills-content" contenteditable="true">
                     {{additionalInfo}}
                 </div>
@@ -295,28 +296,27 @@
 
         <div class="experience-section">
             <div class="experience-header">
-                (Responsibilities: １：Requirements definition、２：Basic logic design、３：Detailed (code structure and physical) design、４：Programming and Unit testing、５：Integration testing, ６：Maintenance、７：Operation、８：Other)
+               （注：担当フェーズ １：要件定義、２：基本（論理）設計、３：詳細（物理）設計、４：製造、単体テスト、５：結合テスト、総合テスト,６：保守、７：運用、８：その他）
             </div>
-
             <table class="experience-table">
                 <thead>
                     <tr>
                         <th style="width: 40px; padding: 0; vertical-align: middle;">No</th>
                         <th style="width: 100px; padding: 0; vertical-align: middle;">
-                            <p class="border-bottom">Type of Industry</p>
-                            <p class="border-bottom">Position</p>
-                            <p>Responsibilities</p>
+                            <p class="border-bottom">業種</p>
+                            <p class="border-bottom">ポジション</p>
+                            <p>担当フェーズ</p>
                         </th>
-                        <th style="width: 350px; padding: 0; vertical-align: middle;">Work Contents</th>
+                        <th style="width: 350px; padding: 0; vertical-align: middle;">作業内容</th>
                         <th style="width: 100px; padding: 0; vertical-align: middle;">OS</th>
-                        <th style="width: 100px; padding: 0; vertical-align: middle;">Language</th>
+                        <th style="width: 100px; padding: 0; vertical-align: middle;">言語</th>
                         <th style="width: 80px; padding: 0; vertical-align: middle;">DB</th>
                         <th style="width: 100px; padding: 0; vertical-align: middle;">
-                            <p class="border-bottom">Start Date</p>
-                            <p class="border-bottom">End Date</p>
-                            <p>Period</p>
+                            <p class="border-bottom">開始年月</p>
+                            <p class="border-bottom">終了年月</p>
+                            <p>就業期間</p>
                         </th>
-                        <th style="width: 120px; padding: 0; vertical-align: middle;">Remarks</th>
+                        <th style="width: 120px; padding: 0; vertical-align: middle;">備考</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -326,4 +326,4 @@
         </div>
     </div>
 </body>
-</html> 
+</html>`;

@@ -93,6 +93,9 @@ export const cvTemplate = `<!DOCTYPE html>
             text-align: center;
             background-color: #ccffff !important;
             height: 210px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .profile-photo img {
