@@ -24,9 +24,7 @@ async function getBrowser() {
     });
   }
   if (process.env.NODE_ENV === 'production') {
-    await chromium.font(
-      'https://s3.ap-northeast-2.amazonaws.com/fonts/webfont.ttf'
-    );
+    await chromium.font('https://fonts.google.com/noto/specimen/Noto+Sans+SC');
     console.log('Development production: ');
     browser = await puppeteer.launch({
       args: chromium.args,
