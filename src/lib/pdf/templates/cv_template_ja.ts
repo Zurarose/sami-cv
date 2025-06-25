@@ -4,13 +4,16 @@ export const cvTemplate = `<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>技術経歴書</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
         }
         
         body {
-            font-family: "Montserrat", Arial, sans-serif;
+            font-family: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
             margin: 0;
             padding: 20px;
             line-height: 1.4;
@@ -48,7 +51,7 @@ export const cvTemplate = `<!DOCTYPE html>
             display: flex;
             flex-direction: row;
             border: 1px solid #000;
-            height: 52px;
+            min-height: 52px;
 
             &:last-child {
                 border-bottom: none;

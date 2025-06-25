@@ -19,15 +19,28 @@ async function getBrowser() {
   if (process.env.NODE_ENV === 'development') {
     console.log('Development browser: ');
     browser = await puppeteer.launch({
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--font-render-hinting=none',
+        '--disable-font-subpixel-positioning',
+      ],
       headless: true,
     });
   }
   if (process.env.NODE_ENV === 'production') {
-    await chromium.font('https://fonts.google.com/noto/specimen/Noto+Sans+SC');
-    console.log('Development production: ');
+    // Load Japanese font instead of Chinese
+    await chromium.font(
+      'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap'
+    );
+    console.log('Production browser with Japanese font loaded');
     browser = await puppeteer.launch({
-      args: chromium.args,
+      args: [
+        ...chromium.args,
+        '--font-render-hinting=none',
+        '--disable-font-subpixel-positioning',
+        '--disable-gpu-sandbox',
+      ],
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath(),
       headless: chromium.headless,
@@ -111,10 +124,16 @@ export const generatePDF = async (html: string) => {
       throw new Error('Browser is null');
     }
     const page = await browser.newPage();
-    await page.setContent(html);
+
+    // Set content and wait for fonts to load
+    await page.setContent(html, { waitUntil: 'networkidle0' });
+
+    // Add a small delay to ensure fonts are fully loaded
+    await page.evaluate(() => document.fonts.ready);
     const pdfBuffer = await page.pdf({
       format: 'A4',
       printBackground: true,
+      preferCSSPageSize: true,
     });
     await browser.close();
     return pdfBuffer;

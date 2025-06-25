@@ -170,7 +170,9 @@ export const pdfUserFormSchema = z.object({
     .describe('The when ready to work of the applicant. Translate to Japanese'),
   education: z
     .string()
-    .describe('The highest education of the applicant. Translate to Japanese'),
+    .describe(
+      'The highest education of the applicant. Only degree (Bachelor, Master, Doctor) Translate to Japanese'
+    ),
   projects: z
     .array(
       z.object({
