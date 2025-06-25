@@ -1,11 +1,11 @@
 'use client';
 
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@/constant/messages';
-import { generatePDF } from '@/lib/pdf';
+import { generateHTML, generatePDF } from '@/lib/pdf';
 import { DocumentData } from '@/types/document';
 import { Button } from '@/ui-kit/basic/button';
 import { Download, Link, Loader2 } from 'lucide-react';
-import { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 export const LinkButton = ({ link }: { link: string }) => {
@@ -23,18 +23,39 @@ export const LinkButton = ({ link }: { link: string }) => {
 
 export const GeneratePdfButton = ({ document }: { document: DocumentData }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [html, setHtml] = useState<string | null>(null);
+  const htmlRef = useRef<HTMLDivElement>(null);
 
-  const handleDownload = async () => {
+  const handleGenerateHTML = async () => {
     try {
       setIsLoading(true);
-      const res = await generatePDF(document);
-      if (!res) {
-        return;
-      }
-      const file = new Blob([res], { type: 'application/pdf' });
+      const res = await generateHTML(document);
+      if (!res) throw new Error('Failed to generate HTML');
+      setHtml(res);
+      toast.success(SUCCESS_MESSAGES.HtmlGenerated);
+    } catch (error) {
+      console.log('Error generating HTML', error);
+      toast.error(ERROR_MESSAGES.FailedToGenerateHtml);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleClose = () => {
+    setHtml(null);
+  };
+
+  const handleDownloadPDF = async () => {
+    try {
+      setIsLoading(true);
+      const html = htmlRef.current?.innerHTML;
+      if (!html) return;
+      const pdf = await generatePDF(html);
+      if (!pdf) return;
+      const file = new Blob([pdf], { type: 'application/pdf' });
       const url = URL.createObjectURL(file);
+      handleClose();
       window.open(url, '_blank');
-      toast.success(SUCCESS_MESSAGES.PdfGenerated);
     } catch (error) {
       console.log('Error generating PDF', error);
       toast.error(ERROR_MESSAGES.FailedToGeneratePdf);
@@ -43,10 +64,47 @@ export const GeneratePdfButton = ({ document }: { document: DocumentData }) => {
     }
   };
 
+  useEffect(() => {
+    if (html) {
+      window.document.body.style.overflow = 'hidden';
+    } else {
+      window.document.body.style.overflow = 'auto';
+    }
+  }, [html]);
+
   return (
-    <Button variant="outline" onClick={handleDownload} disabled={isLoading}>
-      {isLoading ? <Loader2 className="animate-spin" /> : <Download />} Download
-      Resume
-    </Button>
+    <React.Fragment>
+      <Button
+        variant="outline"
+        onClick={handleGenerateHTML}
+        disabled={isLoading}
+      >
+        {isLoading ? <Loader2 className="animate-spin" /> : <Download />}{' '}
+        Generate Resume
+      </Button>
+      {html && (
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-start bg-background overflow-y-auto p-6">
+          <h1 className="text-2xl font-bold">Preview</h1>
+          <div
+            className="my-6"
+            ref={htmlRef}
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
+          <div className="flex gap-3">
+            <Button variant="outline" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button
+              variant="outline"
+              onClick={handleDownloadPDF}
+              disabled={isLoading}
+            >
+              {isLoading ? <Loader2 className="animate-spin" /> : <Download />}{' '}
+              Download PDF
+            </Button>
+          </div>
+        </div>
+      )}
+    </React.Fragment>
   );
 };

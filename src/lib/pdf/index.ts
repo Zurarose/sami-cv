@@ -6,6 +6,7 @@ import { cvTemplate } from './templates/cv_template';
 import * as puppeteer from 'puppeteer';
 import chromium from '@sparticuz/chromium';
 import puppeteerCore from 'puppeteer-core';
+
 // import fs from 'fs';
 // import path from 'path';
 // const outputPath = path.join(
@@ -36,7 +37,7 @@ async function getBrowser() {
   return browser;
 }
 
-export const generatePDF = async (document: DocumentData) => {
+export const generateHTML = async (document: DocumentData) => {
   const photo = document.photo;
   delete document.photo;
   const userForm = await parseUserForm(document);
@@ -100,15 +101,10 @@ export const generatePDF = async (document: DocumentData) => {
     return acc;
   }, cvTemplate);
 
-  // const htmlFile = new File([contentWithData], 'cv.html', {
-  //   type: 'text/html',
-  // });
-  // const text = await htmlFile.text();
-  // if (fs.existsSync(outputPath)) {
-  //   fs.unlinkSync(outputPath);
-  // }
-  // fs.writeFileSync(outputPath, text);
+  return contentWithData;
+};
 
+export const generatePDF = async (html: string) => {
   console.log(process.env.NODE_ENV);
 
   try {
@@ -117,7 +113,7 @@ export const generatePDF = async (document: DocumentData) => {
       throw new Error('Browser is null');
     }
     const page = await browser.newPage();
-    await page.setContent(contentWithData);
+    await page.setContent(html);
     const pdfBuffer = await page.pdf({
       format: 'A4',
     });
