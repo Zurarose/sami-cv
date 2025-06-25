@@ -282,11 +282,11 @@ export const cvTemplate = `<!DOCTYPE html>
             <div class="skills-row">
                 <div class="skills-label">スキル</div>
                 <div class="skills-content">
-                    <strong>開発言語:</strong><span contenteditable="true">{{languages}}</span><br>
-                    <strong>フレームワーク・ライブラリ:</strong><span contenteditable="true">{{frameworks}}</span><br>
-                    <strong>データベース:</strong><span contenteditable="true">{{databases}}</span><br>
-                    <strong>DevOps:</strong><span contenteditable="true">{{devOps}}</span><br>
-                    <strong>その他:</strong><span contenteditable="true">{{other}}</span>
+                    <strong>開発言語: </strong><span contenteditable="true">{{languages}}</span><br>
+                    <strong>フレームワーク・ライブラリ: </strong><span contenteditable="true">{{frameworks}}</span><br>
+                    <strong>データベース: </strong><span contenteditable="true">{{databases}}</span><br>
+                    <strong>DevOps: </strong><span contenteditable="true">{{devOps}}</span><br>
+                    <strong>その他: </strong><span contenteditable="true">{{other}}</span>
                 </div>
             </div>
             <div class="skills-row">

@@ -112,7 +112,11 @@ const Education = z.object({
 });
 
 export const Document = z.object({
-  country: z.string().describe('The country of the applicant'),
+  country: z
+    .string()
+    .describe(
+      'The country of the applicant. Translate to Japanese. Important!'
+    ),
   email: z.string().describe('The email of the applicant'),
   phone: z.string().describe('The phone of the applicant'),
   website: z
@@ -183,9 +187,7 @@ export const pdfUserFormSchema = z.object({
           ),
         projectName: z
           .string()
-          .describe(
-            'The name of the project. Translate to Japanese if possible'
-          ),
+          .describe('The name of the project. Do not translate it. Important!'),
         description: z
           .string()
           .describe(
