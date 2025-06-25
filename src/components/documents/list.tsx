@@ -42,7 +42,7 @@ export const FolderList = ({ folders }: { folders: Folder[] }) => {
 
   const handleRenameClick = (folderId: string) => {
     setSelectedFolderId({ id: folderId, isRenaming: true });
-    setTimeout(() => inputRef.current?.focus(), 100);
+    // setTimeout(() => inputRef.current?.focus(), 100);
   };
 
   const handleRenameBlur = async (folderId: string, newName: string) => {
@@ -57,7 +57,7 @@ export const FolderList = ({ folders }: { folders: Folder[] }) => {
   return (
     <React.Fragment>
       {folders.map(({ id, ...folder }) => {
-        const isRenamingFolder =
+        const isRenaming =
           selectedFolderId?.isRenaming && selectedFolderId.id === id;
         const isLoadingFolder = isLoading && selectedFolderId?.id === id;
 
@@ -65,19 +65,20 @@ export const FolderList = ({ folders }: { folders: Folder[] }) => {
           <ContextMenu key={id}>
             <ContextMenuTrigger>
               <div
-                onClick={isRenamingFolder ? undefined : handleRedirect(id)}
+                onClick={isRenaming ? undefined : handleRedirect(id)}
                 className={cn(
                   'cursor-pointer shadow-md flex gap-4 min-w-16 flex-1 h-16 flex-col min-md:flex-row items-center justify-center py-2 px-2 min-lg:px-4 border border-border rounded-md hover:bg-accent hover:text-accent-foreground transition-colors',
                   isLoadingFolder && 'bg-muted text-muted-foreground'
                 )}
               >
                 <FolderIcon className="shrink-0 hidden min-lg:block" />
-                {isRenamingFolder ? (
+                {isRenaming ? (
                   <Textarea
                     ref={inputRef}
                     className="p-0 min-h-2 resize-none w-full border-none rounded-none shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
                     defaultValue={folder.name}
                     maxLength={40}
+                    autoFocus
                     onBlur={e => handleRenameBlur(id, e.target.value)}
                     onKeyDown={e => {
                       if (e.key === 'Enter') {

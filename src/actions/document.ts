@@ -32,12 +32,22 @@ export const getDocument = async (documentId: string) => {
 };
 
 export const deleteDocument = async (documentId: string) => {
-  await prisma.document.delete({
+  const deletedDocument = await prisma.document.delete({
     where: {
       id: documentId,
     },
   });
   revalidatePath(routes.folder(documentId));
+  return deletedDocument;
+};
+
+export const renameDocument = async (documentId: string, newName: string) => {
+  const updatedDocument = await prisma.document.update({
+    where: { id: documentId },
+    data: { name: newName },
+  });
+  revalidatePath(routes.folder(documentId));
+  return updatedDocument;
 };
 
 export const createDocument = async (
