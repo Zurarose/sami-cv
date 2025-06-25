@@ -58,7 +58,7 @@ export const GeneratePdfButton = ({ document }: { document: DocumentData }) => {
       const file = new Blob([pdf], { type: 'application/pdf' });
       const url = URL.createObjectURL(file);
 
-      // handleClose();
+      handleClose();
       window.open(url, '_blank');
     } catch (error) {
       console.log('Error generating PDF', error);
