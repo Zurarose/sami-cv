@@ -24,6 +24,9 @@ async function getBrowser() {
     });
   }
   if (process.env.NODE_ENV === 'production') {
+    await chromium.font(
+      'https://s3.ap-northeast-2.amazonaws.com/fonts/webfont.ttf'
+    );
     console.log('Development production: ');
     browser = await puppeteer.launch({
       args: chromium.args,
@@ -104,8 +107,6 @@ export const generateHTML = async (document: DocumentData) => {
 };
 
 export const generatePDF = async (html: string) => {
-  console.log(process.env.NODE_ENV);
-
   try {
     const browser = await getBrowser();
     if (!browser) {
