@@ -7,6 +7,7 @@ export const ERROR_MESSAGES = {
   FailedToUploadFiles: 'Failed to upload files',
   FailedToGeneratePdf: 'Failed to generate PDF',
   FailedToGenerateHtml: 'Failed to generate HTML',
+  CredentialsSignin: 'Invalid credentials',
 };
 
 export const SUCCESS_MESSAGES = {
