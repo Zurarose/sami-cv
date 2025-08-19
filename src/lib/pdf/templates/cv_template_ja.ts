@@ -84,6 +84,7 @@ export const cvTemplate = `<!DOCTYPE html>
         }
         
         .profile-value {
+            flex: 1;
             padding: 12px;
             display: flex;
             align-items: center;

@@ -138,15 +138,17 @@ export const pdfUserFormSchema = z.object({
   applicantName: z
     .string()
     .describe('The name of the applicant. Translate to Katakana'),
-  currentAge: z.string().describe('The current age of the applicant'),
-  email: z.string().describe('The email of the applicant'),
-  phone: z.string().describe('The phone of the applicant'),
+  currentAge: z
+    .string()
+    .describe('The current age of the applicant')
+    .nullable(),
+  email: z.string().describe('The email of the applicant').nullable(),
+  phone: z.string().describe('The phone of the applicant').nullable(),
   // website: z.string().url('Invalid website URL').nullable(),
   country: z
     .string()
-    .describe(
-      'The country of the applicant. Translate to Japanese. Important!'
-    ),
+    .describe('The country of the applicant. Translate to Japanese. Important!')
+    .nullable(),
   certificates: z
     .string()
     .describe(
@@ -174,15 +176,18 @@ export const pdfUserFormSchema = z.object({
     .nullable(),
   yearsOfExperience: z
     .string()
-    .describe('The years of experience of the applicant'),
+    .describe('The years of experience of the applicant')
+    .nullable(),
   whenReadyToWork: z
     .string()
-    .describe('The when ready to work of the applicant. Translate to Japanese'),
+    .describe('The when ready to work of the applicant. Translate to Japanese')
+    .nullable(),
   education: z
     .string()
     .describe(
       'The highest education of the applicant. Only degree (Bachelor, Master, Doctor) Translate to Japanese'
-    ),
+    )
+    .nullable(),
   projects: z
     .array(
       z.object({
