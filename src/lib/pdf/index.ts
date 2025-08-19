@@ -134,6 +134,14 @@ export const generatePDF = async (html: string) => {
       format: 'A4',
       printBackground: true,
       preferCSSPageSize: true,
+      scale: 1,
+      width: 1920,
+      margin: {
+        top: '0px',
+        bottom: '0px',
+        left: '0px',
+        right: '0px',
+      },
     });
     await browser.close();
     return pdfBuffer;

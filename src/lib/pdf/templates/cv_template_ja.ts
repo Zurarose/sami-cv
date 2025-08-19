@@ -21,8 +21,9 @@ export const cvTemplate = `<!DOCTYPE html>
         }
         
         .resume-container {
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
+            box-sizing: border-box;
             background: white;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             padding: 30px;
@@ -73,14 +74,15 @@ export const cvTemplate = `<!DOCTYPE html>
         .profile-label {
             background-color: #ccffff !important;
             padding: 12px 8px;
+            box-sizing: border-box;
             font-weight: bold;
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 9pt;
-            width: 140px;
-            min-width: 140px;
+            width: 100px;
+            min-width: 100px;
         }
         
         .profile-value {
@@ -96,7 +98,6 @@ export const cvTemplate = `<!DOCTYPE html>
             border-left: none;
             text-align: center;
             background-color: #ccffff !important;
-            height: 210px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -114,7 +115,7 @@ export const cvTemplate = `<!DOCTYPE html>
         
         .skills-row {
             display: grid;
-            grid-template-columns: 150px 1fr;
+            grid-template-columns: 100px 1fr;
             border: 1px solid #000;
             min-height: 40px;
         }
@@ -133,8 +134,8 @@ export const cvTemplate = `<!DOCTYPE html>
             align-items: center;
             justify-content: center;
             font-size: 9pt;
-            width: 140px;
-            min-width: 140px;
+            width: 100px;
+            min-width: 100px;
         }
         
         .skills-content {

@@ -138,22 +138,14 @@ export const pdfUserFormSchema = z.object({
   applicantName: z
     .string()
     .describe('The name of the applicant. Translate to Katakana'),
-  currentAge: z
-    .string()
-    .describe('The current age of the applicant')
-    .nullable(),
-  email: z.string().describe('The email of the applicant').nullable(),
-  phone: z.string().describe('The phone of the applicant').nullable(),
+  currentAge: z.string().describe('The current age of the applicant'),
+  email: z.string().describe('The email of the applicant'),
+  phone: z.string().describe('The phone of the applicant'),
   // website: z.string().url('Invalid website URL').nullable(),
-  country: z
-    .string()
-    .describe('The country of the applicant. Translate to Japanese. Important!')
-    .nullable(),
+  country: z.string().describe('The country of the applicant'),
   certificates: z
     .string()
-    .describe(
-      'The certificates of the applicant. Translate to Japanese if possible'
-    )
+    .describe('The certificates of the applicant. Translate to Japanese')
     .nullable(),
   additionalInfo: z
     .string()
@@ -176,18 +168,15 @@ export const pdfUserFormSchema = z.object({
     .nullable(),
   yearsOfExperience: z
     .string()
-    .describe('The years of experience of the applicant')
-    .nullable(),
+    .describe('The years of experience of the applicant'),
   whenReadyToWork: z
     .string()
-    .describe('The when ready to work of the applicant. Translate to Japanese')
-    .nullable(),
+    .describe('The when ready to work of the applicant. Translate to Japanese'),
   education: z
     .string()
     .describe(
       'The highest education of the applicant. Only degree (Bachelor, Master, Doctor) Translate to Japanese'
-    )
-    .nullable(),
+    ),
   projects: z
     .array(
       z.object({
