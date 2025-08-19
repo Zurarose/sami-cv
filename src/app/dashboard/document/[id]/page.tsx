@@ -47,12 +47,13 @@ export default async function Document({ params }: { params: Params }) {
         <Card className="w-full shadow-lg border-0 bg-gradient-to-r from-white to-slate-50/50 relative">
           <div className="absolute top-3 right-3 z-10">
             <span className="text-xs text-muted-foreground whitespace-pre-wrap">
-              {`Updated ${new Date(document.updatedAt).toLocaleDateString()} ${new Date(
+              {`Updated ${new Date(document.updatedAt).toLocaleDateString('ja-JP', { timeZone: 'Asia/Tokyo' })} ${new Date(
                 document.updatedAt
-              ).toLocaleTimeString('en-US', {
-                hour: 'numeric',
-                minute: 'numeric',
+              ).toLocaleTimeString('ja-JP', {
+                hour: '2-digit',
+                minute: '2-digit',
                 hour12: false,
+                timeZone: 'Asia/Tokyo',
               })} v${document.version}`}
             </span>
           </div>

@@ -107,12 +107,13 @@ export const DocumentList = ({
                       {document.name}
                     </span>
                     <span className="text-xs text-muted-foreground whitespace-pre-wrap">
-                      {`Updated ${new Date(document.updatedAt).toLocaleDateString()} ${new Date(
+                      {`Updated ${new Date(document.updatedAt).toLocaleDateString('ja-JP', { timeZone: 'Asia/Tokyo' })} ${new Date(
                         document.updatedAt
-                      ).toLocaleTimeString('en-US', {
-                        hour: 'numeric',
-                        minute: 'numeric',
+                      ).toLocaleTimeString('ja-JP', {
+                        hour: '2-digit',
+                        minute: '2-digit',
                         hour12: false,
+                        timeZone: 'Asia/Tokyo',
                       })} v${document.version}`}
                     </span>
                   </div>
