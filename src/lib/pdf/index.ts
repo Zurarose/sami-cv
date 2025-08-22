@@ -52,7 +52,9 @@ async function getBrowser() {
 
 export const generateHTML = async (document: DocumentData) => {
   const photo = document.photo;
-  delete document.photo;
+  if ('photo' in document) {
+    delete (document as Partial<DocumentData>).photo;
+  }
   const userForm = await parseUserForm(document);
   if (!userForm) {
     throw new Error('User form is null');

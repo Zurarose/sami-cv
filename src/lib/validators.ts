@@ -24,56 +24,63 @@ export const userFormSchema = z.object({
     .max(MAX_NAME_LENGTH, 'Name must be less than 100 characters'),
   birthDate: z.string().min(1, 'Birth date is required'),
   email: z.string().email('Invalid email address'),
-  phone: z.string().min(1, 'Phone is required'),
+  phone: z.string().min(1, 'Phone is required').optional(),
   website: z.string().url('Invalid website URL').optional(),
   country: z.string().min(1, 'Country is required'),
-  photo: z.string().optional(),
+  photo: z.string().min(1, 'Photo is required'),
   certificates: z.string().optional(),
   additionalInfo: z.string().optional(),
   skills: z.array(z.string()).min(1, 'Skills are required'),
   yearsOfExperience: z.string().min(1, 'Years of experience is required'),
   whenReadyToWork: z.string().min(1, 'When ready to work is required'),
-  experiences: z.array(
-    z.object({
-      companyName: z
-        .string()
-        .min(1, 'Company name is required')
-        .max(MAX_NAME_LENGTH, 'Company name must be less than 100 characters'),
-      position: z.string().min(1, 'Position is required'),
-      startDate: z.string().min(1, 'Start date is required'),
-      endDate: z.string().min(1, 'End date is required'),
-      description: z.string().min(1, 'Description is required'),
-    })
-  ),
-  education: z.array(
-    z.object({
-      schoolName: z
-        .string()
-        .min(1, 'School name is required')
-        .max(MAX_NAME_LENGTH, 'School name must be less than 100 characters'),
-      degree: z.string().min(1, 'Degree is required'),
-      startDate: z.string().min(1, 'Start date is required'),
-      endDate: z.string().min(1, 'End date is required'),
-    })
-  ),
-  projects: z.array(
-    z.object({
-      projectName: z
-        .string()
-        .min(1, 'Project name is required')
-        .max(MAX_NAME_LENGTH, 'Project name must be less than 100 characters'),
-      description: z.string().min(1, 'Description is required'),
-      position: z.string().min(1, 'Position is required'),
-      startDate: z.string().min(1, 'Start date is required'),
-      endDate: z.string().min(1, 'End date is required'),
-      skills: z.array(z.string()),
-      operationSystem: z.string().optional(),
-      database: z.string().optional(),
-      responsibilities: z
-        .array(z.string())
-        .min(1, 'Responsibilities are required'),
-    })
-  ),
+  // experiences: z.array(
+  //   z.object({
+  //     companyName: z
+  //       .string()
+  //       .min(1, 'Company name is required')
+  //       .max(MAX_NAME_LENGTH, 'Company name must be less than 100 characters'),
+  //     position: z.string().min(1, 'Position is required'),
+  //     startDate: z.string().min(1, 'Start date is required'),
+  //     endDate: z.string().min(1, 'End date is required'),
+  //     description: z.string().min(1, 'Description is required'),
+  //   })
+  // ),
+  education: z
+    .array(
+      z.object({
+        schoolName: z
+          .string()
+          .min(1, 'School name is required')
+          .max(MAX_NAME_LENGTH, 'School name must be less than 100 characters'),
+        degree: z.string().min(1, 'Degree is required'),
+        startDate: z.string().min(1, 'Start date is required'),
+        endDate: z.string().min(1, 'End date is required'),
+      })
+    )
+    .min(1, 'Education is required'),
+  projects: z
+    .array(
+      z.object({
+        projectName: z
+          .string()
+          .min(1, 'Project name is required')
+          .max(
+            MAX_NAME_LENGTH,
+            'Project name must be less than 100 characters'
+          ),
+        description: z.string().min(1, 'Description is required'),
+        position: z.string().min(1, 'Position is required'),
+        startDate: z.string().min(1, 'Start date is required'),
+        endDate: z.string().min(1, 'End date is required'),
+        skills: z.array(z.string()),
+        operationSystem: z.string().optional(),
+        database: z.string().optional(),
+        responsibilities: z
+          .array(z.string())
+          .min(1, 'Responsibilities are required'),
+      })
+    )
+    .min(1, 'Projects are required'),
 });
 
 /**
@@ -112,11 +119,7 @@ const Education = z.object({
 });
 
 export const Document = z.object({
-  country: z
-    .string()
-    .describe(
-      'The country of the applicant. Translate to Japanese. Important!'
-    ),
+  country: z.string().describe('The country of the applicant'),
   email: z.string().describe('The email of the applicant'),
   phone: z.string().describe('The phone of the applicant'),
   website: z
@@ -137,8 +140,12 @@ export const Document = z.object({
 export const pdfUserFormSchema = z.object({
   applicantName: z
     .string()
-    .describe('The name of the applicant. Translate to Katakana'),
-  currentAge: z.string().describe('The current age of the applicant'),
+    .describe(
+      'The name of the applicant. First row is fullname translated to Katakana. Next line is fullname in English. Example: オレフ マナブ\\n(Oreh Manaub) !important!. Be very accurate and check yourself before you return the data.'
+    ),
+  currentAge: z
+    .string()
+    .describe('The current age of the applicant, should be 2 nubmers only'),
   email: z.string().describe('The email of the applicant'),
   phone: z.string().describe('The phone of the applicant'),
   // website: z.string().url('Invalid website URL').nullable(),

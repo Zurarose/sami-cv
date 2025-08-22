@@ -10,7 +10,7 @@ import {
   Globe,
   MapPin,
   Calendar,
-  Building,
+  // Building,
   GraduationCap,
   Briefcase,
   Clock,
@@ -218,7 +218,7 @@ export default async function Document({ params }: { params: Params }) {
           {/* Right Column - Experience, Education & Projects */}
           <div className="xl:col-span-3 space-y-6">
             {/* Experience Section */}
-            {data.experiences && data.experiences.length > 0 && (
+            {/* {data.experiences && data.experiences.length > 0 && (
               <Card className="shadow-md border-0">
                 <CardHeader className="pb-4">
                   <CardTitle className="text-xl flex items-center gap-2">
@@ -255,7 +255,7 @@ export default async function Document({ params }: { params: Params }) {
                   ))}
                 </CardContent>
               </Card>
-            )}
+            )} */}
 
             {/* Projects Section */}
             {data.projects && data.projects.length > 0 && (

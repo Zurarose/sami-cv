@@ -49,6 +49,7 @@ export const cvTemplate = `<!DOCTYPE html>
         }
         
         .profile-row {
+            flex: 1;
             display: flex;
             flex-direction: row;
             border: 1px solid #000;
@@ -89,12 +90,47 @@ export const cvTemplate = `<!DOCTYPE html>
             flex: 1;
             padding: 12px;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            align-items: start;
             font-size: 10pt;
+            justify-content: center;
+            text-align: center;
+            white-space: pre-line;
+        }
+
+        .profile-value-small {
+            flex: 0.3;
+            padding: 12px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 10pt;
+            text-align: start;
+            white-space: pre-line;
+        }
+
+        .font-small-value {
+            font-size: 8pt;
+        }
+
+        .profile-label-small {
+            background-color: #ccffff !important;
+            padding: 12px 8px;
+            box-sizing: border-box;
+            font-weight: bold;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9pt;
+            width: 50px;
+            min-width: 50px;
         }
         
         .profile-photo {
             border: 1px solid #000;
+            max-width: 100%;
             border-left: none;
             text-align: center;
             background-color: #ccffff !important;
@@ -106,6 +142,7 @@ export const cvTemplate = `<!DOCTYPE html>
         .profile-photo img {
             object-fit: cover;
             height: 100%;
+            max-width: 80%;
             flex: 1;
             min-height: 100%;
         }
@@ -253,9 +290,9 @@ export const cvTemplate = `<!DOCTYPE html>
             <div class="profile-info">
                 <div class="profile-row">
                     <div class="profile-label right-border">エンジニア名</div>
-                    <div class="profile-value right-border" contenteditable="true">{{applicantName}}</div>
-                    <div class="profile-value" contenteditable="true">{{birthDate}}歳</div>
-                    <div class="profile-label left-border right-border">在住</div>
+                    <div class="profile-value font-small-value right-border" contenteditable="true">{{applicantName}}</div>
+                    <div class="profile-value-small" contenteditable="true">{{birthDate}}歳</div>
+                    <div class="profile-label-small left-border right-border">在住</div>
                     <div class="profile-value" contenteditable="true">{{country}}</div>
                 </div>
                 <div class="profile-row">

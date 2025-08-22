@@ -14,7 +14,7 @@ import { useRouter } from 'next/navigation';
 import { routes } from '@/constant/routes';
 import { PersonalInfo } from './personal-info';
 import { SkilsInfo } from './skils-info';
-import { ExperienceInfo } from './experience-info';
+// import { ExperienceInfo } from './experience-info';
 import { EducationInfo } from './education-info';
 import { ProjectInfo } from './project-info';
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@/constant/messages';
@@ -43,17 +43,17 @@ export function DocumentForm({ initialData, documentId }: DocumentFormProps) {
       website: initialData?.website || '',
       country: initialData?.country || '',
       photo: initialData?.photo || '',
-      experiences: initialData?.experiences || [],
+      // experiences: initialData?.experiences || [],
       education: initialData?.education || [],
       skills: initialData?.skills || [],
       projects: initialData?.projects || [],
     },
   });
 
-  const experienceFields = useFieldArray({
-    control: form.control,
-    name: 'experiences',
-  });
+  // const experienceFields = useFieldArray({
+  //   control: form.control,
+  //   name: 'experiences',
+  // });
 
   const educationFields = useFieldArray({
     control: form.control,
@@ -97,15 +97,15 @@ export function DocumentForm({ initialData, documentId }: DocumentFormProps) {
     }
   };
 
-  const addExperience = () => {
-    experienceFields.append({
-      companyName: '',
-      position: '',
-      startDate: '',
-      endDate: '',
-      description: '',
-    });
-  };
+  // const addExperience = () => {
+  //   experienceFields.append({
+  //     companyName: '',
+  //     position: '',
+  //     startDate: '',
+  //     endDate: '',
+  //     description: '',
+  //   });
+  // };
 
   const addEducation = () => {
     educationFields.append({
@@ -144,11 +144,11 @@ export function DocumentForm({ initialData, documentId }: DocumentFormProps) {
           removeSkill={removeSkill}
         />
         {/* Experience Section */}
-        <ExperienceInfo
+        {/* <ExperienceInfo
           form={form}
           experienceFields={experienceFields}
           addExperience={addExperience}
-        />
+        /> */}
         {/* Education Section */}
         <EducationInfo
           form={form}
@@ -166,7 +166,11 @@ export function DocumentForm({ initialData, documentId }: DocumentFormProps) {
         <div className="flex justify-center">
           <Button
             type="submit"
-            disabled={form.formState.isSubmitting}
+            disabled={
+              form.formState.isSubmitting ||
+              !educationFields.fields.length ||
+              !projectFields.fields.length
+            }
             size="lg"
             className="min-w-[200px] p-6"
           >

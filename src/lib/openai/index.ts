@@ -55,7 +55,7 @@ export const parseUserForm = async (form: DocumentData) => {
       {
         role: 'system',
         content:
-          'You are text parser. You will be given a file with CV \ Resume of Developer. You will need to parse the file and return the data according to the schema.',
+          'You are text parser. You will be given a file with CV \ Resume of Developer. You will need to parse the file and return the data according to the schema. Be very accurate and check yourself before you return the data',
       },
       { role: 'user', content: JSON.stringify(form) },
     ],
