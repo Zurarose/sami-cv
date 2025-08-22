@@ -55,10 +55,6 @@ export const cvTemplate = `<!DOCTYPE html>
             border: 1px solid #000;
             min-height: 52px;
 
-            &:last-child {
-                border-bottom: none;
-            }
-
             .left-border {
                 border-left: 1px solid #000;
             };
@@ -71,10 +67,13 @@ export const cvTemplate = `<!DOCTYPE html>
         .profile-row:not(:first-child) {
             border-top: none;
         }
+
+        .no-border-top {
+            border-top: none !important;
+        }
         
         .profile-label {
             background-color: #ccffff !important;
-            padding: 12px 8px;
             box-sizing: border-box;
             font-weight: bold;
             text-align: center;
@@ -84,6 +83,21 @@ export const cvTemplate = `<!DOCTYPE html>
             font-size: 9pt;
             width: 100px;
             min-width: 100px;
+            height: 100%;
+        }
+
+        .profile-label-small {
+            background-color: #ccffff !important;
+            box-sizing: border-box;
+            font-weight: bold;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8pt;
+            width: 50px;
+            min-width: 50px;
+            height: 100%;
         }
         
         .profile-value {
@@ -92,7 +106,7 @@ export const cvTemplate = `<!DOCTYPE html>
             display: flex;
             flex-direction: column;
             align-items: start;
-            font-size: 10pt;
+            font-size: 8pt;
             justify-content: center;
             text-align: center;
             white-space: pre-line;
@@ -105,7 +119,7 @@ export const cvTemplate = `<!DOCTYPE html>
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 10pt;
+            font-size: 8pt;
             text-align: start;
             white-space: pre-line;
         }
@@ -114,20 +128,6 @@ export const cvTemplate = `<!DOCTYPE html>
             font-size: 8pt;
         }
 
-        .profile-label-small {
-            background-color: #ccffff !important;
-            padding: 12px 8px;
-            box-sizing: border-box;
-            font-weight: bold;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 9pt;
-            width: 50px;
-            min-width: 50px;
-        }
-        
         .profile-photo {
             border: 1px solid #000;
             max-width: 100%;
@@ -170,7 +170,7 @@ export const cvTemplate = `<!DOCTYPE html>
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 9pt;
+            font-size: 8pt;
             width: 100px;
             min-width: 100px;
         }
@@ -178,7 +178,7 @@ export const cvTemplate = `<!DOCTYPE html>
         .skills-content {
             padding: 12px;
             line-height: 1.6;
-            font-size: 11pt;
+            font-size: 8pt;
         }
         
         .experience-section {
@@ -187,7 +187,7 @@ export const cvTemplate = `<!DOCTYPE html>
         .experience-header {
             background-color: #f0f0f0 !important;
             padding: 12px;
-            font-size: 9pt;
+            font-size: 8pt;
             border: 1px solid #000;
             text-align: left;
         }
@@ -195,7 +195,7 @@ export const cvTemplate = `<!DOCTYPE html>
         .experience-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 9pt;
+            font-size: 8pt;
         }
         
         .experience-table th,
@@ -204,6 +204,9 @@ export const cvTemplate = `<!DOCTYPE html>
             padding: 8px 0px;
             text-align: center;
             vertical-align: top;
+            /* Prevent page breaks within table cells */
+            page-break-inside: avoid;
+            break-inside: avoid;
 
             .border-bottom {
                 border-bottom: 1px solid #000 !important;
@@ -217,12 +220,35 @@ export const cvTemplate = `<!DOCTYPE html>
         .experience-table th {
             background-color: #ccffff !important;
             font-weight: bold;
-            font-size: 9pt;
+            font-size: 8pt;
+        }
+        
+        /* Ensure table rows don't break across pages */
+        .experience-table tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+            page-break-after: auto;
+            break-after: auto;
+            /* Additional properties for better page break control */
+            orphans: 1;
+            widows: 1;
+        }
+        
+        /* Prevent page breaks within the entire table */
+        .experience-table {
+            page-break-inside: auto;
+            break-inside: auto;
+        }
+        
+        /* Ensure project rows stay together */
+        .project-row {
+            page-break-inside: avoid;
+            break-inside: avoid;
         }
         
         .project-description {
             text-align: left;
-            font-size: 10pt;
+            font-size: 8pt;
             line-height: 1.4;
             padding: 12px;
             max-width: 300px;
@@ -235,7 +261,7 @@ export const cvTemplate = `<!DOCTYPE html>
         }
         
         .tech-stack {
-            font-size: 9pt;
+            font-size: 8pt;
             line-height: 1.3;
             text-align: left;
             padding: 8px;
@@ -249,22 +275,22 @@ export const cvTemplate = `<!DOCTYPE html>
         
         .position-row {
             background-color: #f9f9f9 !important;
-            font-size: 9pt;
+            font-size: 8pt;
         }
         
         .number-cell {
             font-weight: bold;
             background-color: #fff !important;
-            font-size: 10pt;
+            font-size: 8pt;
         }
         
         .industry-cell {
-            font-size: 10pt;
+            font-size: 8pt;
             background-color: #fff !important;
         }
         
         .os-cell, .lang-cell, .db-cell {
-            font-size: 9pt;
+            font-size: 8pt;
             line-height: 1.2;
             max-width: 80px;
         }
@@ -278,6 +304,26 @@ export const cvTemplate = `<!DOCTYPE html>
             .resume-container {
                 box-shadow: none;
                 padding: 20px;
+            }
+            
+            /* Enhanced page break control for printing */
+            .experience-table tr {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                orphans: 1;
+                widows: 1;
+            }
+            
+            .experience-table td,
+            .experience-table th {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            
+            /* Allow page breaks between rows but not within them */
+            .experience-table {
+                page-break-inside: auto;
+                break-inside: auto;
             }
         }
     </style>
@@ -318,7 +364,7 @@ export const cvTemplate = `<!DOCTYPE html>
         </div>
 
         <div class="skills-section">
-            <div class="skills-row">
+            <div class="skills-row no-border-top">
                 <div class="skills-label">スキル</div>
                 <div class="skills-content">
                     <strong>開発言語: </strong><span contenteditable="true">{{languages}}</span><br>

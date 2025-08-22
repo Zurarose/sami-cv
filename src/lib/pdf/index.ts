@@ -60,6 +60,14 @@ export const generateHTML = async (document: DocumentData) => {
     throw new Error('User form is null');
   }
 
+  for (const field in userForm) {
+    const value = userForm[field as keyof typeof userForm];
+    if (typeof value === 'string') {
+      userForm[field as keyof typeof userForm] = value.trim() as never;
+      console.log('value', value);
+    }
+  }
+
   const keys = {
     '{{applicantName}}': userForm.applicantName,
     '{{email}}': userForm.email || '-',
@@ -82,7 +90,7 @@ export const generateHTML = async (document: DocumentData) => {
         ? userForm.projects
             .map(
               (project, index) => `
-                <tr>
+                <tr class="project-row">
                   <td class="number-cell">${index + 1}</td>
                   <td class="industry-cell">
                       <p class="border-bottom additional-padding" contenteditable="true">${project.industry}</p>
@@ -138,6 +146,7 @@ export const generatePDF = async (html: string) => {
       preferCSSPageSize: true,
       scale: 1,
       width: 1920,
+      outline: true,
       margin: {
         top: '0px',
         bottom: '0px',
