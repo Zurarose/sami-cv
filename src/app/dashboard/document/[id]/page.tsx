@@ -386,13 +386,13 @@ export default async function Document({ params }: { params: Params }) {
                             {edu.degree}
                           </h3>
                           <p className="font-semibold text-green-600">
-                            {edu.schoolName}
+                            {edu.schoolName}. {edu.fieldOfStudy}
                           </p>
                         </div>
                         <div className="flex items-center gap-1 text-sm text-muted-foreground bg-slate-50 px-3 py-1 rounded-full">
                           <Calendar className="h-4 w-4" />
                           <span>
-                            {edu.startDate} - {edu.endDate}
+                            {edu.startDate} - {edu.endDate || 'Present'}
                           </span>
                         </div>
                       </div>

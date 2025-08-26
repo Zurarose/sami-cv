@@ -24,7 +24,7 @@ export const parseCVDocument = async (formData: FormData) => {
     console.log(text);
 
     const response = await openai.responses.parse({
-      model: 'gpt-4o-2024-08-06',
+      model: 'gpt-5-mini',
       input: [
         {
           role: 'system',
@@ -50,12 +50,12 @@ export const parseCVDocument = async (formData: FormData) => {
 
 export const parseUserForm = async (form: DocumentData) => {
   const response = await openai.responses.parse({
-    model: 'gpt-4o-2024-08-06',
+    model: 'gpt-5-mini',
     input: [
       {
         role: 'system',
         content:
-          'You are text parser. You will be given a file with CV \ Resume of Developer. You will need to parse the file and return the data according to the schema. Be very accurate and check yourself before you return the data',
+          'You are text parser. You will be given a JSON object with CV \ Resume of Developer. You will need to parse the file and return the data according to the schema. Be very accurate and check yourself before you return the data',
       },
       { role: 'user', content: JSON.stringify(form) },
     ],

@@ -113,6 +113,7 @@ export function DocumentForm({ initialData, documentId }: DocumentFormProps) {
       degree: '',
       startDate: '',
       endDate: '',
+      fieldOfStudy: '',
     });
   };
 

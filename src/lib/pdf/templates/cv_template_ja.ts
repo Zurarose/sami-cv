@@ -80,7 +80,7 @@ export const cvTemplate = `<!DOCTYPE html>
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 9pt;
+            font-size: 7pt;
             width: 100px;
             min-width: 100px;
             height: 100%;
@@ -94,7 +94,7 @@ export const cvTemplate = `<!DOCTYPE html>
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 8pt;
+            font-size: 7pt;
             width: 50px;
             min-width: 50px;
             height: 100%;
@@ -106,7 +106,7 @@ export const cvTemplate = `<!DOCTYPE html>
             display: flex;
             flex-direction: column;
             align-items: start;
-            font-size: 8pt;
+            font-size: 7pt;
             justify-content: center;
             text-align: center;
             white-space: pre-line;
@@ -119,13 +119,13 @@ export const cvTemplate = `<!DOCTYPE html>
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 8pt;
+            font-size: 7pt;
             text-align: start;
             white-space: pre-line;
         }
 
         .font-small-value {
-            font-size: 8pt;
+            font-size: 7pt;
         }
 
         .profile-photo {
@@ -170,7 +170,7 @@ export const cvTemplate = `<!DOCTYPE html>
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 8pt;
+            font-size: 7pt;
             width: 100px;
             min-width: 100px;
         }
@@ -178,7 +178,7 @@ export const cvTemplate = `<!DOCTYPE html>
         .skills-content {
             padding: 12px;
             line-height: 1.6;
-            font-size: 8pt;
+            font-size: 7pt;
         }
         
         .experience-section {
@@ -187,7 +187,7 @@ export const cvTemplate = `<!DOCTYPE html>
         .experience-header {
             background-color: #f0f0f0 !important;
             padding: 12px;
-            font-size: 8pt;
+            font-size: 7pt;
             border: 1px solid #000;
             text-align: left;
         }
@@ -195,7 +195,7 @@ export const cvTemplate = `<!DOCTYPE html>
         .experience-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 8pt;
+            font-size: 7pt;
         }
         
         .experience-table th,
@@ -220,7 +220,7 @@ export const cvTemplate = `<!DOCTYPE html>
         .experience-table th {
             background-color: #ccffff !important;
             font-weight: bold;
-            font-size: 8pt;
+            font-size: 7pt;
         }
         
         /* Ensure table rows don't break across pages */
@@ -248,7 +248,7 @@ export const cvTemplate = `<!DOCTYPE html>
         
         .project-description {
             text-align: left;
-            font-size: 8pt;
+            font-size: 7pt;
             line-height: 1.4;
             padding: 12px;
             max-width: 300px;
@@ -261,36 +261,36 @@ export const cvTemplate = `<!DOCTYPE html>
         }
         
         .tech-stack {
-            font-size: 8pt;
+            font-size: 7pt;
             line-height: 1.3;
             text-align: left;
             padding: 8px;
         }
         
         .period-cell {
-            font-size: 8pt;
+            font-size: 7pt;
             font-weight: bold;
             white-space: nowrap;
         }
         
         .position-row {
             background-color: #f9f9f9 !important;
-            font-size: 8pt;
+            font-size: 7pt;
         }
         
         .number-cell {
             font-weight: bold;
             background-color: #fff !important;
-            font-size: 8pt;
+            font-size: 7pt;
         }
         
         .industry-cell {
-            font-size: 8pt;
+            font-size: 7pt;
             background-color: #fff !important;
         }
         
         .os-cell, .lang-cell, .db-cell {
-            font-size: 8pt;
+            font-size: 7pt;
             line-height: 1.2;
             max-width: 80px;
         }

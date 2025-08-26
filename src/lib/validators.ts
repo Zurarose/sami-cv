@@ -53,8 +53,9 @@ export const userFormSchema = z.object({
           .min(1, 'School name is required')
           .max(MAX_NAME_LENGTH, 'School name must be less than 100 characters'),
         degree: z.string().min(1, 'Degree is required'),
+        fieldOfStudy: z.string().min(1, 'Field of study is required'),
         startDate: z.string().min(1, 'Start date is required'),
-        endDate: z.string().min(1, 'End date is required'),
+        endDate: z.string().optional(),
       })
     )
     .min(1, 'Education is required'),
@@ -71,9 +72,9 @@ export const userFormSchema = z.object({
         description: z.string().min(1, 'Description is required'),
         position: z.string().min(1, 'Position is required'),
         startDate: z.string().min(1, 'Start date is required'),
-        endDate: z.string().min(1, 'End date is required'),
-        skills: z.array(z.string()),
-        operationSystem: z.string().optional(),
+        endDate: z.string().optional(),
+        skills: z.array(z.string().min(1, 'Skills are required')),
+        operationSystem: z.string(),
         database: z.string().optional(),
         responsibilities: z
           .array(z.string())
@@ -141,11 +142,13 @@ export const pdfUserFormSchema = z.object({
   applicantName: z
     .string()
     .describe(
-      'The name of the applicant. First row is fullname translated to Katakana. Next line is fullname in English. Example: オレフ マナブ\\n(Oreh Manaub) !important!. Be very accurate and check yourself before you return the data.'
+      'The name of the applicant. First row is fullname translated to Katakana. Next line is fullname in English. Example: オレフ マナブ\\n(Oreh Manaub).'
     ),
   currentAge: z
     .string()
-    .describe('The current age of the applicant, should be 2 nubmers only'),
+    .describe(
+      'The current age of the applicant, should be 2 nubmers only, so if user born in 1990, return 29'
+    ),
   email: z.string().describe('The email of the applicant'),
   phone: z.string().describe('The phone of the applicant'),
   // website: z.string().url('Invalid website URL').nullable(),
@@ -178,11 +181,13 @@ export const pdfUserFormSchema = z.object({
     .describe('The years of experience of the applicant'),
   whenReadyToWork: z
     .string()
-    .describe('The when ready to work of the applicant. Translate to Japanese'),
+    .describe(
+      'The when ready to work of the applicant. If its "Immediately" then should be "オファーを受けて2週間後から就労可能", if not, then should be オファーを受けて{DAYS}後から就労可能 Translate to Japanese'
+    ),
   education: z
     .string()
     .describe(
-      'The highest education of the applicant. Only degree (Bachelor, Master, Doctor) Translate to Japanese'
+      'The highest education of the applicant. Only degree (Bachelor, Master, Doctor) and field of study. Example: Bachelor of Science in Computer Science. Translate to Japanese'
     ),
   projects: z
     .array(
@@ -198,16 +203,24 @@ export const pdfUserFormSchema = z.object({
         description: z
           .string()
           .describe(
-            'The description of the project. Translate to Japanese if possible'
+            'The description of the project. Translate to Japanese. Do not shorten it, full translate it.'
           ),
         position: z
           .string()
           .describe(
-            'The position of the project. Translate to Japanese. Important!'
+            'The position of the project. Translate to Japanese. Do not shorten it, full translate it.'
           ),
         startDate: z.string().describe('The start date of the project'),
-        period: z.string().describe('The period of the project in months'),
-        endDate: z.string().describe('The end date of the project'),
+        period: z
+          .string()
+          .describe(
+            'The period of the project in years + months. Example: 1 year 3 months. Translate to Japanese! Important!'
+          ),
+        endDate: z
+          .string()
+          .describe(
+            'The end date of the project. If there is no date, then should be "現在まで"'
+          ),
         languages: z
           .array(z.string())
           .describe(
@@ -215,17 +228,15 @@ export const pdfUserFormSchema = z.object({
           ),
         skills: z
           .array(z.string())
-          .describe('Skills of the project (not programming languages )')
-          .nullable(),
+          .describe('Skills of the project (not programming languages )'),
         operationSystem: z
           .string()
-          .describe('The operation system of the project')
-          .nullable(),
+          .describe('The operation system of the project'),
         database: z.string().describe('The database of the project').nullable(),
         responsibilities: z
           .array(z.string())
           .describe(
-            'The numbers (use only numbers!) of responsibilities of the project according to this list: (Responsibilities: １：Requirements definition、２：Basic logic design、３：Detailed (code structure and physical) design、４：Programming and Unit testing、５：Integration testing, ６：Maintenance、７：Operation、８：Other)'
+            'The numbers (use only numbers!) of responsibilities of the project according to this list: (Responsibilities: １：Requirements definition、２：Basic logic design、３：Detailed (code structure and physical) design、４：Programming and Unit testing、５：Integration testing, ６：Maintenance、７：Operation、８：Other). Example 1,4,5,6'
           )
           .nullable(),
       })

@@ -126,6 +126,20 @@ export function EducationInfo({
                   </FormItem>
                 )}
               />
+
+              <FormField
+                control={form.control}
+                name={`education.${index}.fieldOfStudy`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Field of Study</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Computer Science" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
           </div>
         ))}
