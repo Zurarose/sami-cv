@@ -253,6 +253,7 @@ export const cvTemplate = `<!DOCTYPE html>
             padding: 12px;
             max-width: 300px;
             white-space: pre-line;
+            color: black;
         }
         
         .project-title {
@@ -299,6 +300,11 @@ export const cvTemplate = `<!DOCTYPE html>
             line-height: 1.2;
             max-width: 80px;
             vertical-align: middle;
+        }
+
+        .full-padding {
+            padding-top: 50% !important;
+            padding-bottom: 50% !important;
         }
         
         @media print {
