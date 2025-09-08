@@ -214,7 +214,7 @@ export const pdfUserFormSchema = z.object({
         period: z
           .string()
           .describe(
-            'The period of the project in years + months. Example: 1 year 3 months. Translate to Japanese! Important!'
+            'The period of the project in years + months. Example: 1 year 3 months (if there is no months, then should be 1 year) / 1 year / 3 months. Translate to Japanese! Important!'
           ),
         endDate: z
           .string()

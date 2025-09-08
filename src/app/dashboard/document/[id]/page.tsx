@@ -289,7 +289,7 @@ export default async function Document({ params }: { params: Params }) {
                         </div>
                       </div>
 
-                      <p className="text-sm text-slate-600 leading-relaxed mb-4">
+                      <p className="text-sm text-slate-600 leading-relaxed mb-4 whitespace-pre-wrap">
                         {project.description}
                       </p>
 

@@ -203,7 +203,7 @@ export const cvTemplate = `<!DOCTYPE html>
             border: 1px solid #000;
             padding: 8px 0px;
             text-align: center;
-            vertical-align: top;
+            vertical-align: middle;
             /* Prevent page breaks within table cells */
             page-break-inside: avoid;
             break-inside: avoid;
@@ -252,12 +252,15 @@ export const cvTemplate = `<!DOCTYPE html>
             line-height: 1.4;
             padding: 12px;
             max-width: 300px;
+            white-space: pre-line;
         }
         
         .project-title {
             font-weight: bold;
             margin-bottom: 8px;
             color: #333;
+            text-align: start;
+            padding-left: 10px;
         }
         
         .tech-stack {
@@ -282,17 +285,20 @@ export const cvTemplate = `<!DOCTYPE html>
             font-weight: bold;
             background-color: #fff !important;
             font-size: 7pt;
+            vertical-align: middle;
         }
         
         .industry-cell {
             font-size: 7pt;
             background-color: #fff !important;
+            vertical-align: middle;
         }
         
         .os-cell, .lang-cell, .db-cell {
             font-size: 7pt;
             line-height: 1.2;
             max-width: 80px;
+            vertical-align: middle;
         }
         
         @media print {
