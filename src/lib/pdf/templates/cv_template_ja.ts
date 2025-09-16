@@ -426,7 +426,7 @@ export const cvTemplate = `<!DOCTYPE html>
                 </div>
                 <div class="profile-row auto-height">
                     <div class="profile-label right-border">資格等</div>
-                    <div class="profile-value no-padding text-start" contenteditable="true">
+                    <div class="profile-value text-start" contenteditable="true">
                         {{certificates}}
                     </div>
                 </div>
