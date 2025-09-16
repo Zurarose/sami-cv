@@ -93,9 +93,15 @@ export const generateHTML = async (document: DocumentData) => {
                 <tr class="project-row">
                   <td class="number-cell">${index + 1}</td>
                   <td class="industry-cell">
-                      <p class="border-bottom additional-padding full-padding" contenteditable="true">${project.industry}</p>
-                      <p class="border-bottom additional-padding full-padding" contenteditable="true">${project.position}</p>
-                      <p class="additional-padding full-padding" contenteditable="true">${project.responsibilities?.join(',') || '-'}</p>
+                    <div class="border-bottom additional-padding">
+                      <p contenteditable="true">${project.industry}</p>
+                    </div>
+                    <div class="border-bottom additional-padding">
+                      <p contenteditable="true">${project.position}</p>
+                    </div>
+                    <div class="additional-padding">
+                      <p contenteditable="true">${project.responsibilities?.join(',') || '-'}</p>
+                    </div>
                   </td>
                   <td class="project-description">
                       <div class="project-title" contenteditable="true">[${project.projectName}]</div>
@@ -105,9 +111,9 @@ export const generateHTML = async (document: DocumentData) => {
                   <td class="lang-cell" contenteditable="true">${project.languages?.join(',\n') || '-'}</td>
                   <td class="db-cell" contenteditable="true">${project.database || '-'}</td>
                   <td class="period-cell">
-                      <p class="border-bottom additional-padding full-padding" contenteditable="true">${project.startDate}</p>
-                      <p class="border-bottom additional-padding full-padding" contenteditable="true">${project.endDate}</p>
-                      <p class="additional-padding full-padding" contenteditable="true">${project.period}</p>
+                      <p class="border-bottom additional-padding" contenteditable="true">${project.startDate}</p>
+                      <p class="border-bottom additional-padding" contenteditable="true">${project.endDate}</p>
+                      <p class="additional-padding" contenteditable="true">${project.period}</p>
                   </td>
                   <td class="tech-stack" contenteditable="true">${project.skills?.join(',\n') || '-'}</td>
                 </tr>

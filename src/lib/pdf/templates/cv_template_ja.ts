@@ -10,6 +10,7 @@ export const cvTemplate = `<!DOCTYPE html>
     <style>
         * {
             box-sizing: border-box;
+            color: black !important;
         }
         
         body {
@@ -46,6 +47,10 @@ export const cvTemplate = `<!DOCTYPE html>
         .profile-info {
             display: flex;
             flex-direction: column;
+        }
+
+        .no-padding {
+            padding: 0 !important;
         }
         
         .profile-row {
@@ -180,6 +185,41 @@ export const cvTemplate = `<!DOCTYPE html>
             line-height: 1.6;
             font-size: 7pt;
         }
+
+        /* Hide empty skill lines by making them invisible */
+        .skills-content span[contenteditable]:empty {
+            display: none;
+        }
+        .skills-content span[contenteditable]:empty + br {
+            display: none;
+        }
+        .skills-content strong:has(+ span[contenteditable]:empty) {
+            display: none;
+        }
+
+        /* Show all skill labels when skills-content is focused or has focus within */
+        .skills-content:focus,
+        .skills-content:focus-within {
+            color: inherit;
+        }
+        .skills-content:focus span[contenteditable]:empty,
+        .skills-content:focus-within span[contenteditable]:empty {
+            display: inline;
+            opacity: 0.5;
+        }
+        .skills-content:focus span[contenteditable]:empty + br,
+        .skills-content:focus-within span[contenteditable]:empty + br {
+            display: block;
+        }
+        .skills-content:focus strong:has(+ span[contenteditable]:empty),
+        .skills-content:focus-within strong:has(+ span[contenteditable]:empty) {
+            display: inline;
+        }
+
+        /* Hide skills row if all skill spans are empty */
+        .skills-row:has(.skills-content:not(:has(span[contenteditable]:not(:empty)))) {
+            display: none;
+        }
         
         .experience-section {
         }
@@ -214,6 +254,8 @@ export const cvTemplate = `<!DOCTYPE html>
 
             .additional-padding {
                 padding: 15px 0px;
+                padding-top: 50% !important;
+                padding-bottom: 50% !important;
             }
         }
         
@@ -244,6 +286,7 @@ export const cvTemplate = `<!DOCTYPE html>
         .project-row {
             page-break-inside: avoid;
             break-inside: avoid;
+            border: 1px solid #000;
         }
         
         .project-description {
@@ -253,7 +296,6 @@ export const cvTemplate = `<!DOCTYPE html>
             padding: 12px;
             max-width: 300px;
             white-space: pre-line;
-            color: black;
         }
         
         .project-title {
@@ -269,6 +311,10 @@ export const cvTemplate = `<!DOCTYPE html>
             line-height: 1.3;
             text-align: left;
             padding: 8px;
+        }
+
+        .auto-height {
+            min-height: auto !important;
         }
         
         .period-cell {
@@ -293,6 +339,21 @@ export const cvTemplate = `<!DOCTYPE html>
             font-size: 7pt;
             background-color: #fff !important;
             vertical-align: middle;
+            padding: 0 !important;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            table-layout: fixed;
+            border: 0 !important;
+        }
+
+        .industry-cell > div {
+            width: 100%;
+            text-align: center;
+            vertical-align: middle;
+            padding: 0px;
+            box-sizing: border-box;
         }
         
         .os-cell, .lang-cell, .db-cell {
@@ -302,10 +363,10 @@ export const cvTemplate = `<!DOCTYPE html>
             vertical-align: middle;
         }
 
-        .full-padding {
-            padding-top: 50% !important;
-            padding-bottom: 50% !important;
+        .text-start {
+            text-align: start !important;
         }
+
         
         @media print {
             body {
@@ -363,9 +424,9 @@ export const cvTemplate = `<!DOCTYPE html>
                     <div class="profile-label left-border right-border">就業可能日</div>
                     <div class="profile-value" contenteditable="true">{{whenReadyToWork}}</div>
                 </div>
-                <div class="profile-row">
+                <div class="profile-row auto-height">
                     <div class="profile-label right-border">資格等</div>
-                    <div class="profile-value" contenteditable="true">
+                    <div class="profile-value no-padding text-start" contenteditable="true">
                         {{certificates}}
                     </div>
                 </div>
@@ -378,7 +439,7 @@ export const cvTemplate = `<!DOCTYPE html>
         <div class="skills-section">
             <div class="skills-row no-border-top">
                 <div class="skills-label">スキル</div>
-                <div class="skills-content">
+                <div class="skills-content" tabindex="0">
                     <strong>開発言語: </strong><span contenteditable="true">{{languages}}</span><br>
                     <strong>フレームワーク・ライブラリ: </strong><span contenteditable="true">{{frameworks}}</span><br>
                     <strong>データベース: </strong><span contenteditable="true">{{databases}}</span><br>
