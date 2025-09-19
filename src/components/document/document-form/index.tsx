@@ -119,6 +119,7 @@ export function DocumentForm({ initialData, documentId }: DocumentFormProps) {
 
   const addProject = () => {
     projectFields.append({
+      companyName: '',
       projectName: '',
       description: '',
       startDate: '',

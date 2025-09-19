@@ -104,7 +104,7 @@ export const generateHTML = async (document: DocumentData) => {
                     </div>
                   </td>
                   <td class="project-description">
-                      <div class="project-title" contenteditable="true">[${project.projectName}]</div>
+                      <div class="project-title" contenteditable="true">[${project.companyName}] ${project.projectName}</div>
                       <div class="project-description" contenteditable="true">${project.description}</div>
                   </td>
                   <td class="os-cell" contenteditable="true">${project.operationSystem || '-'}</td>

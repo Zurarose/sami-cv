@@ -62,6 +62,7 @@ export const userFormSchema = z.object({
   projects: z
     .array(
       z.object({
+        companyName: z.string().min(1, 'Company name is required'),
         projectName: z
           .string()
           .min(1, 'Project name is required')
@@ -192,6 +193,9 @@ export const pdfUserFormSchema = z.object({
   projects: z
     .array(
       z.object({
+        companyName: z
+          .string()
+          .describe('The name of the company. Do not translate it. Important!'),
         industry: z
           .string()
           .describe(
@@ -199,7 +203,9 @@ export const pdfUserFormSchema = z.object({
           ),
         projectName: z
           .string()
-          .describe('The name of the project. Do not translate it. Important!'),
+          .describe(
+            'The name of the project. Translate to Japanese. Do not shorten it, full translate it!'
+          ),
         description: z
           .string()
           .describe(

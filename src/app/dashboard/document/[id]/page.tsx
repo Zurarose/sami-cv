@@ -275,7 +275,7 @@ export default async function Document({ params }: { params: Params }) {
                       <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-3 mb-3">
                         <div>
                           <h3 className="font-bold text-lg text-slate-900">
-                            {project.projectName}
+                            [{project.companyName}] {project.projectName}
                           </h3>
                           <p className="font-semibold text-purple-600 mb-1">
                             {project.position}
