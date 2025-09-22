@@ -183,7 +183,7 @@ export const pdfUserFormSchema = z.object({
   whenReadyToWork: z
     .string()
     .describe(
-      'The when ready to work of the applicant. If its "Immediately" then should be "オファーを受けて2週間後から就労可能", if not, then should be オファーを受けて{DAYS}後から就労可能 Translate to Japanese'
+      'The when ready to work of the applicant. If its less then 14 days, then should be "オファーを受けてから2週間後にスタート可能", if not, then should be オファーを受けてから{{days}}週間後にスタート可能! Important!'
     ),
   education: z
     .string()
@@ -192,60 +192,73 @@ export const pdfUserFormSchema = z.object({
     ),
   projects: z
     .array(
-      z.object({
-        companyName: z
-          .string()
-          .describe('The name of the company. Do not translate it. Important!'),
-        industry: z
-          .string()
-          .describe(
-            'The industry of the project based of project. For example: Web Development, Mobile Development, Backend Development, etc. Translate to Japanese. Important!'
-          ),
-        projectName: z
-          .string()
-          .describe(
-            'The name of the project. Translate to Japanese. Do not shorten it, full translate it!'
-          ),
-        description: z
-          .string()
-          .describe(
-            'The description of the project. Translate to Japanese. Do not shorten it, full translate it.'
-          ),
-        position: z
-          .string()
-          .describe(
-            'The position of the project. Translate to Japanese. Do not shorten it, full translate it.'
-          ),
-        startDate: z.string().describe('The start date of the project'),
-        period: z
-          .string()
-          .describe(
-            'The period of the project in years + months. Example: 1 year 3 months (if there is no months, then should be 1 year) / 1 year / 3 months. Translate to Japanese! Important!'
-          ),
-        endDate: z
-          .string()
-          .describe(
-            'The end date of the project. If there is no date, then should be "現在まで"'
-          ),
-        languages: z
-          .array(z.string())
-          .describe(
-            'The programming languages of the project (not libs or frameworks)'
-          ),
-        skills: z
-          .array(z.string())
-          .describe('Skills of the project (not programming languages )'),
-        operationSystem: z
-          .string()
-          .describe('The operation system of the project'),
-        database: z.string().describe('The database of the project').nullable(),
-        responsibilities: z
-          .array(z.string())
-          .describe(
-            'The numbers (use only numbers!) of responsibilities of the project according to this list: (Responsibilities: １：Requirements definition、２：Basic logic design、３：Detailed (code structure and physical) design、４：Programming and Unit testing、５：Integration testing, ６：Maintenance、７：Operation、８：Other). Example 1,4,5,6'
-          )
-          .nullable(),
-      })
+      z
+        .object({
+          companyName: z
+            .string()
+            .describe(
+              'The name of the company. Do not translate it. Important!'
+            ),
+          industry: z
+            .string()
+            .describe(
+              'The industry of the project based of project. For example: Web Development, Mobile Development, Backend Development, etc. Translate to Japanese. Important!'
+            ),
+          projectName: z
+            .string()
+            .describe(
+              'The name of the project. Translate to Japanese. Do not shorten it, full translate it!'
+            ),
+          description: z
+            .string()
+            .describe(
+              'The description of the project. Translate to Japanese. Do not shorten it, full translate it.'
+            ),
+          position: z
+            .string()
+            .describe(
+              'The position of the project. Translate to Japanese. Do not shorten it, full translate it.'
+            ),
+          startDate: z
+            .string()
+            .describe(
+              'The start date of the project. Should be in format (2021年1月, 2021年5月) . Important!'
+            ),
+          period: z
+            .string()
+            .describe(
+              'The period of the project in years + months. Example: 1 year 3 months (if there is no months, then should be 1 year) / 1 year / 3 months. Translate to Japanese! Important!'
+            ),
+          endDate: z
+            .string()
+            .describe(
+              'The end date of the project. Should be in format (2021年1月, 2021年5月). If there is no date, then should be "現在まで. Important!'
+            ),
+          languages: z
+            .array(z.string())
+            .describe(
+              'The programming languages of the project (not libs or frameworks)'
+            ),
+          skills: z
+            .array(z.string())
+            .describe('Skills of the project (not programming languages )'),
+          operationSystem: z
+            .string()
+            .describe('The operation system of the project'),
+          database: z
+            .string()
+            .describe('The database of the project')
+            .nullable(),
+          responsibilities: z
+            .array(z.string())
+            .describe(
+              'The numbers (use only numbers!) of responsibilities of the project according to this list: (Responsibilities: １：Requirements definition、２：Basic logic design、３：Detailed (code structure and physical) design、４：Programming and Unit testing、５：Integration testing, ６：Maintenance、７：Operation、８：Other). Example 1,4,5,6'
+            )
+            .nullable(),
+        })
+        .describe(
+          'The projects of the applicant. Sort them by the date, sho newest first! Important!'
+        )
     )
     .nullable(),
 });
