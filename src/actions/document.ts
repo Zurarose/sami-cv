@@ -18,6 +18,9 @@ export const getDocuments = async (folderId: string) => {
     where: {
       folderId,
     },
+    omit: {
+      data: true,
+    },
   });
   return documents;
 };
