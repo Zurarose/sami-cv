@@ -13,7 +13,8 @@ export default async function Folder({ params }: { params: Params }) {
   const documentsWithEditLink = await Promise.all(
     documents.map(async document => ({
       ...document,
-      editLink: await generateDocumentEditLink(document),
+      data: {},
+      editLink: await generateDocumentEditLink({ ...document, data: {} }),
     }))
   );
 
