@@ -143,7 +143,7 @@ export const pdfUserFormSchema = z.object({
   applicantName: z
     .string()
     .describe(
-      'The name of the applicant. First row is fullname translated to Katakana. Next line is fullname in English. Example: オレフ マナブ\\n(Oreh Manaub).'
+      'The name of the applicant. First row is fullname translated to Katakana. Next line is fullname in English. Name first, then ・ (dot) and then surname. Example: オレフ・マナブ\\n(Oreh Manaub) or せいじ・かずお\\n(Seiji Kazuo)'
     ),
   currentAge: z
     .string()
@@ -153,7 +153,9 @@ export const pdfUserFormSchema = z.object({
   email: z.string().describe('The email of the applicant'),
   phone: z.string().describe('The phone of the applicant'),
   // website: z.string().url('Invalid website URL').nullable(),
-  country: z.string().describe('The country of the applicant'),
+  country: z
+    .string()
+    .describe('The country of the applicant. Translate to Japanese!'),
   certificates: z
     .string()
     .describe('The certificates of the applicant. Translate to Japanese')
@@ -183,12 +185,12 @@ export const pdfUserFormSchema = z.object({
   whenReadyToWork: z
     .string()
     .describe(
-      'The when ready to work of the applicant. If its less then 14 days, then should be "オファーを受けてから2週間後にスタート可能", if not, then should be オファーを受けてから{{days}}週間後にスタート可能! Important!'
+      'The when ready to work of the applicant. If its less then 14 days, then should be "オファーを受けてから2週間後にスタート可能", if not, then should be オファーを受けてから{{days}}週間後にスタート可能! '
     ),
   education: z
     .string()
     .describe(
-      'The highest education of the applicant. Only degree (Bachelor, Master, Doctor) and field of study. Example: Bachelor of Science in Computer Science. Translate to Japanese'
+      'The highest education of the applicant. Only degree (Bachelor, Master, Doctor) and field of study. Example: [Bachelor] Computer Science. Translate to Japanese'
     ),
   projects: z
     .array(
@@ -196,19 +198,15 @@ export const pdfUserFormSchema = z.object({
         .object({
           companyName: z
             .string()
-            .describe(
-              'The name of the company. Do not translate it. Important!'
-            ),
+            .describe('The name of the company. Do not translate it.'),
           industry: z
             .string()
             .describe(
-              'The industry of the project based of project. For example: Web Development, Mobile Development, Backend Development, etc. Translate to Japanese. Important!'
+              'The industry of the project based of project. For example: Web Development, Mobile Development, Backend Development, etc. Translate to Japanese. '
             ),
           projectName: z
             .string()
-            .describe(
-              'The name of the project. Translate to Japanese. Do not shorten it, full translate it!'
-            ),
+            .describe('The name of the project. Translate to Japanese'),
           description: z
             .string()
             .describe(
@@ -222,17 +220,17 @@ export const pdfUserFormSchema = z.object({
           startDate: z
             .string()
             .describe(
-              'The start date of the project. Should be in format (2021年1月, 2021年5月) . Important!'
+              'The start date of the project. Should be in format (2021年1月, 2021年5月) . '
             ),
           period: z
             .string()
             .describe(
-              'The period of the project in years + months. Example: 1 year 3 months (if there is no months, then should be 1 year) / 1 year / 3 months. Translate to Japanese! Important!'
+              'The period of the project in years + months. Example: 1 year 3 months (if there is no months, then should be 1 year) / 1 year / 3 months. Translate to Japanese! '
             ),
           endDate: z
             .string()
             .describe(
-              'The end date of the project. Should be in format (2021年1月, 2021年5月). If there is no date, then should be "現在まで. Important!'
+              'The end date of the project. Should be in format (2021年1月, 2021年5月). If there is no date, then should be "現在まで. '
             ),
           languages: z
             .array(z.string())
@@ -257,7 +255,7 @@ export const pdfUserFormSchema = z.object({
             .nullable(),
         })
         .describe(
-          'The projects of the applicant. Sort them by the date, sho newest first! Important!'
+          'The projects of the applicant. Sort them by the date, sho newest first! '
         )
     )
     .nullable(),

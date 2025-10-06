@@ -8,6 +8,7 @@ import {
   User,
   Menu,
   ChevronRight,
+  Brain,
 } from 'lucide-react';
 import {
   Sidebar,
@@ -38,6 +39,11 @@ const menuItems = [
     title: 'Documents',
     icon: FileText,
     url: '/dashboard',
+  },
+  {
+    title: 'OPEN AI Instructions',
+    icon: Brain,
+    url: '/dashboard/instactions',
   },
 ];
 

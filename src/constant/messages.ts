@@ -7,6 +7,7 @@ export const ERROR_MESSAGES = {
   FailedToUploadFiles: 'Failed to upload files',
   FailedToGeneratePdf: 'Failed to generate PDF',
   FailedToGenerateHtml: 'Failed to generate HTML',
+  FailedToSaveInstruction: 'Failed to save instruction',
   CredentialsSignin: 'Invalid credentials',
 };
 
@@ -19,4 +20,5 @@ export const SUCCESS_MESSAGES = {
   FilesUploaded: 'Files uploaded successfully!',
   PdfGenerated: 'PDF generated successfully!',
   HtmlGenerated: 'HTML generated successfully!',
+  InstructionSaved: 'AI instruction saved successfully!',
 };

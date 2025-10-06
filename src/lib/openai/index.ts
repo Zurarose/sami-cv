@@ -6,6 +6,7 @@ import pdf from 'pdf-parse';
 import { createDocument } from '../../actions/document';
 import { Document, pdfUserFormSchema } from '../validators';
 import { DocumentData } from '@/types/document';
+import { getInstruction } from '@/actions/instraction';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -49,13 +50,18 @@ export const parseCVDocument = async (formData: FormData) => {
 };
 
 export const parseUserForm = async (form: DocumentData) => {
+  const instruction = await getInstruction();
+
   const response = await openai.responses.parse({
     model: 'gpt-5-mini',
     input: [
       {
         role: 'system',
         content:
-          'You are text parser. You will be given a JSON object with CV \ Resume of Developer. You will need to parse the file and return the data according to the schema. Be very accurate and check yourself before you return the data',
+          'You are text parser. You will be given a JSON object with CV \ Resume of Developer. You will need to parse the file and return the data according to the schema. Be very accurate and check yourself before you return the data.' +
+          instruction?.content
+            ? `Add instructions. This instuctions are the most important for the parser. Follow them strictly: ${instruction?.content}`
+            : '',
       },
       { role: 'user', content: JSON.stringify(form) },
     ],
