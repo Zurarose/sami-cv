@@ -85,8 +85,7 @@ export const GeneratePdfButton = ({
 
       const pdf = await generatePDF(html);
       if (!pdf) throw new Error('Failed to generate PDF');
-      //@ts-expect-error Buffer is not assignable to BlobPart
-      const file = new Blob([pdf], { type: 'application/pdf' });
+      const file = new Blob([Buffer.from(pdf)], { type: 'application/pdf' });
       const url = URL.createObjectURL(file);
 
       handleClose();

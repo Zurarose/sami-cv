@@ -250,7 +250,7 @@ export const pdfUserFormSchema = z.object({
           responsibilities: z
             .array(z.string())
             .describe(
-              'The numbers (use only numbers!) of responsibilities of the project according to this list: (Responsibilities: １：Requirements definition、２：Basic logic design、３：Detailed (code structure and physical) design、４：Programming and Unit testing、５：Integration testing, ６：Maintenance、７：Operation、８：Other). Example 1,4,5,6'
+              'The numbers (use only numbers!) of responsibilities of the project according to this list: (Responsibilities: １：Requirements definition、２：Basic logic design、３：Detailed (code structure and physical) design、４：Programming and Unit testing、５：Integration testing, ６：Maintenance、７：Operation、８：Other). Sort nubmers from lowest to highest. Example 1,4,5,6'
             )
             .nullable(),
         })
