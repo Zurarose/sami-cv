@@ -190,7 +190,7 @@ export const pdfUserFormSchema = z.object({
   education: z
     .string()
     .describe(
-      'The highest education of the applicant. Only degree (Bachelor, Master, Doctor) and field of study. Example: [Bachelor] Computer Science. Translate to Japanese'
+      'The highest education of the applicant. Only degree (Bachelor, Master, Doctor) and field of study. Example: [Bachelor] Computer Science. Translate both degree and field of study to Japanese'
     ),
   projects: z
     .array(
@@ -235,11 +235,13 @@ export const pdfUserFormSchema = z.object({
           languages: z
             .array(z.string())
             .describe(
-              'The programming languages of the project (not libs or frameworks)'
+              'The programming languages of the project (not libs or frameworks, but programming languages)'
             ),
           skills: z
             .array(z.string())
-            .describe('Skills of the project (not programming languages )'),
+            .describe(
+              'Skills of the project (not programming languages, but libs and frameworks)'
+            ),
           operationSystem: z
             .string()
             .describe('The operation system of the project'),
@@ -255,7 +257,7 @@ export const pdfUserFormSchema = z.object({
             .nullable(),
         })
         .describe(
-          'The projects of the applicant. Sort them by the date, sho newest first! '
+          'The projects of the applicant. Sort them by the date, show newest first! '
         )
     )
     .nullable(),

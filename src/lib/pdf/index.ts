@@ -63,8 +63,15 @@ export const generateHTML = async (document: DocumentData) => {
   for (const field in userForm) {
     const value = userForm[field as keyof typeof userForm];
     if (typeof value === 'string') {
-      userForm[field as keyof typeof userForm] = value.trim() as never;
-      console.log('value', value);
+      // Trim and normalize spaces
+      let cleanedValue = value.trim();
+
+      // For applicantName, remove excessive spaces and clean up around newlines
+      cleanedValue = cleanedValue
+        .replace(/\s*\n\s*/g, '\n') // Remove spaces around newlines
+        .replace(/ {2,}/g, ' '); // Replace multiple spaces with single space
+
+      userForm[field as keyof typeof userForm] = cleanedValue as never;
     }
   }
 
@@ -88,20 +95,14 @@ export const generateHTML = async (document: DocumentData) => {
     '{{projects}}':
       userForm.projects && userForm.projects.length > 0
         ? userForm.projects
-            .map(
-              (project, index) => `
+            .map((project, index) =>
+              `
                 <tr class="project-row">
                   <td class="number-cell">${index + 1}</td>
                   <td class="industry-cell">
-                    <div class="border-bottom additional-padding">
-                      <p contenteditable="true">${project.industry}</p>
-                    </div>
-                    <div class="border-bottom additional-padding">
-                      <p contenteditable="true">${project.position}</p>
-                    </div>
-                    <div class="additional-padding">
-                      <p contenteditable="true">${project.responsibilities?.join(',') || '-'}</p>
-                    </div>
+                      <p class="border-bottom additional-padding" contenteditable="true">${project.industry}</p>
+                      <p class="border-bottom additional-padding" contenteditable="true">${project.position}</p>
+                      <p class="additional-padding" contenteditable="true">${project.responsibilities?.join(',') || '-'}</p>
                   </td>
                   <td class="project-description">
                       <div class="project-title">【会社名】<span contenteditable="true">${project.companyName}</span></div>
@@ -119,7 +120,12 @@ export const generateHTML = async (document: DocumentData) => {
                   </td>
                   <td class="tech-stack" contenteditable="true">${project.skills?.join(',\n') || '-'}</td>
                 </tr>
-            `
+            `.replaceAll(
+                'additional-padding',
+                project.description.length <= 300
+                  ? 'additional-padding-small'
+                  : 'additional-padding'
+              )
             )
             .join('\n')
         : '',
@@ -127,12 +133,18 @@ export const generateHTML = async (document: DocumentData) => {
 
   const contentWithData = Object.entries(keys).reduce((acc, [key, value]) => {
     if (value) {
-      return acc.replace(key, value);
+      // Remove leading newlines from value
+      const cleanedValue =
+        typeof value === 'string' ? value.replace(/^\n+/, '') : value;
+      return acc.replace(key, cleanedValue);
     }
     return acc;
   }, cvTemplate);
 
-  return contentWithData;
+  // Remove excessive consecutive spaces (3 or more spaces become 2 spaces)
+  const cleanedContent = contentWithData.replace(/ {3,}/g, '  ');
+
+  return cleanedContent;
 };
 
 export const generatePDF = async (html: string) => {

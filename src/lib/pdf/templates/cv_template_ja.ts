@@ -253,9 +253,13 @@ export const cvTemplate = `<!DOCTYPE html>
             }
 
             .additional-padding {
-                padding: 15px 0px;
                 padding-top: 50% !important;
                 padding-bottom: 50% !important;
+            }
+
+            .additional-padding-small {
+                padding-top: 25% !important;
+                padding-bottom: 25% !important;
             }
         }
         
@@ -304,13 +308,14 @@ export const cvTemplate = `<!DOCTYPE html>
             color: #333;
             text-align: start;
             padding-left: 10px;
+            padding-right: 10px;
         }
         
         .tech-stack {
             font-size: 7pt;
             line-height: 1.3;
             text-align: left;
-            padding: 8px;
+            padding: 8px !important;
         }
 
         .auto-height {
@@ -337,23 +342,14 @@ export const cvTemplate = `<!DOCTYPE html>
         
         .industry-cell {
             font-size: 7pt;
-            background-color: #fff !important;
-            vertical-align: middle;
-            padding: 0 !important;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            height: 100%;
-            table-layout: fixed;
-            border: 0 !important;
+            font-weight: bold;
+            white-space: nowrap;
         }
 
-        .industry-cell > div {
-            width: 100%;
-            text-align: center;
-            vertical-align: middle;
-            padding: 0px;
-            box-sizing: border-box;
+        .industry-cell > p {
+            white-space: pre-wrap;
+            padding-left: 8px !important;
+            padding-right: 8px !important;
         }
         
         .os-cell, .lang-cell, .db-cell {
