@@ -29,31 +29,21 @@ async function getBrowser() {
     });
   }
   if (process.env.NODE_ENV === 'production') {
-    // Load Japanese font instead of Chinese
-    await chromium.font(
-      'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap'
-    );
-    console.log('Production browser with Japanese font loaded');
+    console.log('Launching production browser with chromium');
     const puppeteer = await import('puppeteer-core');
+
+    // Get the executable path
+    const executablePath = await chromium.executablePath();
+    console.log('Chromium executable path:', executablePath);
+
     browser = await puppeteer.default.launch({
-      args: [
-        ...chromium.args,
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-accelerated-2d-canvas',
-        '--no-first-run',
-        '--no-zygote',
-        '--single-process',
-        '--disable-gpu',
-        '--font-render-hinting=none',
-        '--disable-font-subpixel-positioning',
-        '--disable-gpu-sandbox',
-      ],
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(),
-      headless: chromium.headless,
-      ignoreHTTPSErrors: true,
+      args: chromium.args,
+      defaultViewport: {
+        width: 1920,
+        height: 1080,
+      },
+      executablePath: executablePath,
+      headless: true,
     });
   }
   return browser;
