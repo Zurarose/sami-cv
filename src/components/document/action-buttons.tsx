@@ -80,14 +80,17 @@ export const GeneratePdfButton = ({
 
   const handleDownloadPDF = async () => {
     try {
-      if (!htmlRef.current) throw new Error('Failed to generate PDF');
+      if (!htmlRef.current)
+        throw new Error('Failed to generate PDF. No HTML element found.');
       setIsLoading(true);
       const html = htmlRef.current?.innerHTML;
-      if (!html) throw new Error('Failed to generate PDF');
+      if (!html)
+        throw new Error('Failed to generate PDF. No HTML content found.');
       setHtml(html);
 
       const pdf = await generatePDF(html);
-      if (!pdf) throw new Error('Failed to generate PDF');
+      if (!pdf)
+        throw new Error('Failed to generate PDF. No PDF content found.');
       const file = new Blob([Buffer.from(pdf)], { type: 'application/pdf' });
       const url = URL.createObjectURL(file);
 
