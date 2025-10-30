@@ -44,6 +44,7 @@ export const parseCVDocument = async (formData: FormData) => {
       version: 1,
       name: response.output_parsed?.applicantName || file.name,
       data: response.output_parsed,
+      summary: '',
     });
   }
   return true;
@@ -71,4 +72,24 @@ export const parseUserForm = async (form: DocumentData) => {
   });
 
   return response.output_parsed;
+};
+
+export const generateSummary = async (data: DocumentData) => {
+  const response = await openai.responses.create({
+    model: 'gpt-5-mini',
+    input: [
+      {
+        role: 'system',
+        content: `You are a summary generator. You will be given a json data and you will need to generate a summary of the CV. What you should give in the result: 
+          - Stack
+          - Number of years of experience
+          - Education
+          - Main areas of work + strengths
+          Up to 4 sentences.
+          `,
+      },
+      { role: 'user', content: JSON.stringify(data) },
+    ],
+  });
+  return response.output_text;
 };

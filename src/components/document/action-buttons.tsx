@@ -4,9 +4,12 @@ import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@/constant/messages';
 import { generateHTML, generatePDF } from '@/lib/pdf';
 import { DocumentData } from '@/types/document';
 import { Button } from '@/ui-kit/basic/button';
-import { Download, Link, Loader2, RefreshCw } from 'lucide-react';
+import { Download, Link, Loader2, RefreshCw, FileText } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
+import { generateSummary } from '@/lib/openai';
+import { updateDocument } from '@/actions/document';
+import { useRouter } from 'next/navigation';
 
 export const LinkButton = ({ link }: { link: string }) => {
   const handleCopyToClipboard = () => {
@@ -178,5 +181,51 @@ export const GeneratePdfButton = ({
         </div>
       )}
     </React.Fragment>
+  );
+};
+
+export const GenerateSummaryButton = ({
+  document,
+  documentId,
+}: {
+  document: DocumentData;
+  documentId: string;
+}) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const handleGenerateSummary = async () => {
+    try {
+      setIsLoading(true);
+      toast.info('Generating summary...');
+
+      // Call the generateSummary function from OpenAI
+      const summary = await generateSummary(document);
+      if (!summary) throw new Error('Failed to generate summary');
+
+      // Update the document with the new summary
+      await updateDocument(documentId, document, summary as string);
+
+      toast.success('Summary generated successfully!');
+
+      // Refresh the page to show the updated summary
+      router.refresh();
+    } catch (error) {
+      console.log('Error generating summary', error);
+      toast.error('Failed to generate summary');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <Button
+      variant="outline"
+      onClick={handleGenerateSummary}
+      disabled={isLoading}
+    >
+      {isLoading ? <Loader2 className="animate-spin" /> : <FileText />} Generate
+      Summary
+    </Button>
   );
 };

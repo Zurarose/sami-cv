@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import {
   GeneratePdfButton,
+  GenerateSummaryButton,
   LinkButton,
 } from '@/components/document/action-buttons';
 import { DocumentData } from '@/types/document';
@@ -39,6 +40,7 @@ export default async function Document({ params }: { params: Params }) {
   ]);
   if (!document) redirect(routes.documents);
   const data = document?.data as unknown as DocumentData;
+  const summary = document?.summary;
 
   return (
     <div className="min-h-screen">
@@ -144,10 +146,16 @@ export default async function Document({ params }: { params: Params }) {
                 <div className="flex items-center gap-3 pt-4">
                   <LinkButton link={editLink} />
                   {document.version > 1 && (
-                    <GeneratePdfButton
-                      document={data}
-                      documentId={document.id}
-                    />
+                    <>
+                      <GeneratePdfButton
+                        document={data}
+                        documentId={document.id}
+                      />
+                      <GenerateSummaryButton
+                        document={data}
+                        documentId={document.id}
+                      />
+                    </>
                   )}
                 </div>
               </div>
@@ -212,6 +220,22 @@ export default async function Document({ params }: { params: Params }) {
                 <CardContent>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {data.additionalInfo}
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+            {/* Additional Info Section */}
+            {summary && (
+              <Card className="shadow-md border-0">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <FileText className="h-5 w-5 text-indigo-500" />
+                    Summary
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {summary}
                   </p>
                 </CardContent>
               </Card>

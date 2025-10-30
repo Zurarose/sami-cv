@@ -69,13 +69,15 @@ export const createDocument = async (
 
 export const updateDocument = async (
   documentId: string,
-  data: DocumentData
+  data: DocumentData,
+  summary?: string | null
 ) => {
   const updatedDocument = await prisma.document.update({
     where: { id: documentId },
     data: {
       data: data as unknown as InputJsonValue,
       version: { increment: 1 },
+      ...(summary && { summary }),
     },
   });
   return updatedDocument;
