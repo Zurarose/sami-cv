@@ -67,6 +67,11 @@ export function DashboardLayout({ children, user }: DashboardLayoutProps) {
   const pathname = usePathname();
   const breadcrumbs = pathname.split('/').filter(Boolean);
 
+  // Build href for each breadcrumb by accumulating path segments
+  const getBreadcrumbHref = (index: number) => {
+    return '/' + breadcrumbs.slice(0, index + 1).join('/');
+  };
+
   return (
     <SidebarProvider>
       <Sidebar variant="inset">
@@ -153,23 +158,25 @@ export function DashboardLayout({ children, user }: DashboardLayoutProps) {
             {/* Breadcrumb or title */}
             <div className="flex items-center gap-x-2 flex-wrap">
               {breadcrumbs.map((breadcrumb, index) => {
+                const isLast = index === breadcrumbs.length - 1;
+                const label =
+                  breadcrumb?.charAt(0).toUpperCase() + breadcrumb?.slice(1);
+
                 return (
-                  <React.Fragment key={breadcrumb}>
-                    {index === 0 ? (
-                      <Link href={routes.documents}>
-                        <h1 className="font-semibold max-w-24 min-lg:max-w-none truncate text-xs min-lg:text-lg">
-                          {breadcrumb?.charAt(0).toUpperCase() +
-                            breadcrumb?.slice(1)}
+                  <React.Fragment key={`${breadcrumb}-${index}`}>
+                    {isLast ? (
+                      <h1 className="font-semibold max-w-24 min-lg:max-w-none truncate text-xs min-lg:text-lg">
+                        {label}
+                      </h1>
+                    ) : (
+                      <Link href={getBreadcrumbHref(index)}>
+                        <h1 className="font-semibold max-w-24 min-lg:max-w-none truncate text-xs min-lg:text-lg hover:text-primary transition-colors">
+                          {label}
                         </h1>
                       </Link>
-                    ) : (
-                      <h1 className="font-semibold max-w-24 min-lg:max-w-none truncate text-xs min-lg:text-lg">
-                        {breadcrumb?.charAt(0).toUpperCase() +
-                          breadcrumb?.slice(1)}
-                      </h1>
                     )}
 
-                    {index !== breadcrumbs.length - 1 && <ChevronRight />}
+                    {!isLast && <ChevronRight />}
                   </React.Fragment>
                 );
               })}

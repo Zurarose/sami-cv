@@ -105,9 +105,8 @@ export const generateHTML = async (document: DocumentData) => {
                       <p class="additional-padding" contenteditable="true">${project.responsibilities?.join(',') || '-'}</p>
                   </td>
                   <td class="project-description">
-                      <div class="project-title">【会社名】<span contenteditable="true">${project.companyName}</span></div>
-                      <div class="project-title">【プロジェクト名】<span contenteditable="true">${project.projectName}</span></div>
-                      <br />
+                      <div class="project-title"><span contenteditable="true">${project.companyName}</span></div>
+                      <div class="project-title"><span contenteditable="true">${project.projectName}</span></div>
                       <div class="project-description" contenteditable="true">${project.description}</div>
                   </td>
                   <td class="os-cell" contenteditable="true">${project.operationSystem || '-'}</td>

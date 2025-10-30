@@ -190,7 +190,7 @@ export const pdfUserFormSchema = z.object({
   education: z
     .string()
     .describe(
-      'The highest education of the applicant. Only degree (Bachelor, Master, Doctor) and field of study. Example: [Bachelor] Computer Science. Translate both degree and field of study to Japanese'
+      'The highest education of the applicant. Only degree (Bachelor, Master, Doctor) and field of study. Example:【Bachelor】Computer Science. Translate both degree and field of study to Japanese only!'
     ),
   projects: z
     .array(

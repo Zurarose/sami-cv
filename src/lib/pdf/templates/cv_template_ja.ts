@@ -298,13 +298,13 @@ export const cvTemplate = `<!DOCTYPE html>
             font-size: 7pt;
             line-height: 1.4;
             padding: 12px;
+            padding-top: 0px;
             max-width: 300px;
             white-space: pre-line;
         }
         
         .project-title {
             font-weight: bold;
-            margin-bottom: 8px;
             color: #333;
             text-align: start;
             padding-left: 10px;
@@ -324,7 +324,6 @@ export const cvTemplate = `<!DOCTYPE html>
         
         .period-cell {
             font-size: 7pt;
-            font-weight: bold;
             white-space: nowrap;
         }
         
@@ -334,7 +333,6 @@ export const cvTemplate = `<!DOCTYPE html>
         }
         
         .number-cell {
-            font-weight: bold;
             background-color: #fff !important;
             font-size: 7pt;
             vertical-align: middle;
@@ -342,7 +340,6 @@ export const cvTemplate = `<!DOCTYPE html>
         
         .industry-cell {
             font-size: 7pt;
-            font-weight: bold;
             white-space: nowrap;
         }
 
