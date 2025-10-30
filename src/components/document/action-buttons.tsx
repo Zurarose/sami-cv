@@ -203,7 +203,10 @@ export const GenerateSummaryButton = ({
       toast.info('Generating summary...');
 
       // Call the generateSummary function from OpenAI
-      const summary = await generateSummary(document);
+      const summary = await generateSummary({
+        ...document,
+        photo: '',
+      });
       if (!summary) throw new Error('Failed to generate summary');
 
       // Update the document with the new summary
