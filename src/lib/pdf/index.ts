@@ -3,7 +3,6 @@
 import { DocumentData } from '@/types/document';
 import { parseUserForm } from '../openai';
 import { cvTemplate } from './templates/cv_template_ja';
-import * as puppeteer from 'puppeteer';
 import chromium from '@sparticuz/chromium';
 
 // import fs from 'fs';
@@ -18,7 +17,8 @@ async function getBrowser() {
 
   if (process.env.NODE_ENV === 'development') {
     console.log('Development browser: ');
-    browser = await puppeteer.launch({
+    const puppeteer = await import('puppeteer');
+    browser = await puppeteer.default.launch({
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
@@ -34,9 +34,18 @@ async function getBrowser() {
       'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap'
     );
     console.log('Production browser with Japanese font loaded');
-    browser = await puppeteer.launch({
+    const puppeteer = await import('puppeteer-core');
+    browser = await puppeteer.default.launch({
       args: [
         ...chromium.args,
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--no-first-run',
+        '--no-zygote',
+        '--single-process',
+        '--disable-gpu',
         '--font-render-hinting=none',
         '--disable-font-subpixel-positioning',
         '--disable-gpu-sandbox',
@@ -158,7 +167,8 @@ export const generatePDF = async (html: string) => {
     await page.setContent(html, { waitUntil: 'networkidle0' });
 
     // Add a small delay to ensure fonts are fully loaded
-    await page.evaluate(() => document.fonts.ready);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (page as any).evaluate(() => document.fonts.ready);
     const pdfBuffer = await page.pdf({
       format: 'A4',
       printBackground: true,

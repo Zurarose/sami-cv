@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --fix",
-    "postinstall": "prisma generate --no-engine && npx puppeteer browsers install chrome"
+    "postinstall": "prisma generate --no-engine"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.9.1",
@@ -33,7 +33,7 @@
     "nodemailer": "^6.10.1",
     "openai": "^5.15.0",
     "pdf-parse": "^1.1.1",
-    "puppeteer": "^22.6.4",
+    "puppeteer-core": "^22.6.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.58.1",
@@ -55,6 +55,7 @@
     "eslint-plugin-prettier": "^5.5.0",
     "prettier": "3.5.3",
     "prisma": "^6.9.0",
+    "puppeteer": "^24.27.0",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.4",
     "typescript": "^5"
