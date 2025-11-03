@@ -52,10 +52,7 @@ export const GeneratePdfButton = ({
       }
 
       // Generate new HTML
-      const res = await generateHTML({
-        ...document,
-        photo: '',
-      });
+      const res = await generateHTML(document);
       if (!res) throw new Error('Failed to generate HTML');
 
       // Save to localStorage
