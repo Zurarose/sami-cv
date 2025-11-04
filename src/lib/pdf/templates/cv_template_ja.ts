@@ -340,7 +340,11 @@ export const cvTemplate = `<!DOCTYPE html>
         
         .industry-cell {
             font-size: 7pt;
-            white-space: nowrap;
+            word-break: balance;
+        }
+
+        .industry-cell-item {
+            max-width: 125px;
         }
 
         .industry-cell > p {

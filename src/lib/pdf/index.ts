@@ -99,9 +99,15 @@ export const generateHTML = async (document: DocumentData) => {
                 <tr class="project-row">
                   <td class="number-cell">${index + 1}</td>
                   <td class="industry-cell">
+                  <div class="industry-cell-item">
                       <p class="border-bottom additional-padding" contenteditable="true">${project.industry}</p>
+                  </div>
+                  <div class="industry-cell-item">
                       <p class="border-bottom additional-padding" contenteditable="true">${project.position}</p>
+                  </div>
+                  <div class="industry-cell-item">
                       <p class="additional-padding" contenteditable="true">${project.responsibilities?.join(',') || '-'}</p>
+                  </div>
                   </td>
                   <td class="project-description">
                       <div class="project-title"><span contenteditable="true">${project.companyName}</span></div>
