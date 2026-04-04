@@ -32,10 +32,10 @@ export function PersonalInfo({ form }: PersonalInfoProps) {
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
-    // Check file size (5MB = 5 * 1024 * 1024 bytes)
-    const maxSize = 5 * 1024 * 1024;
+    // Check file size (3MB = 3 * 1024 * 1024 bytes)
+    const maxSize = 3 * 1024 * 1024;
     if (file.size > maxSize) {
-      alert('File size must be less than 5MB');
+      alert('File size must be less than 3MB');
       event.target.value = '';
       return;
     }
