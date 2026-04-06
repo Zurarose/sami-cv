@@ -8,6 +8,17 @@ import { createCipheriv, createDecipheriv, createHash } from 'crypto';
 import { DocumentData } from '@/types/document';
 import { InputJsonValue } from '@prisma/client/runtime/library';
 
+const MAX_DOCUMENT_PHOTO_BYTES = Math.floor(3.5 * 1024 * 1024);
+
+function assertDocumentPhotoSizeWithinLimit(photo: string) {
+  const match = /^data:[^;]+;base64,(.+)$/i.exec(photo);
+  if (!match) return;
+  const byteLength = Buffer.from(match[1], 'base64').length;
+  if (byteLength > MAX_DOCUMENT_PHOTO_BYTES) {
+    throw new Error('Document photo must not exceed 3.5 MB');
+  }
+}
+
 // Generate a fixed IV and key from your secret
 const secret = process.env.MAGIC_LINK_SECRET!;
 const key = createHash('sha256').update(secret).digest(); // 32 bytes for AES-256
@@ -72,6 +83,7 @@ export const updateDocument = async (
   data: DocumentData,
   summary?: string | null
 ) => {
+  assertDocumentPhotoSizeWithinLimit(data.photo);
   const updatedDocument = await prisma.document.update({
     where: { id: documentId },
     data: {
