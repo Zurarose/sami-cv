@@ -23,17 +23,9 @@ import { Textarea } from '@/ui-kit/basic/textarea';
 import { useCallback, useRef } from 'react';
 import {
   ACCEPTED_IMAGE_FILE_TYPES,
+  isAcceptedImageFile,
   MAX_PHOTO_FILE_BYTES,
 } from '@/constant/common';
-
-/** Browsers often omit MIME type; allow common image extensions as fallback. */
-const IMAGE_FILENAME = /\.(jpe?g|png|gif|webp|bmp|heic|heif|svg)$/i;
-
-function isImageFile(file: File): boolean {
-  if (file.type.startsWith('image/')) return true;
-  if (!file.type && IMAGE_FILENAME.test(file.name)) return true;
-  return false;
-}
 
 interface PersonalInfoProps {
   form: UseFormReturn<DocumentData, unknown, DocumentData>;
@@ -59,7 +51,7 @@ export function PersonalInfo({ form }: PersonalInfoProps) {
         resetInput();
         return;
       }
-      if (!isImageFile(file)) {
+      if (!isAcceptedImageFile(file)) {
         alert('Please select an image file');
         resetInput();
         return;

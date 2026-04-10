@@ -16,3 +16,14 @@ export const ACCEPTED_IMAGE_FILE_TYPES = [
   'image/png',
   'image/webp',
 ];
+
+/** When `File.type` is empty, allow extensions matching {@link ACCEPTED_IMAGE_FILE_TYPES} only. */
+export function isAcceptedImageFile(file: {
+  type: string;
+  name: string;
+}): boolean {
+  if (file.type) {
+    return ACCEPTED_IMAGE_FILE_TYPES.includes(file.type);
+  }
+  return /\.(jpe?g|png|webp)$/i.test(file.name);
+}
