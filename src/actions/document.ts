@@ -7,15 +7,33 @@ import { revalidatePath } from 'next/cache';
 import { createCipheriv, createDecipheriv, createHash } from 'crypto';
 import { DocumentData } from '@/types/document';
 import { InputJsonValue } from '@prisma/client/runtime/library';
+import { MAX_PHOTO_FILE_BYTES } from '@/constant/common';
 
-const MAX_DOCUMENT_PHOTO_BYTES = Math.floor(3.5 * 1024 * 1024);
+/** Max base64 character count that can represent MAX_PHOTO_FILE_BYTES of binary (+ padding). */
+const MAX_PHOTO_BASE64_PAYLOAD_CHARS =
+  4 * Math.ceil(MAX_PHOTO_FILE_BYTES / 3) + 2;
 
 function assertDocumentPhotoSizeWithinLimit(photo: string) {
+  if (!photo.trim()) return;
+
   const match = /^data:[^;]+;base64,(.+)$/i.exec(photo);
-  if (!match) return;
+  if (!match) {
+    throw new Error(
+      'Document photo must be a base64 data URL (data:image/...;base64,...).'
+    );
+  }
+
+  if (match[1].length > MAX_PHOTO_BASE64_PAYLOAD_CHARS) {
+    throw new Error(
+      `Document photo must not exceed ${MAX_PHOTO_FILE_BYTES / (1024 * 1024)} MB`
+    );
+  }
+
   const byteLength = Buffer.from(match[1], 'base64').length;
-  if (byteLength > MAX_DOCUMENT_PHOTO_BYTES) {
-    throw new Error('Document photo must not exceed 3.5 MB');
+  if (byteLength > MAX_PHOTO_FILE_BYTES) {
+    throw new Error(
+      `Document photo must not exceed ${MAX_PHOTO_FILE_BYTES / (1024 * 1024)} MB`
+    );
   }
 }
 

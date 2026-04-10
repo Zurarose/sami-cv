@@ -20,7 +20,20 @@ import { Input } from '@/ui-kit/basic/input';
 import { UseFormReturn } from 'react-hook-form';
 import { DocumentData } from '@/types/document';
 import { Textarea } from '@/ui-kit/basic/textarea';
-import { useRef } from 'react';
+import { useCallback, useRef } from 'react';
+import {
+  ACCEPTED_IMAGE_FILE_TYPES,
+  MAX_PHOTO_FILE_BYTES,
+} from '@/constant/common';
+
+/** Browsers often omit MIME type; allow common image extensions as fallback. */
+const IMAGE_FILENAME = /\.(jpe?g|png|gif|webp|bmp|heic|heif|svg)$/i;
+
+function isImageFile(file: File): boolean {
+  if (file.type.startsWith('image/')) return true;
+  if (!file.type && IMAGE_FILENAME.test(file.name)) return true;
+  return false;
+}
 
 interface PersonalInfoProps {
   form: UseFormReturn<DocumentData, unknown, DocumentData>;
@@ -28,31 +41,61 @@ interface PersonalInfoProps {
 
 export function PersonalInfo({ form }: PersonalInfoProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  /** Ignore stale FileReader results when the user picks another file before load finishes. */
+  const photoLoadIdRef = useRef(0);
 
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    // Check file size (3MB = 3 * 1024 * 1024 bytes)
-    const maxSize = 3 * 1024 * 1024;
-    if (file.size > maxSize) {
-      alert('File size must be less than 3MB');
-      event.target.value = '';
-      return;
-    }
-    // Check if file is an image
-    if (!file.type.startsWith('image/')) {
-      alert('Please select an image file');
-      event.target.value = '';
-      return;
-    }
-    // Convert to base64
-    const reader = new FileReader();
-    reader.onload = e => {
-      const base64String = e.target?.result as string;
-      form.setValue('photo', base64String);
-    };
-    reader.readAsDataURL(file);
-  };
+  const handleFileSelect = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const input = event.target;
+      const file = input.files?.[0];
+      if (!file) return;
+
+      const resetInput = () => {
+        input.value = '';
+      };
+
+      if (file.size > MAX_PHOTO_FILE_BYTES) {
+        alert('File size must be less than 3MB');
+        resetInput();
+        return;
+      }
+      if (!isImageFile(file)) {
+        alert('Please select an image file');
+        resetInput();
+        return;
+      }
+
+      const loadId = ++photoLoadIdRef.current;
+      const reader = new FileReader();
+
+      reader.onerror = () => {
+        if (loadId !== photoLoadIdRef.current) return;
+        alert('Could not read this file. Try another image.');
+        resetInput();
+      };
+
+      reader.onload = e => {
+        if (loadId !== photoLoadIdRef.current) return;
+        const base64String = e.target?.result;
+        if (
+          typeof base64String !== 'string' ||
+          !base64String.startsWith('data:image')
+        ) {
+          alert('Invalid image data. Please try another file.');
+          resetInput();
+          return;
+        }
+        form.setValue('photo', base64String, {
+          shouldValidate: true,
+          shouldDirty: true,
+          shouldTouch: true,
+        });
+      };
+
+      reader.readAsDataURL(file);
+    },
+    [form]
+  );
 
   return (
     <Card>
@@ -251,7 +294,11 @@ export function PersonalInfo({ form }: PersonalInfoProps) {
                   <Input
                     ref={fileInputRef}
                     type="file"
-                    accept="image/*"
+                    accept={ACCEPTED_IMAGE_FILE_TYPES.join(',')}
+                    onClick={e => {
+                      // Allow choosing the same file again (onChange only fires when the value changes).
+                      e.currentTarget.value = '';
+                    }}
                     onChange={handleFileSelect}
                     className="cursor-pointer"
                   />
