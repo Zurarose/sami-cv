@@ -47,7 +47,9 @@ export function PersonalInfo({ form }: PersonalInfoProps) {
       };
 
       if (file.size > MAX_PHOTO_FILE_BYTES) {
-        alert('File size must be less than 3MB');
+        alert(
+          `File size must be less than ${MAX_PHOTO_FILE_BYTES / (1024 * 1024)}MB`
+        );
         resetInput();
         return;
       }
