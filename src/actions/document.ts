@@ -8,6 +8,7 @@ import { createCipheriv, createDecipheriv, createHash } from 'crypto';
 import { DocumentData } from '@/types/document';
 import { InputJsonValue } from '@prisma/client/runtime/library';
 import { MAX_PHOTO_FILE_BYTES } from '@/constant/common';
+import { optimizeDocumentPhotoDataUrl } from '@/lib/optimize-document-photo';
 
 /** Max base64 character count that can represent MAX_PHOTO_FILE_BYTES of binary (+ padding). */
 const MAX_PHOTO_BASE64_PAYLOAD_CHARS =
@@ -102,10 +103,23 @@ export const updateDocument = async (
   summary?: string | null
 ) => {
   assertDocumentPhotoSizeWithinLimit(data.photo);
+
+  let photo = data.photo;
+  if (photo.trim()) {
+    try {
+      photo = await optimizeDocumentPhotoDataUrl(photo);
+    } catch {
+      throw new Error(
+        'Could not process the profile photo. Try another image.'
+      );
+    }
+    assertDocumentPhotoSizeWithinLimit(photo);
+  }
+
   const updatedDocument = await prisma.document.update({
     where: { id: documentId },
     data: {
-      data: data as unknown as InputJsonValue,
+      data: { ...data, photo } as unknown as InputJsonValue,
       version: { increment: 1 },
       ...(summary && { summary }),
     },

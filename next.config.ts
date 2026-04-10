@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
     'pdf-parse',
     '@sparticuz/chromium',
     'puppeteer-core',
+    'sharp',
   ],
 };
 

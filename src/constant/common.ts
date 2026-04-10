@@ -11,6 +11,12 @@ export const RESPONSIBILITY_OPTIONS = [
 
 export const MAX_PHOTO_FILE_BYTES = 2 * 1024 * 1024;
 
+/** Longest edge after server-side resize (Sharp), keeps JSON payload small. */
+export const DOCUMENT_PHOTO_MAX_DIMENSION_PX = 1024;
+
+/** WebP quality for stored profile photos (Sharp). */
+export const DOCUMENT_PHOTO_WEBP_QUALITY = 82;
+
 export const ACCEPTED_IMAGE_FILE_TYPES = [
   'image/jpeg',
   'image/png',
