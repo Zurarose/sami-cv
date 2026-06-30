@@ -14,6 +14,7 @@ import { UseFieldArrayReturn, UseFormReturn } from 'react-hook-form';
 import { DocumentData } from '@/types/document';
 import { Checkbox } from '@/ui-kit/basic/checkbox';
 import { RESPONSIBILITY_OPTIONS } from '@/constant/common';
+import { toDateInputValue } from '@/lib/date';
 
 interface ProjectInfoProps {
   form: UseFormReturn<DocumentData, unknown, DocumentData>;
@@ -26,6 +27,7 @@ export function ProjectInfo({
   projectFields,
   addProject,
 }: ProjectInfoProps) {
+  console.log(form.getValues('projects'));
   return (
     <Card>
       <CardHeader>
@@ -114,10 +116,9 @@ export function ProjectInfo({
                     <FormLabel>Start Date</FormLabel>
                     <FormControl>
                       <Input
-                        type="month"
-                        placeholder="Jan 2023"
-                        max={`${new Date().getFullYear()}-${(new Date().getMonth() + 1).toString().padStart(2, '0')}`}
+                        type="date"
                         {...field}
+                        value={toDateInputValue(field.value)}
                       />
                     </FormControl>
                     <FormMessage />
@@ -133,10 +134,9 @@ export function ProjectInfo({
                     <FormLabel>End Date</FormLabel>
                     <FormControl>
                       <Input
-                        type="month"
-                        placeholder="Dec 2023"
-                        max={`${new Date().getFullYear()}-${(new Date().getMonth() + 1).toString().padStart(2, '0')}`}
+                        type="date"
                         {...field}
+                        value={toDateInputValue(field.value)}
                       />
                     </FormControl>
                     <FormMessage />

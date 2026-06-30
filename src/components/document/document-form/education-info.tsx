@@ -11,6 +11,7 @@ import {
 import { Input } from '@/ui-kit/basic/input';
 import { UseFieldArrayReturn, UseFormReturn } from 'react-hook-form';
 import { DocumentData } from '@/types/document';
+import { toDateInputValue } from '@/lib/date';
 
 interface EducationInfoProps {
   form: UseFormReturn<DocumentData, unknown, DocumentData>;
@@ -97,10 +98,9 @@ export function EducationInfo({
                     <FormLabel>Start Date</FormLabel>
                     <FormControl>
                       <Input
-                        type="month"
-                        placeholder="Jan 2020"
-                        max={`${new Date().getFullYear()}-${(new Date().getMonth() + 1).toString().padStart(2, '0')}`}
+                        type="date"
                         {...field}
+                        value={toDateInputValue(field.value)}
                       />
                     </FormControl>
                     <FormMessage />
@@ -116,10 +116,9 @@ export function EducationInfo({
                     <FormLabel>End Date</FormLabel>
                     <FormControl>
                       <Input
-                        type="month"
-                        placeholder="Jan 2020"
-                        max={`${new Date().getFullYear()}-${(new Date().getMonth() + 1).toString().padStart(2, '0')}`}
+                        type="date"
                         {...field}
+                        value={toDateInputValue(field.value)}
                       />
                     </FormControl>
                     <FormMessage />

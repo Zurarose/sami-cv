@@ -9,6 +9,7 @@ import { DocumentData } from '@/types/document';
 import { InputJsonValue } from '@prisma/client/runtime/library';
 import { MAX_PHOTO_FILE_BYTES } from '@/constant/common';
 import { optimizeDocumentPhotoDataUrl } from '@/lib/optimize-document-photo';
+import { toMonthYearValue } from '@/lib/date';
 
 /** Max base64 character count that can represent MAX_PHOTO_FILE_BYTES of binary (+ padding). */
 const MAX_PHOTO_BASE64_PAYLOAD_CHARS =
@@ -102,9 +103,23 @@ export const updateDocument = async (
   data: DocumentData,
   summary?: string | null
 ) => {
+  const normalizedData: DocumentData = {
+    ...data,
+    education: data.education.map(education => ({
+      ...education,
+      startDate: toMonthYearValue(education.startDate),
+      endDate: toMonthYearValue(education.endDate),
+    })),
+    projects: data.projects.map(project => ({
+      ...project,
+      startDate: toMonthYearValue(project.startDate),
+      endDate: toMonthYearValue(project.endDate),
+    })),
+  };
+
   assertDocumentPhotoSizeWithinLimit(data.photo);
 
-  let photo = data.photo;
+  let photo = normalizedData.photo;
   if (photo.trim()) {
     try {
       photo = await optimizeDocumentPhotoDataUrl(photo);
@@ -119,7 +134,7 @@ export const updateDocument = async (
   const updatedDocument = await prisma.document.update({
     where: { id: documentId },
     data: {
-      data: { ...data, photo } as unknown as InputJsonValue,
+      data: { ...normalizedData, photo } as unknown as InputJsonValue,
       version: { increment: 1 },
       ...(summary && { summary }),
     },
