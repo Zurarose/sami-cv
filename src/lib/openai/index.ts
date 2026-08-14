@@ -2,7 +2,7 @@
 
 import { OpenAI } from 'openai';
 import { zodTextFormat } from 'openai/helpers/zod';
-import pdf from 'pdf-parse';
+import { extractPdfText } from '../pdf/extract-text';
 import { createDocument } from '../../actions/document';
 import { Document, pdfUserFormSchema } from '../validators';
 import { DocumentData } from '@/types/document';
@@ -18,11 +18,7 @@ export const parseCVDocument = async (formData: FormData) => {
 
   for (const file of files) {
     const buffer = await file.arrayBuffer();
-    const data = await pdf(Buffer.from(buffer));
-
-    const text = data.text;
-
-    console.log(text);
+    const text = await extractPdfText(Buffer.from(buffer));
 
     const response = await openai.responses.parse({
       model: 'gpt-5-mini',
